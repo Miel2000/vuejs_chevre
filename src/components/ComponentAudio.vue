@@ -1,15 +1,15 @@
 <template>
-<div class="audio-container">
-    <audio 
-    controls="controls"
-    @timeupdate="onTimeUpdate" 
-    id="audioPleya"
-    >
+    <div class="audio-container">
+        <audio 
+        controls="controls"
+        @timeupdate="onTimeUpdate" 
+        id="audioPleya"
+        >
 
-    <source :src="audioUrl" type="audio/wav" />
-   
-    </audio>
-</div>
+        <source :src="audioUrl" type="audio/wav" />
+    
+        </audio>
+    </div>
 </template>
 <script>
 import { TimelineLite } from "gsap/TweenMax";
@@ -20,6 +20,8 @@ export default {
     name: "ComponentAudioManager",
     
     components: { ComponentAudio },
+
+    props: ["soundsInfos"],
 
 	methods: {
 
@@ -64,7 +66,7 @@ export default {
 	},
 
 	mounted() {
-
+        console.log(this.soundsInfos);
         const audioPlayer = document.getElementById('audioPleya');
 
     
@@ -93,6 +95,8 @@ export default {
 
     },
 
+
+
         //  console.log("AUdio", this.$store.state.storyMap.videos[this.$route.params.videoId].components.sounds[0].url);
         //  console.log("AUdio", this.$store.state.storyMap.videos[this.$route.params.videoId].components.sounds[0].audioStartTimeCode);
         
@@ -104,7 +108,7 @@ export default {
           
 			audioUrl:  `/assets/mp3/${this.$store.state.storyMap.videos[this.$route.params.videoId].components.sounds[0].url}`,
 			audioStartTimeCode: `/assets/mp3/${this.$store.state.storyMap.videos[this.$route.params.videoId].components.sounds[0].audioStartTimeCode}`,
-		
+		    soundPath: `/assets/mp3/`,
 
 		}
     }

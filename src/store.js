@@ -37,9 +37,7 @@ export default new Vuex.Store({
 			state.actualChoices.push(choice);
 		},
 
-		addSound: (state, sound) => {
-			state.actualSounds.push(sound);
-		},
+	
 
 		resetChoices: (state) => {
 			// empty by .splice
@@ -57,6 +55,11 @@ export default new Vuex.Store({
 
 		setPlayerInteractive(state, bool) {
 			state.playerIsInteractive = bool;
+		},
+
+		setAudioToManager(sounds ,state){
+			// state.actualSounds.push(sounds);
+			console.log('set audio to manager : ', state );
 		}
 
 	}
