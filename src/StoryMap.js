@@ -93,7 +93,8 @@ export default {
                     {
                         id: "bobmarley",
                         url: "bob_marley.mp3",
-                        audioStartTimeCode: 3
+                        audioStartTimeCode: 3,
+                        autoPlay: true
                     },
 
                 ],

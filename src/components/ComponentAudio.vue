@@ -1,22 +1,25 @@
 <template>
-<div class="scene-container">
+<div class="audio-container">
     <audio 
     controls="controls"
     @timeupdate="onTimeUpdate" 
+    id="audioPleya"
     >
 
-    <source :src=audioUrl type="audio/wav" />
+    <source :src="audioUrl" type="audio/wav" />
    
     </audio>
 </div>
-
 </template>
 <script>
 import { TimelineLite } from "gsap/TweenMax";
+import ComponentAudio from '@/components/ComponentAudio';
 
 export default {
 
-	name: "ComponentAudio",
+    name: "ComponentAudioManager",
+    
+    components: { ComponentAudio },
 
 	methods: {
 
@@ -46,7 +49,7 @@ export default {
                     
                     console.log('comparing : ', sound.audioStartTimeCode, ' and ', currentTimeAudio);
                     //playSound();
-			
+            
 			
 				}
 			});
@@ -54,11 +57,36 @@ export default {
 
     },
 
+
+
 	beforeUpdate() {
 
 	},
 
 	mounted() {
+
+        const audioPlayer = document.getElementById('audioPleya');
+
+    
+
+        	this.audios.forEach( sound => {
+				
+                if(sound.id){
+                    if(sound.autoPlay) {
+                       
+                        audioPlayer.setAttribute('autoplay', 'true');
+                        console.log('auto play set a true :',  sound.autoPlay);
+                        console.log(sound.id);
+                       
+                    } else {
+                         
+                        audioPlayer.setAttribute('autoplay', 'false');
+                        console .log('auto play set a false :',  sound.autoPlay);
+                    }
+                    
+                }
+		
+			});
      
        this.minTimeCode = 999;
        this.actualAudioTimeCode = this.$store.state.storyMap.videos[this.$route.params.videoId].components.sounds[0].audioStartTimeCode
@@ -73,6 +101,7 @@ export default {
 	data() {
 		return {
             audios : this.$store.state.storyMap.videos[this.$route.params.videoId].components.sounds,
+          
 			audioUrl:  `/assets/mp3/${this.$store.state.storyMap.videos[this.$route.params.videoId].components.sounds[0].url}`,
 			audioStartTimeCode: `/assets/mp3/${this.$store.state.storyMap.videos[this.$route.params.videoId].components.sounds[0].audioStartTimeCode}`,
 		
@@ -82,12 +111,3 @@ export default {
 }
     
 </script>
-
-
-<!-- ° ° ° ° ° ° ° ° ° S T Y L E ° ° ° ° ° ° ° ° ° -->
-<!-- ° ° ° ° ° ° ° ° ° S T Y L E ° ° ° ° ° ° ° ° ° -->
-
-<style scoped lang="scss">
-
-
-</style>
