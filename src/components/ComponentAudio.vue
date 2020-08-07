@@ -29,14 +29,28 @@ export default {
         // console.log(event.currentTarget.currentTime);
         const currentTimeAudio = event.currentTarget.currentTime;
 
-        if(this.actualAudioTimeCode > currentTimeAudio){
-            // this.playSound(); 
-            console.log(this.actualAudioTimeCode + ' > ' + currentTimeAudio );
-             this.playSound()
-  
-        }
+        this.compareTimeCodes(currentTimeAudio);
+
+
 
     },
+
+    compareTimeCodes(currentTimeAudio) {
+
+        console.log(currentTimeAudio);
+    
+			this.audios.forEach( sound => {
+				
+	
+				if ( currentTimeAudio >= sound.audioStartTimeCode ) {
+                    
+                    console.log('comparing : ', sound.audioStartTimeCode, ' and ', currentTimeAudio);
+                    //playSound();
+			
+			
+				}
+			});
+		}
 
     },
 
@@ -45,25 +59,23 @@ export default {
 	},
 
 	mounted() {
-
-       
-
+     
+       this.minTimeCode = 999;
        this.actualAudioTimeCode = this.$store.state.storyMap.videos[this.$route.params.videoId].components.sounds[0].audioStartTimeCode
-       console.log('.....',this.actualAudioTimeCode);
- 
+
+    },
 
         //  console.log("AUdio", this.$store.state.storyMap.videos[this.$route.params.videoId].components.sounds[0].url);
         //  console.log("AUdio", this.$store.state.storyMap.videos[this.$route.params.videoId].components.sounds[0].audioStartTimeCode);
         
 	
-		
-	},
 
 	data() {
 		return {
-			audioUrl:  `/assets/mp3/${this.$store.state.storyMap.videos[this.$route.params.videoId].components.sounds[0].url}` ,
+            audios : this.$store.state.storyMap.videos[this.$route.params.videoId].components.sounds,
+			audioUrl:  `/assets/mp3/${this.$store.state.storyMap.videos[this.$route.params.videoId].components.sounds[0].url}`,
 			audioStartTimeCode: `/assets/mp3/${this.$store.state.storyMap.videos[this.$route.params.videoId].components.sounds[0].audioStartTimeCode}`,
-			isPaused: this.isPaused
+		
 
 		}
     }

@@ -91,9 +91,11 @@ export default {
             components: {
                 sounds: [
                     {
-                    url: "bob_marley.mp3",
-                    audioStartTimeCode: 0.2
-                }
+                        id: "bobmarley",
+                        url: "bob_marley.mp3",
+                        audioStartTimeCode: 3
+                    },
+
                 ],
 
                 choices: [
