@@ -16,6 +16,7 @@ export default new Vuex.Store({
 		currentTime: 0,
 		actualVideoObj: {},
 		actualChoices: [],
+		actualSounds: [],
 		actualCallToActions: [],
 		mana: 100,
 		vie: 100,
@@ -34,6 +35,10 @@ export default new Vuex.Store({
 
 		addChoice: (state, choice) => {
 			state.actualChoices.push(choice);
+		},
+
+		addSound: (state, sound) => {
+			state.actualSounds.push(sound);
 		},
 
 		resetChoices: (state) => {

@@ -46,11 +46,10 @@ export default {
 		},
 
 		onStart() {
-			console.log('wsh le onStart triggered');
+			// console.log('wsh le onStart triggered');
 		},
 
 		onTimeUpdate( event ) {
-
 			this.currentTime = event.target.currentTime;
 
 			this.$store.state.currentTime = event.target.currentTime;
@@ -106,9 +105,7 @@ export default {
 							this.alreadySentCta[oneCallToAction.id] = true;
 	
 						}
-	
 					}
-	
 				});
 
 			}
@@ -130,12 +127,12 @@ export default {
 					// console.log("actualChoices après : ", this.$store.state.actualChoices.length);
 					
 				}
-
 			}
 		},
 
 		compareTimeCodes() {
 
+		
 			this.choices.forEach( oneChoice => {
 				
 	
@@ -150,9 +147,7 @@ export default {
 						this.alreadySentChoice[oneChoice.id] = true
 						
 					}
-
 				}
-
 			});
 		}
 

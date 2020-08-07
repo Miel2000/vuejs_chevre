@@ -3,6 +3,7 @@
 <template>
 
   <div class="scene-container">
+     
 
         <div class="video_and_cta">
 
@@ -11,7 +12,7 @@
             <ComponentCallToAction v-on:playAfterCta="playAfterCta" />
 
         </div>
- 
+        <ComponentAudio v-on:playSound="playSound" />
         <ComponentChoiceManager />
   </div>
 
@@ -26,13 +27,14 @@
     import ComponentChoiceManager from '@/components/ComponentChoiceManager';
     import ComponentCallToAction from '@/components/ComponentCallToAction';
     import ComponentHud from '@/components/ComponentHud';
+    import ComponentAudio from '@/components/ComponentAudio';
 
 	export default {
 
         name: "Scene",
 
 		components: {
-            ComponentVideo, ComponentChoiceManager, ComponentCallToAction, ComponentHud
+            ComponentVideo, ComponentChoiceManager, ComponentCallToAction, ComponentHud, ComponentAudio
         },
 
         methods: {
@@ -42,6 +44,11 @@
                 console.log("on a bien recu l event de play after cta ", event);
                 this.videoPlayer.play();
                 // ici on déléte 
+            },
+
+            playSound(event) {
+                
+                console.log("AUdio", videoPlayer);
             }
 
         },
@@ -53,7 +60,8 @@
 
             // on se fait un handler du videoPlayer en local
             this.videoPlayer = this.$children.filter( child => child.$options._componentTag === "ComponentVideo")[0].$el;
-
+            this.audioPlayer = this.$children.filter( child => child.$options._componentTag === "ComponentAudio")[0].$el;
+    
         },
 
         data() {

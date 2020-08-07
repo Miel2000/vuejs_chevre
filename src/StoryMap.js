@@ -6,7 +6,7 @@ export default {
 
             self: {
 
-                url: "intro1.mp3",
+                url: "intro1.mp4",
                 controls: true,
                 options: {
 
@@ -28,9 +28,9 @@ export default {
                 choices: [
                     {
                         id: "bouillant",
-                        text: "Oui !",
+                        text: "éh wa chu bouillant",
                         route: "intro2",
-                        choiceTimeCode: 2
+                        choiceTimeCode: 11
                     },
                 ],
 
@@ -48,7 +48,7 @@ export default {
 
             self: {
 
-                url: "intro2.mp3",
+                url: "intro2.mp4",
                 controls: true,
                 options: {}
 
@@ -63,7 +63,7 @@ export default {
                         id: "start",
                         text: "Start the game",
                         route: "weed",
-                        choiceTimeCode: 36
+                        choiceTimeCode: 16
                     }
                 ],
 
@@ -82,13 +82,19 @@ export default {
 
             self: { 
 
-                url: "weed_start.mp3",
+                url: "weed_start.mp4",
                 controls: true,
                 options: {}
  
             },
 
             components: {
+                sounds: [
+                    {
+                    url: "bob_marley.mp3",
+                    audioStartTimeCode: 0.2
+                }
+                ],
 
                 choices: [
          
@@ -96,13 +102,14 @@ export default {
                         id: "hokage",
                         text: "Devenir Hokage",
                         route: "hokage",
-                        choiceTimeCode: 35
+                        choiceTimeCode: 56.5
                     },
                     {
                         id: "papillon",
                         text: "Chasser les papillons",
                         route: "papillon",
-                        choiceTimeCode: 36
+                        choiceTimeCode: 57.5
+
                     }
                 ],
 
@@ -121,7 +128,7 @@ export default {
 
             self: { 
 
-                url: "weed_start.mp4",
+                url: "weed_hokage.mp4",
                 controls: true,
                 options: {}
  
@@ -131,56 +138,30 @@ export default {
 
                 choices: [
          
+        
                     {
                         id: "banane",
                         text: "Banane",
-                        choiceImage: "banane.png",
-                        audio: "weed_hokage_banane.mp3",
-                        choiceTimeCode: 55
+                        route: "banane",
+                        choiceTimeCode: 7.5
                     },
+                    
                     {
                         id: "couteau",
                         text: "Couteau",
-                        choiceImage: "couteau.png",
-                        audio: "weed_hokage_couteau.mp3",
-                        choiceTimeCode: 56
+                        route: "couteau",
+                        choiceImage: "couteau.png",                   
+                        choiceTimeCode: 7.5
                     },
                     {
                         id: "fusil",
                         text: "Fusil",
+                        route: "fusil",
                         choiceImage: "fusil.png",
-                        audio: "weed_hokage_fusil.mp3",
-                        choiceTimeCode: 57
+                        choiceTimeCode: 7.5
                     }
                 ],
 
-                images: [
-                    { 
-                        banane: [
-                           
-                                { banane_face: "img/bananeface.jpg" , appear_time: 1 },
-                                { nicolas_cage: "img/nicolascage.jpg" ,  appear_time: 1.5 },
-                                { black_kid_meme: "img/blackkidmeme.jpg" ,  appear_time: 1.7 },
-                                { old_boy_meme: "img/oldboymeme.jpg" ,  appear_time: 2 }
-                        ],
-                        couteau: [
-
-                                { banane_face: "img/couteau.jpg", appear_time: 1 },
-                                { nicolas_cage: "img/nicolascage.jpg", appear_time: 1.5 },
-                                { black_kid_meme: "img/blackkidmeme.jpg", appear_time: 1.7 },
-                                { old_boy_meme: "img/oldboymeme.jpg", appear_time: 2 }
-
-                        ],
-                        fusil: [
-
-                                { fusil: "img/fusil.jpg", appear_time: 1 },
-                                { nicolas_cage: "img/nicolascage.jpg", appear_time: 1.5 },
-                                { black_kid_meme: "img/blackkidmeme.jpg", appear_time: 1.7 },
-                                { old_boy_meme: "img/oldboymeme.jpg", appear_time: 2 }
-
-                        ],
-                    },
-                ],
 
                 relances: [
                     { 
@@ -192,6 +173,57 @@ export default {
             }
 
         },
+
+        banane: {
+
+            self: {
+
+                url: "weed_hokage_banane.mp4",
+                controls: true,
+                options: {
+                    PlayerOutTimeCode: 40
+                }
+            },
+            components: {
+                choices: []
+            }
+        },
+
+        couteau: {
+
+            self: {
+
+                url: "weed_hokage_couteau.mp4",
+                controls: true,
+                options: {
+                    PlayerOutTimeCode: 42
+                }
+            },
+            components: {
+                choices: []
+            }
+        },
+
+        fusil: {
+
+            self: {
+
+                url: "weed_hokage_fusil.mp4",
+                controls: true,
+                options: {
+                    PlayerOutTimeCode: 40
+                }
+            },
+            components: {
+                choices: []
+            }
+        },
+
+        
+
+
+
+
 
         ninja_training: {
 
