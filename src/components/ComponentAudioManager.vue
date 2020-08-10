@@ -36,7 +36,7 @@ export default {
     playSound(sound) {
         
             if ( sound ) {
-
+               
                 let audio = new Audio(sound);
 
                 audio.play();
@@ -57,7 +57,7 @@ export default {
 
 	mounted() {
         this.sounds = this.$store.state.actualSounds;
-        this.audioBox();
+        // this.audioBox();
         this.$store.commit('setAudioToManager', this.sounds);
         console.log("mounted audio manager - sound obj : " ,this.soundUrl);
     },
