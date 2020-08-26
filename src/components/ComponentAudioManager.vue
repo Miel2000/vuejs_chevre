@@ -1,11 +1,12 @@
 <template>
     <div>
-      
+       <div v-for="audio in soundUrl" :key='audio.id'>
                     <ComponentAudio
                   
-                    @updated="updatedSounds(sounds)"
+                    v-bind:audio="audio"
+
                     />
-            
+        </div>
     </div>
 
 </template>

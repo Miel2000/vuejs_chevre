@@ -92,9 +92,9 @@ export default {
                 sounds: [
                     {
                         id: "bobmarley",
-                        url: "bob_marley.mp3",
+                        url: "bob_marley.wav",
                         audioStartTimeCode: 3,
-                        autoPlay: false,
+                        autoPlay: true,
                         fadeInStart:0,
                         fadeInStop:5
                     },

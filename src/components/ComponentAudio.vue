@@ -1,16 +1,17 @@
 <template>
 
-<div class="audio-container">
-    <div v-for="audio in audios" :key='audio.id'>
-        <audio 
-            controls="controls"
-            @timeupdate="onTimeUpdate"
-        >
-            <source :src=" audioRoute + audio.url "  type="audio/mp3" />
-        
-        </audio>
+    <div class="audio-container">
+       
+            <audio 
+                controls="controls"
+                @timeupdate="onTimeUpdate"
+                autoplay
+            >
+                <source :src="'/' + audioRoute + audio.url"  type="audio/wav" />
+            
+            </audio>
     </div>
-</div>
+  
 
 </template>
 <script>
@@ -22,6 +23,8 @@ export default {
     name: "ComponentAudio",
     
     components: { ComponentAudioManager },
+
+    props: ['audio'],
   
 
 	methods: {
@@ -32,13 +35,13 @@ export default {
     },
 
     onTimeUpdate( event ) {
-        // console.log(event.currentTarget.currentTime);
+       console.log(event.currentTarget.currentTime);
         this.currentTime = event.target.currentTime;
 
 
         this.$store.state.currentTimeAudio = event.target.currentTime;
 
-        this.compareTimeCodes(currentTimeAudio);
+        this.compareTimeCodes();
         this.checkSounds();
 
 
@@ -55,7 +58,7 @@ export default {
 				this.sounds.forEach( oneSound => {
 	
 					// dès qu'un calltoaction doit être déclenché
-					if( this.currentTime >= sounds.audioStartTimeCode ) {
+					if( this.currentTime >= this.sounds.audioStartTimeCode ) {
 
 	
 							// on play la video
@@ -97,6 +100,15 @@ export default {
 
     },
 
+    data() {
+		return {
+            audios:  this.$store.state.storyMap.videos[this.$route.params.videoId].components.sounds,
+            audioRoute:  `assets/mp3/`
+          
+
+		}
+    },
+
 
 
 	beforeUpdate() {
@@ -109,20 +121,13 @@ export default {
     this.sounds = this.$store.state.storyMap.videos[this.$route.params.videoId].components.sounds;
     console.log('MOUNTED AUDIO MANAGER SOUNDS : ' , this.sounds)
         
-       this.minTimeCode = 999;
+    this.minTimeCode = 999;
    
     },
 
 
 
-	data() {
-		return {
-            audios:  this.$store.state.storyMap.videos[this.$route.params.videoId].components.sounds,
-            audioRoute:  `assets/mp3/`
-          
 
-		}
-    }
 }
     
 </script>
