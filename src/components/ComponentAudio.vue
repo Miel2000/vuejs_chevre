@@ -82,14 +82,14 @@ export default {
 
     compareTimeCodes(currentTimeAudio) {
 
-        console.log(currentTimeAudio);
+        console.log('currentTimeAudio',event.currentTarget.currentTime);
     
 			this.audios.forEach( sound => {
-				
+                console.log('audioStartTimecode',sound.audioStartTimeCode)
 	
-				if ( currentTimeAudio >= sound.audioStartTimeCode ) {
+				if ( event.currentTarget.currentTime >= sound.audioStartTimeCode ) {
                     
-                    // console.log('comparing : ', sound.audioStartTimeCode, ' and ', currentTimeAudio);
+                    console.log('comparing : ', sound.audioStartTimeCode, ' and ', event.currentTarget.currentTime);
                    
                    //playSound();
             
