@@ -1,7 +1,7 @@
 <template>
 
-    <div class="audio-container">
-       
+    <div v-if="audio" class="audio-container">
+         
             <audio 
                 controls="controls"
                 @timeupdate="onTimeUpdate"
@@ -35,76 +35,74 @@ export default {
     },
 
     onTimeUpdate( event ) {
-       console.log(event.currentTarget.currentTime);
-        this.currentTime = event.target.currentTime;
+        console.log(event.currentTarget.currentTime);
 
+        this.currentTime = event.target.currentTime;
 
         this.$store.state.currentTimeAudio = event.target.currentTime;
 
         this.compareTimeCodes();
-        this.checkSounds();
+        // this.checkSounds();
 
 
 
     },
 
 
-    checkSounds() {
+    // checkSounds() {
     
-			// si cette scene a des callToAction
-			if (this.sounds) {
+	// 		// si cette scene a des sounds
+	// 		if (this.sounds) {
 
-				// on itère
-				this.sounds.forEach( oneSound => {
+	// 			// on itère
+	// 			this.sounds.forEach( oneSound => {
 	
-					// dès qu'un calltoaction doit être déclenché
-					if( this.currentTime >= this.sounds.audioStartTimeCode ) {
-
-	
-							// on play la video
-							this.$el.play();
+	// 				// dès qu'un calltoaction doit être déclenché
+	// 				if( this.currentTime >= this.sounds.audioStartTimeCode ) {
 
 	
-							// on met le sound dans le store.actualSounds[]
-							this.$store.commit('setAudioToManager', oneSound);
+	// 						// on play la video
+	// 						this.$el.play();
+
+	
+	// 						// on met le sound dans le store.actualSounds[]
+	// 						this.$store.commit('setAudioToManager', oneSound);
 	
 	
-                        }
+    //                     }
 							
                         
-					}
-				);
+	// 				}
+	// 			);
 
-			}
+	// 		}
 		
-		},
+	// 	},
 
 
     compareTimeCodes(currentTimeAudio) {
 
         console.log('currentTimeAudio',event.currentTarget.currentTime);
     
-			this.audios.forEach( sound => {
-                console.log('audioStartTimecode',sound.audioStartTimeCode)
+			
+                console.log('audioStartTimecode',   this.audio.audioStartTimeCode)
 	
-				if ( event.currentTarget.currentTime >= sound.audioStartTimeCode ) {
+				if ( event.currentTarget.currentTime >=    this.audio.audioStartTimeCode ) {
                     
-                    console.log('comparing : ', sound.audioStartTimeCode, ' and ', event.currentTarget.currentTime);
-                   
-                   //playSound();
-            
+                    console.log('comparing : ',    this.audio.audioStartTimeCode, ' and ', event.currentTarget.currentTime);
+                   // attraper le lecteur et lui dire .play(sound);
 			
 				}
-			});
+			
 		}
 
     },
 
     data() {
 		return {
+
             audios:  this.$store.state.storyMap.videos[this.$route.params.videoId].components.sounds,
             audioRoute:  `assets/mp3/`
-          
 
 		}
     },
@@ -116,11 +114,23 @@ export default {
 	},
 
 	mounted() {
+   
+    this.sounds = this.$store.state.storyMap.videos[this.$route.params.videoId].components.sounds;
+
+  
+    console.log('MOUNTED AUDIO SOUND : ' , this.audio.audioStartTimeCode);
+    
+    // this.audio permet d'attraper les infos envoyées du AudioManager,
+    // il va falloir coder la logique du componentAudio avec ces informations là.
+     this.audio.id
+     this.audio.audioStartTimeCode
+     this.audio.autoPlay
+     this.audio.fadeInStart
+     this.audio.fadeInStop
+     this.audio.url
+
     
 
-    this.sounds = this.$store.state.storyMap.videos[this.$route.params.videoId].components.sounds;
-    console.log('MOUNTED AUDIO MANAGER SOUNDS : ' , this.sounds)
-        
     this.minTimeCode = 999;
    
     },

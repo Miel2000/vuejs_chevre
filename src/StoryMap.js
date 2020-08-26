@@ -102,7 +102,7 @@ export default {
                     {
                         id: "exemple1",
                         url: "exemple1.mp3",
-                        audioStartTimeCode: 3,
+                        audioStartTimeCode: 10,
                         autoPlay: false,
                         fadeInStart: 0,
                         fadeInStop: 5
@@ -151,28 +151,7 @@ export default {
 
             components: {
 
-                sounds: [
-                    {
-                        id: "testAudio",
-                        url: "testAudio1.mp3",
-                        audioStartTimeCode: 3,
-                        autoPlay: false,
-                        fadeInStart: 0,
-                        fadeInStop: 5
-                    },
-
-                    {
-                        id: "exemple3",
-                        url: "exemple3.mp3",
-                        audioStartTimeCode: 3,
-                        autoPlay: false,
-                        fadeInStart: 0,
-                        fadeInStop: 5
-                    },
-
-
-                ],
-                
+        
 
                 choices: [
          

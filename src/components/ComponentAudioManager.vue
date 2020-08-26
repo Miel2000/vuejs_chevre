@@ -46,11 +46,11 @@ export default {
 
 	mounted() {
         this.sounds = this.$store.state.actualSounds;
-        this.audioBox();
-        this.soundUrl.forEach(sound => {
-           console.log('dans le foreach, un sound = ', sound)
+     
+        this.sounds.forEach(sound => {
+            console.log('dans le foreach, un sound = ', sound)
 
-               this.$store.commit('setAudioToManager', sound);
+            this.$store.commit('setAudioToManager', sound);
                 
             });
         console.log("mounted audio manager - sound obj : " ,this.soundUrl);
