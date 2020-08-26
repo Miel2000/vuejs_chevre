@@ -85,16 +85,16 @@ export default {
         console.log('currentTimeAudio',event.currentTarget.currentTime);
     
 			
-                console.log('audioStartTimecode',   this.audio.audioStartTimeCode)
-	
-				if ( event.currentTarget.currentTime >=    this.audio.audioStartTimeCode ) {
-                    
-                    console.log('comparing : ',    this.audio.audioStartTimeCode, ' and ', event.currentTarget.currentTime);
-                   // attraper le lecteur et lui dire .play(sound);
+        console.log('audioStartTimecode', this.audio.audioStartTimeCode)
+
+        if ( event.currentTarget.currentTime >= this.audio.audioStartTimeCode ) {
+            
+            console.log('comparing : ', this.audio.audioStartTimeCode, ' and ', event.currentTarget.currentTime);
+            // attraper le lecteur et lui dire .play(sound);
+    
+            }
 			
-				}
-			
-		}
+        }
 
     },
 
