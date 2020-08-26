@@ -1,13 +1,11 @@
 <template>
     <div>
       
-            <div v-for="sound in soundUrl" :key="sound.id">
                     <ComponentAudio
-                    @audiobox="audioBox"
-                    :soundInfos="sound"
+                  
                     @updated="updatedSounds(sounds)"
                     />
-            </div>
+            
     </div>
 
 </template>
@@ -24,26 +22,16 @@ export default {
 	methods: {
 
     audioBox() {
-        console.log(this.sounds); 
+        // console.log(this.sounds); 
     },
 
    
 
     onTimeUpdate( event ) {
-       console.log(event);
+    //    console.log(event);
     },
 
-    playSound(sound) {
-        
-            if ( sound ) {
-               
-                let audio = new Audio(sound);
-
-                audio.play();
-
-            }
-            
-        },
+   
 
     },
 
@@ -57,9 +45,16 @@ export default {
 
 	mounted() {
         this.sounds = this.$store.state.actualSounds;
-        // this.audioBox();
-        this.$store.commit('setAudioToManager', this.sounds);
+        this.audioBox();
+        this.soundUrl.forEach(sound => {
+           console.log('dans le foreach, un sound = ', sound)
+
+               this.$store.commit('setAudioToManager', sound);
+                
+            });
         console.log("mounted audio manager - sound obj : " ,this.soundUrl);
+        //  this.$store.commit('setAudioToManager', this.soundUrl);
+
     },
 
         //  console.log("AUdio", this.$store.state.storyMap.videos[this.$route.params.videoId].components.sounds[0].url);

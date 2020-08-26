@@ -52,7 +52,7 @@ export default {
 		onTimeUpdate( event ) {
 			this.currentTime = event.target.currentTime;
 
-			this.$store.state.currentTime = event.target.currentTime;
+			this.$store.state.currentTimeVideo = event.target.currentTime;
 			
 			this.checkStartingVideo();
 
@@ -63,12 +63,12 @@ export default {
 		},
 
 		onPlaying() {
-			console.log('play triggered');
+			// console.log('play triggered');
 
 		},
 
 		onPause() {
-			console.log('pause triggered');
+			// console.log('pause triggered');
 		},	
 
 		playAfterCta( event ) {

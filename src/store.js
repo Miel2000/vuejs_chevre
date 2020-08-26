@@ -10,10 +10,12 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
 
+	
 	state: {
 		metaData: MetaData,
 		storyMap: StoryMap,
-		currentTime: 0,
+		currentTimeVideo: 0,
+		currentTimeAudio: 0,
 		actualVideoObj: {},
 		actualChoices: [],
 		actualSounds: [],
@@ -58,8 +60,12 @@ export default new Vuex.Store({
 		},
 
 		setAudioToManager(sounds ,state){
-			// state.actualSounds.push(sounds);
-			console.log('set audio to manager : ', state );
+		
+				// state.actualSounds.push(sounds);
+				
+				 console.log('setAudioToManager: ', state.id, sounds );
+				
+			
 		}
 
 	}
