@@ -39,6 +39,26 @@ export default {
 		// de base, les choices sont : 
 		this.choices = this.$store.state.actualChoices;
 
+
+		// rappatrié :
+		
+		// this.alreadySentChoice = {};
+		// this.alreadySentCta = {};
+
+		// this.route = this.$route.params.videoId;
+
+		// this.choices = this.videoInfos.components.choices;
+
+		// this.minTimeCode = 999;
+
+		// this.choices.forEach(choice => {
+
+		// 	if (choice.choiceTimeCode < this.minTimeCode) {
+		// 		this.minTimeCode = choice.choiceTimeCode;
+		// 	}
+
+		// });
+
 	},
 
 	updated() {

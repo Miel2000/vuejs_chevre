@@ -1,17 +1,15 @@
 <template>
     <div>
-       <div v-for="audio in soundUrl" :key='audio.id'>
-                    <ComponentAudio
-                  
-                    v-bind:audio="audio"
-
-                    />
+       <div v-for="audioInfos in audiosCollection" :key='audioInfos.id'>
+            <ComponentAudio
+                :audio-infos-object="audioInfos"
+            />
         </div>
     </div>
 
 </template>
 <script>
-import { TimelineLite } from "gsap/TweenMax";
+
 import ComponentAudio from '@/components/ComponentAudio';
 
 export default {
@@ -19,6 +17,13 @@ export default {
     name: "ComponentAudioManager",
     
     components: { ComponentAudio },
+
+    
+	data() {
+		return {
+			audiosCollection: this.$store.state.storyMap.videos[this.$route.params.videoId].components.sounds,
+		}
+    },
 
 	methods: {
 
@@ -28,9 +33,9 @@ export default {
 
    
 
-    onTimeUpdate( event ) {
-    //    console.log(event);
-    },
+    // onTimeUpdate( event ) {
+    // //    console.log(event);
+    // },
 
    
 
@@ -63,11 +68,6 @@ export default {
         
 	
 
-	data() {
-		return {
-			soundUrl: this.$store.state.storyMap.videos[this.$route.params.videoId].components.sounds,
-		}
-    }
 }
     
 </script>

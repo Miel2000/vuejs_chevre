@@ -12,8 +12,11 @@
             <ComponentCallToAction v-on:playAfterCta="playAfterCta" />
 
         </div>
-        <ComponentAudioManager v-on:playSound="playSound" />
+
+        <ComponentAudioManager/>
+
         <ComponentChoiceManager />
+
   </div>
 
 </template>
@@ -31,29 +34,27 @@
 
 	export default {
 
-        name: "Scene",
-
 		components: {
-            ComponentVideo, ComponentChoiceManager, ComponentCallToAction, ComponentHud, ComponentAudioManager
+            ComponentVideo, 
+            ComponentChoiceManager, 
+            ComponentCallToAction, 
+            ComponentHud, 
+            ComponentAudioManager
         },
 
-        methods: {
+        props: {
 
-            playAfterCta( event ) {
-
-                console.log("on a bien recu l event de play after cta ", event);
-                this.videoPlayer.play();
-                // ici on déléte 
-            },
-
-            playSound(event) {
-                
-                // console.log("AUdio", audioPlayer);
+        },
+        
+        data() {
+            return {
+                // 
             }
-
         },
 
-		mounted() {
+        mounted() {
+
+            console.log("- - - - - wesh c'est bien le code coté lio");
 
             // update this.route
             this.route = this.$route.params.videoId;
@@ -64,10 +65,15 @@
     
         },
 
-        data() {
-            return {
-                // 
+        methods: {
+
+            playAfterCta( event ) {
+
+                console.log("on a bien recu l event de play after cta ", event);
+                this.videoPlayer.play();
+                // ici on déléte 
             }
+            
         }
 
     }

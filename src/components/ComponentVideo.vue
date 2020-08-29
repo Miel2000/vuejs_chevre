@@ -16,15 +16,12 @@
 			cohabitationCta: this.$store.state.actualCallToActions.length !== 0,
 			isInteractive: this.$store.state.playerIsInteractive
 		}"
-		:src="videoUrl"
+		:src="'/assets/videos/' + videoInfos.self.url"
 		controls 
 		autoplay
 		playsinline
-		@durationchange="onDurationChange" 
 		@timeupdate="onTimeUpdate" 
-		@playing="onPlaying" 
 		@pause="onPause"
-		@onStart="onStart"
 	>
 	</video>
 
@@ -37,154 +34,61 @@
 
 export default {
 
-	name: "ComponentVideo",
+	props: {
+		videoInfos: {
+			type: Object,
+			required: true
+		}
+	},
+
+	data() {
+		return {
+		}
+	},
+
+	mounted() {
+
+		this.isPaused = false;
+
+		this.alreadySent = [];
+
+	},
 
 	methods: {
 
-		onDurationChange() {
-			// console.log('yeet' , event);
-		},
-
-		onStart() {
-			// console.log('wsh le onStart triggered');
-		},
-
 		onTimeUpdate( event ) {
-			this.currentTime = event.target.currentTime;
-
-			this.$store.state.currentTimeVideo = event.target.currentTime;
 			
-			this.checkStartingVideo();
+			this.videoInfos.timedActions.forEach( actionInfos => {
 
-			this.compareTimeCodes();
+				if ( this.alreadySent.indexOf(actionInfos.id) === -1) {
 
-			this.checkCallToAction();
+					this.compareTimeCodes(event.target.currentTime, actionInfos.at, actionInfos);
 
-		},
+				}
 
-		onPlaying() {
-			// console.log('play triggered');
-
+			});
+			
 		},
 
 		onPause() {
 			// console.log('pause triggered');
 		},	
+	
+		compareTimeCodes(currentTimeVideo, timeCodeToTrigger, action) {
+	
+			if ( currentTimeVideo >= timeCodeToTrigger ) {
 
-		playAfterCta( event ) {
-
-			console.log('wesh le play a distance, ', event);
-			this.$el.play();
+				console.log("weh on emit");
 			
-		},
-		
-		checkCallToAction() {
+				this.$emit("an-action-is-sent", action);
 
-			// si cette scene a des callToAction
-			if (this.callToActions) {
+				this.alreadySent.push(action.id);
 
-				// on itère
-				this.callToActions.forEach( oneCallToAction => {
-	
-					// dès qu'un calltoaction doit être déclenché
-					if( this.currentTime >= oneCallToAction.timeCode ) {
-	
-						// si celui ci n'a pas déjà été déclenché
-						if ( !this.alreadySentCta[oneCallToAction.id] ) {
-	
-							// on pause la video
-							this.$el.pause();
-
-							// on désactive l'interaction du player
-							this.$store.commit('setPlayerInteractive', false);
-	
-							// on met le calltoaction dans le store.actualCallToAction[]
-							this.$store.commit('addCallToActions', oneCallToAction);
-	
-							// on stock l'id de ce calltoaction comme ayant été déjà déclenché (pour ne le faire qu'une fois)
-							this.alreadySentCta[oneCallToAction.id] = true;
-	
-						}
-					}
-				});
 
 			}
-		
-		},
 
-		checkStartingVideo() {
-
-			// console.log("actualChoices avant : ", this.$store.state.actualChoices.length);
-
-			if (this.currentTime > 0 && this.currentTime <= this.minTimeCode) {
-
-				if ( this.$store.state.actualChoices.length > 0 ) {
-					
-					this.$store.commit('resetChoices');
-
-					this.alreadySentChoice = {};
-					this.alreadySentCta = {};
-					// console.log("actualChoices après : ", this.$store.state.actualChoices.length);
-					
-				}
-			}
-		},
-
-		compareTimeCodes() {
-
-		
-			this.choices.forEach( oneChoice => {
-				
-	
-				if ( this.currentTime >= oneChoice.choiceTimeCode ) {
-				
-					// console.log('comparing : ', oneChoice.choiceTimeCode, ' and ', this.currentTime);
-			
-					if ( !this.alreadySentChoice[oneChoice.id] ) {
-
-						this.$store.commit('addChoice', oneChoice);
-
-						this.alreadySentChoice[oneChoice.id] = true
-						
-					}
-				}
-			});
 		}
 
-	},
-
-	created() {
-		// 
-	},
-
-	mounted() {
-
-		this.alreadySentChoice = {};
-		this.alreadySentCta = {};
-
-		this.route = this.$route.params.videoId;
-
-		this.choices = this.$store.state.storyMap.videos[this.route].components.choices;
-
-		this.minTimeCode = 999;
-
-		this.choices.forEach(choice => {
-
-			if (choice.choiceTimeCode < this.minTimeCode) {
-				this.minTimeCode = choice.choiceTimeCode;
-			}
-
-		});
-
-		this.callToActions = this.$store.state.storyMap.videos[this.route].components.callToAction;
-
-	},
-
-	data() {
-		return {
-			videoUrl: `/assets/videos/${this.$store.state.storyMap.videos[this.$route.params.videoId].self.url}`,
-			isPaused: this.isPaused
-		}
 	}
 
 };

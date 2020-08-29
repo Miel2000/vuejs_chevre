@@ -1,8 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import MetaData from '@/MetaData.js';
-import StoryMap from '@/StoryMap.js';
+import videoMap from '@/videoMap.js';
 
 Vue.use(Vuex)
 
@@ -12,8 +11,7 @@ export default new Vuex.Store({
 
 	
 	state: {
-		metaData: MetaData,
-		storyMap: StoryMap,
+		videoMap,
 		currentTimeVideo: 0,
 		currentTimeAudio: 0,
 		actualVideoObj: {},
@@ -63,7 +61,7 @@ export default new Vuex.Store({
 		
 				// state.actualSounds.push(sounds);
 				
-				console.log('setAudioToManager: ', state.id, sounds );
+				// console.log('setAudioToManager: ', state.id, sounds );
 				
 			
 		}
