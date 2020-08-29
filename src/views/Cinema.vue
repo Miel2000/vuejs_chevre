@@ -65,7 +65,7 @@
         },
 
         mounted() {
-            // this.choices = [];
+            // 
         },
 
         methods: {
