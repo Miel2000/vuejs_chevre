@@ -48,7 +48,7 @@
 
             playSound(event) {
                 
-                console.log("AUdio", audioPlayer);
+                // console.log("AUdio", audioPlayer);
             }
 
         },

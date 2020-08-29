@@ -63,7 +63,7 @@ export default new Vuex.Store({
 		
 				// state.actualSounds.push(sounds);
 				
-				 console.log('setAudioToManager: ', state.id, sounds );
+				console.log('setAudioToManager: ', state.id, sounds );
 				
 			
 		}
