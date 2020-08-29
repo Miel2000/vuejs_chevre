@@ -18,7 +18,12 @@ export default {
 
 	name: "ComponentOneChoice",
 
-	props: ["choiceInfos"],
+	props: {
+		choiceInfos: {
+			type: Object,
+			required: true
+		}
+	},
 
 	methods: {
 	},

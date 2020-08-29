@@ -1,71 +1,33 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import videoMap from '@/videoMap.js';
+import storyMap from "@/storyMap.js";
 
 Vue.use(Vuex)
 
 // pour y avoir acces partout ailleur, il faut faire $this.$store.state.mana
 
 export default new Vuex.Store({
+  state: {
+    storyMap,
+    currentTimeVideo: 0,
+    currentTimeAudio: 0,
+    actualVideoObj: {},
+    actualChoices: [],
+    actualSounds: [],
+    actualCallToActions: [],
+    mana: 100,
+    vie: 100,
+    playerIsInteractive: true,
+  },
 
-	
-	state: {
-		videoMap,
-		currentTimeVideo: 0,
-		currentTimeAudio: 0,
-		actualVideoObj: {},
-		actualChoices: [],
-		actualSounds: [],
-		actualCallToActions: [],
-		mana: 100,
-		vie: 100,
-		playerIsInteractive: true
-	},
+  mutations: {
+    addMana: (state, x) => {
+      state.mana += x;
+    },
 
-	mutations: {
-
-		addMana:(state, x) => {
-			state.mana += x;
-		},
-
-		removeMana:(state, x) => {
-			state.mana -= x;
-		},
-
-		addChoice: (state, choice) => {
-			state.actualChoices.push(choice);
-		},
-
-	
-
-		resetChoices: (state) => {
-			// empty by .splice
-			state.actualChoices.splice(0, state.actualChoices.length);
-		},
-
-		addCallToActions: (state, cta) => {
-			state.actualCallToActions.push(cta);
-		},
-
-		resetCallToActions: (state) => {
-			// empty by .splice
-			state.actualCallToActions.splice(0, state.actualCallToActions.length);
-		},
-
-		setPlayerInteractive(state, bool) {
-			state.playerIsInteractive = bool;
-		},
-
-		setAudioToManager(sounds ,state){
-		
-				// state.actualSounds.push(sounds);
-				
-				// console.log('setAudioToManager: ', state.id, sounds );
-				
-			
-		}
-
-	}
-
+    removeMana: (state, x) => {
+      state.mana -= x;
+    },
+  },
 });

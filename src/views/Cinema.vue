@@ -3,25 +3,27 @@
 
         <div class="video_and_cta">
 
-                <ComponentVideo 
-                    :video-infos="videoInfos" 
-                    @an-action-is-sent="actionHandler"
-                />
+            <ComponentVideo 
+                :video-infos="videoInfos" 
+                @an-action-is-sent="actionHandler"
+            />
 
-                <ComponentCallToAction/>
-                <!-- v-on:playAfterCta="playAfterCta"  -->
+            <ComponentCallToAction/>
+            <!-- v-on:playAfterCta="playAfterCta"  -->
 
         </div>
 
-        <div
-            v-if="computedChoices.length > 0" 
-            v-for="choice in computedChoices" 
-            :key="choice.id">
 
-            <ComponentOneChoice 
-                :choice-infos="choice"
-            />
+        <div v-if="computedChoices.length > 0" >
+            <div
+                v-for="choice in computedChoices" 
+                :key="choice.id">
 
+                <ComponentOneChoice 
+                    :choice-infos="choice"
+                />
+
+            </div>
         </div>
 
         <!-- <ComponentAudioManager/> -->
@@ -37,7 +39,7 @@
     import ComponentVideo from '@/components/ComponentVideo';
     import ComponentCallToAction from '@/components/ComponentCallToAction';
     import ComponentOneChoice from '@/components/ComponentOneChoice';
-    import ComponentAudioManager from '@/components/ComponentAudioManager';
+
 
 	export default {
 
@@ -45,12 +47,11 @@
             ComponentVideo,
             ComponentCallToAction,
             ComponentOneChoice,
-            ComponentAudioManager
         },
         
         data() {
             return {
-                videoInfos: this.$store.state.videoMap.videos[this.$route.params.videoId],
+                videoInfos: this.$store.state.storyMap.videos[this.$route.params.videoId],
                 choices: [],
             }
         },
