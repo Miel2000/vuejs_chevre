@@ -73,22 +73,7 @@ export default {
         },
 
 
-       	compareTimeCodes(currentTimeVideo, timeCodeToTrigger, audio) {
-	
-			if ( currentTimeVideo >= timeCodeToTrigger ) {
 
-				console.log("weh on emit LAUDIO");
-			
-				this.$emit("an-audio-is-sent", audio);
-				// console.log('dans la compare tiemcode',audio);
-
-				this.alreadySent.push(audio.id);
-				
-
-
-			}
-
-		}
 
     },
 
