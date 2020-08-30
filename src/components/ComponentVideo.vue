@@ -21,7 +21,7 @@
 		autoplay
 		playsinline
 		@timeupdate="onTimeUpdate" 
-		@pause="onPause"
+
 	>
 	</video>
 
@@ -56,9 +56,11 @@ export default {
 
 	methods: {
 
-		onTimeUpdate( event ) {
-			
-			this.videoInfos.timedActions.forEach( actionInfos => {
+	onTimeUpdate( event ) {
+
+			if(this.videoInfos.timedActions){
+
+				this.videoInfos.timedActions.forEach( actionInfos => {
 
 				if ( this.alreadySent.indexOf(actionInfos.id) === -1) {
 
@@ -67,31 +69,44 @@ export default {
 				}
 
 			});
-			
-		},
 
-		onPause() {
-			// console.log('pause triggered');
-		},	
-	
-		compareTimeCodes(currentTimeVideo, timeCodeToTrigger, action) {
-	
-			if ( currentTimeVideo >= timeCodeToTrigger ) {
+		
 
-				console.log("weh on emit");
+
+		
+		}},
+
+		
+
+	compareTimeCodes(currentTimeVideo, timeCodeToTrigger, action) {
+		
 			
+		console.log('ALL ACTIONS  : ',action);
+
+			if(action.type){
+
+				if ( currentTimeVideo >= timeCodeToTrigger ) {
+
+				console.log("weh on emit l'action");
+			
+		
 				this.$emit("an-action-is-sent", action);
+		
 
 				this.alreadySent.push(action.id);
-
-
+				
 			}
 
+		
 		}
-
 	}
+}
+}
+	
 
-};
+
+
+
 </script>
 
 

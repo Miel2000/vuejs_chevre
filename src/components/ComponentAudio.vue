@@ -1,12 +1,12 @@
 <template>
 
-    <div v-if="audioInfosObject" class="audio-container">
+    <div v-if="audioInfos" class="audio-container">
          
             <audio 
                 controls="controls"
                 @timeupdate="onTimeUpdate"
             >
-                <source :src="'/' + audioRoute + audioInfosObject.url"/>
+                <source :src="'/assets/mp3/' + audioInfos.url"/>
             
             </audio>
     </div>
@@ -14,27 +14,26 @@
 
 </template>
 <script>
-import ComponentAudioManager from '@/components/ComponentAudioManager';
 
 export default {
 
     name: "ComponentAudio",
     
     components: { 
-        ComponentAudioManager 
+        
     },
 
     props: {
-        audioInfosObject: {
+        audioInfos: {
             type: Object,
             required: true
-        }
+        },
+     
     },
 
     data() {
 		return {
-            audioRoute:  `assets/mp3/`,
-            minTimeCode: 999
+   
 		}
     },
 
@@ -44,7 +43,7 @@ export default {
 
 	mounted() {
     
-        console.log('MOUNTED AUDIO SOUND : ' , this.audioInfosObject.audioStartTimeCode);
+      console.log(this.audio);
         
         // this.audio permet d'attraper les infos envoyées du AudioManager,
         // il va falloir coder la logique du componentAudio avec ces informations là.
@@ -67,32 +66,29 @@ export default {
         onTimeUpdate( event ) {
             // console.log(event.currentTarget.currentTime);
 
-            this.currentTime = event.target.currentTime;
 
-            this.$store.state.currentTimeAudio = event.target.currentTime;
-
-            this.compareTimeCodes();
+            // this.compareTimeCodes();
             // this.checkSounds();
-
-
 
         },
 
-        compareTimeCodes(currentTimeAudio) {
 
-        // console.log('currentTimeAudio',event.currentTarget.currentTime);
-    
-            
-        // console.log('audioStartTimecode', this.audio.audioStartTimeCode)
+       	compareTimeCodes(currentTimeVideo, timeCodeToTrigger, audio) {
+	
+			if ( currentTimeVideo >= timeCodeToTrigger ) {
 
-        if ( event.currentTarget.currentTime >= this.audioInfosObject.audioStartTimeCode ) {
-            
-            // console.log('comparing : ', this.audio.audioStartTimeCode, ' and ', event.currentTarget.currentTime);
-            // attraper le lecteur et lui dire .play(sound);
-    
-            }
-            
-        }
+				console.log("weh on emit LAUDIO");
+			
+				this.$emit("an-audio-is-sent", audio);
+				// console.log('dans la compare tiemcode',audio);
+
+				this.alreadySent.push(audio.id);
+				
+
+
+			}
+
+		}
 
     },
 

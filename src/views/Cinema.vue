@@ -6,6 +6,7 @@
             <ComponentVideo 
                 :video-infos="videoInfos" 
                 @an-action-is-sent="actionHandler"
+                
             />
 
             <ComponentCallToAction/>
@@ -21,12 +22,19 @@
 
                 <ComponentOneChoice 
                     :choice-infos="choice"
+                   
                 />
 
             </div>
         </div>
 
-        <!-- <ComponentAudioManager/> -->
+        <div v-if="computedAudios.length > 0" >
+            <div v-for="audio in computedAudios"
+                :key="audio.id">
+
+                <ComponentAudio @an-action-is-sent="computedAudios"  :audio-infos="audio" /> 
+            </div>
+        </div>
 
     </div>
 </template>
@@ -37,6 +45,7 @@
 <script>
  
     import ComponentVideo from '@/components/ComponentVideo';
+    import ComponentAudio from '@/components/ComponentAudio';
     import ComponentCallToAction from '@/components/ComponentCallToAction';
     import ComponentOneChoice from '@/components/ComponentOneChoice';
 
@@ -47,12 +56,14 @@
             ComponentVideo,
             ComponentCallToAction,
             ComponentOneChoice,
+            ComponentAudio
         },
         
         data() {
             return {
                 videoInfos: this.$store.state.storyMap.videos[this.$route.params.videoId],
                 choices: [],
+                audios: [],
             }
         },
 
@@ -60,12 +71,15 @@
 
             computedChoices(){
                 return this.choices;
+            },
+            computedAudios(){
+                return this.audios;
             }
 
         },
 
         mounted() {
-            // 
+            // console.log(this.audios);
         },
 
         methods: {
@@ -73,22 +87,33 @@
             actionHandler(actionInfos){
 
                 // console.log("hey, je suis le parent, et jai recu un event choice avec : ", actionInfos);
-                if(actionInfos.type == "choice"){
-                    this.choices.push(actionInfos);
-                }
+            
 
                 switch (actionInfos.type) {
                     case "choice":
-                        
+                             console.log('dans le switch CHOICE : ',actionInfos)
+                        this.choices.push(actionInfos);
                         break;
 
-                    case "cta":
-                    
+                    case "sound":
+                        console.log('dans le switch SOUND : ',actionInfos)
+                        this.audios.push(actionInfos);
                     break;
                 
                     default:
                         break;
                 }
+
+            },
+
+            audioHandler(audioInfos){
+
+                // console.log("hey, je suis le parent, et jai recu un event choice avec : ", actionInfos);
+                if(audioInfos.audios == "background"){
+                    this.audios.push(audioInfos);
+                }
+
+                
 
             }
             

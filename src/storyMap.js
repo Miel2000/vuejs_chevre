@@ -14,34 +14,20 @@ export default {
  
             },
 
-            components: {
+            timedActions: [
 
-                items: [
-                    { 
-                        apparitionTimeCode: 1, 
-                        url: "", 
-                        mana: 0,
-                        vie: 0  
-                    },
-                ],
-
-                choices: [
                     {
-                        id: "bouillant",
+                        at: 5,
+                        id: "intro2",
                         text: "éh wa chu bouillant",
                         route: "intro2",
-                        choiceTimeCode: 11
+                        type: "choice"
                     },
+
                 ],
 
-                relances: [
-                    { 
-						delay: 1000, 
-						url: "" 
-					}
-                ]
 
-            },
+          
         },
         
         intro2: {
@@ -54,27 +40,19 @@ export default {
 
             },
 
-            components: {
+            timedActions: [
 
+                {
+                    at: 5,
+                    id: "weed",
+                    text: "Start Teh Game",
+                    route: "weed",
+                    type: "choice"
+                },
 
-                choices: [
-           
-                    {
-                        id: "start",
-                        text: "Start the game",
-                        route: "weed",
-                        choiceTimeCode: 16
-                    }
-                ],
+            ],
 
-                relances: [
-                    {
-                        delay: 10000,
-                        url: ""
-                    }
-                ]
-
-            }
+         
 
         },
 
@@ -90,10 +68,11 @@ export default {
  
             },
 
+
             timedActions: [
     
                 {
-                    at: 2,
+                    at: 56.5,
                     id: "hokage",
                     text: "Devenir Hokage",
                     route: "hokage",
@@ -101,11 +80,17 @@ export default {
                 },
                 
                 {
-                    at: 7,
+                    at: 57.5,
                     id: "papillon",
                     text: "Chasser les papillons",
                     route: "papillon",
                     type: "choice"
+                },
+                {
+                    at: 1,
+                    id: 'bobmarley',
+                    url: 'bob_marley.wav',
+                    type: 'sound'
                 }
 
             ]
@@ -122,47 +107,34 @@ export default {
  
             },
 
-            components: {
-
-        
-
-                choices: [
+            timedActions: [
          
-        
                     {
+                        at: 7.5,
                         id: "banane",
                         text: "Banane",
                         route: "banane",
-                        choiceTimeCode: 7.5
+                        type: "choice"
                     },
                     
                     {
+                        at: 7.5,
                         id: "couteau",
                         text: "Couteau",
                         route: "couteau",
-                        choiceImage: "couteau.png",                   
-                        choiceTimeCode: 7.5
+                        type: "choice"
                     },
                     {
+                        at: 7.5,
                         id: "fusil",
                         text: "Fusil",
                         route: "fusil",
-                        choiceImage: "fusil.png",
-                        choiceTimeCode: 7.5
+                        type: "choice"
                     }
                 ],
 
-
-                relances: [
-                    { 
-						delay: 8000, 
-						url: "" 
-					}
-                ]
-
-            }
-
         },
+
 
         banane: {
 
@@ -171,7 +143,7 @@ export default {
                 url: "weed_hokage_banane.mp4",
                 controls: true,
                 options: {
-                    PlayerOutTimeCode: 40
+                    
                 }
             },
             components: {
