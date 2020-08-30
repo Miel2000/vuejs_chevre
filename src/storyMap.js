@@ -76,6 +76,7 @@ export default {
                     id: "hokage",
                     text: "Devenir Hokage",
                     route: "hokage",
+                    isContinue: true,
                     type: "choice"
                 },
                 
@@ -84,12 +85,14 @@ export default {
                     id: "papillon",
                     text: "Chasser les papillons",
                     route: "papillon",
+                    isContinue: true,
                     type: "choice"
                 },
                 {
-                    at: 1,
+                    at: 3,
                     id: 'bobmarley',
                     url: 'bob_marley.wav',
+                  
                     type: 'sound'
                 }
 

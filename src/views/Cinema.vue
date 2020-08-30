@@ -96,7 +96,8 @@
                         break;
 
                     case "sound":
-                        console.log('dans le switch SOUND : ',actionInfos)
+                        console.log('dans le switch SOUND : ',actionInfos);
+                       
                         this.audios.push(actionInfos);
                     break;
                 
@@ -106,16 +107,7 @@
 
             },
 
-            audioHandler(audioInfos){
-
-                // console.log("hey, je suis le parent, et jai recu un event choice avec : ", actionInfos);
-                if(audioInfos.audios == "background"){
-                    this.audios.push(audioInfos);
-                }
-
-                
-
-            }
+         
             
         }
 

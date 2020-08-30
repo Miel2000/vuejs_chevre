@@ -3,8 +3,12 @@
     <div v-if="audioInfos" class="audio-container">
          
             <audio 
+          
+                autoplay
                 controls="controls"
                 @timeupdate="onTimeUpdate"
+                ref="audioBox"
+                :isContinuePlaying=audioInfos.isContinue
             >
                 <source :src="'/assets/mp3/' + audioInfos.url"/>
             
@@ -42,9 +46,8 @@ export default {
 	},
 
 	mounted() {
-    
-      console.log(this.audio);
-        
+        this.audioBox()
+        // this.$els.audio.play();
         // this.audio permet d'attraper les infos envoyées du AudioManager,
         // il va falloir coder la logique du componentAudio avec ces informations là.
         // this.audioInfosObject.id
@@ -61,6 +64,10 @@ export default {
 
         playSound() {
                 // console.log('playsouunnd');
+        },
+
+        audioBox: function() {
+            console.log('AUDIOBOX : ',this.$refs);
         },
 
         onTimeUpdate( event ) {
@@ -111,11 +118,11 @@ export default {
 
     
 
-    
-
-
 
 
 }
+    
+
+
     
 </script>

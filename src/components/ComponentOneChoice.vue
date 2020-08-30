@@ -4,7 +4,7 @@
 <template>
 
 	<div>
-		<a :href="choiceInfos.route">{{choiceInfos.text}}</a>
+		<a :href="choiceInfos.route" :isContinuePlaying="choiceInfos.isContinue" >{{choiceInfos.text}}</a>
 	</div>
 	
 </template>

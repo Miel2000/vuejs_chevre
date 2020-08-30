@@ -1,0 +1,16 @@
+// 30-08-2020
+ 1  Le son se lance bien, mais il persiste un probleme, quand on passe d'une scéne à une autre,
+    videoInfos est rechargé grâce a l'url et réhydrate nos tableau....
+        Idée : Mettre une props dans la balise audio, dans le but de lui dire 
+        - "non ne met pas à jour ton tableau "audios", continue la lecture jusqu'a rencontrer une variable qui dira à la ta props stop/false"
+        - Gerer ça avec le $el ? ou $ref ?
+            - avec $refs, j'arrive a choper un enssemble de parametre interessant.
+
+            // Construction choisi : 
+                Je fou un boolean en props dans chaque choix, je pourrais le faire plus logiquement dans chaque audios,
+                mais c'est quand on click vers une autre scéne qu'il faut renseigner si oui ou non on continue de jouer l'audio
+                donc l'appel me parrait plus facile si le boolean est dans le click du choix ( c'est pas logique du tout, mais j'en suis là )
+
+            //  A faire :
+                Si choiceInfos.isContinue = true, continuer le play() en ne rafraichisant pas le tableau
+                    else stop() on rafraichit le tableau
