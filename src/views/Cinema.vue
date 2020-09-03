@@ -6,7 +6,6 @@
             <ComponentVideo 
                 :video-infos="videoInfos" 
                 @an-action-is-sent="actionHandler"
-                
             />
 
             <ComponentCallToAction/>
@@ -22,7 +21,7 @@
 
                 <ComponentOneChoice 
                     :choice-infos="choice"
-                   
+                    @a-choice-have-been-acted="choiceActedHandler"
                 />
 
             </div>
@@ -58,10 +57,17 @@
             ComponentOneChoice,
             ComponentAudio
         },
+
+        props: {
+            videoId: {
+                type: String,
+                default: "weed"
+            }
+        },
         
         data() {
             return {
-                videoInfos: this.$store.state.storyMap.videos[this.$route.params.videoId],
+                videoInfos: this.$store.state.storyMap.videos[this.videoId],
                 choices: [],
                 audios: [],
             }
@@ -88,10 +94,9 @@
 
                 // console.log("hey, je suis le parent, et jai recu un event choice avec : ", actionInfos);
             
-
                 switch (actionInfos.type) {
                     case "choice":
-                             console.log('dans le switch CHOICE : ',actionInfos)
+                        console.log('dans le switch CHOICE : ',actionInfos)
                         this.choices.push(actionInfos);
                         break;
 
@@ -99,13 +104,19 @@
                         console.log('dans le switch SOUND : ',actionInfos);
                        
                         this.audios.push(actionInfos);
-                    break;
+                        break;
                 
                     default:
                         break;
                 }
 
             },
+
+            choiceActedHandler(choice) {
+
+                this.videoInfos = this.$store.state.storyMap.videos[choice];
+
+            }
 
          
             

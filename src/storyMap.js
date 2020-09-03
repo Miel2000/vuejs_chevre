@@ -72,7 +72,7 @@ export default {
             timedActions: [
     
                 {
-                    at: 56.5,
+                    at: 2,
                     id: "hokage",
                     text: "Devenir Hokage",
                     route: "hokage",
@@ -81,7 +81,7 @@ export default {
                 },
                 
                 {
-                    at: 57.5,
+                    at: 4,
                     id: "papillon",
                     text: "Chasser les papillons",
                     route: "papillon",

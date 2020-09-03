@@ -2,11 +2,15 @@
 <!-- ° ° ° ° ° ° ° ° ° T E M P L A T E ° ° ° ° ° ° ° ° ° -->
 
 <template>
-
 	<div>
-		<a :href="choiceInfos.route" :isContinuePlaying="choiceInfos.isContinue" >{{choiceInfos.text}}</a>
+		<button 
+			class="oneChoice"
+			:isContinuePlaying="choiceInfos.isContinue"
+			@click="choiceClickHandler"
+		>
+			{{choiceInfos.text}}
+		</button>
 	</div>
-	
 </template>
 
 <!-- ° ° ° ° ° ° ° ° ° L O G I C ° ° ° ° ° ° ° ° ° -->
@@ -15,8 +19,6 @@
 <script>
 
 export default {
-
-	name: "ComponentOneChoice",
 
 	props: {
 		choiceInfos: {
@@ -39,6 +41,16 @@ export default {
 	data() {
 		return {
 		}
+	},
+
+	methods: {
+
+		choiceClickHandler() {
+
+			this.$emit("a-choice-have-been-acted", this.choiceInfos.route);
+
+		}
+
 	}
 };
 </script>
@@ -50,11 +62,11 @@ export default {
 <style scoped lang="scss">
 
 	.oneChoice {
-		display: block;
+		display: inline-block;
+		border: solid 5px red;
+		padding: 10px 20px;
 
-		width: 200px;
-		height: 200px;
-		border: solid 25px red;
+		cursor: pointer;
 	}
 
 </style>
