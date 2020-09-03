@@ -48,6 +48,8 @@
     import ComponentCallToAction from '@/components/ComponentCallToAction';
     import ComponentOneChoice from '@/components/ComponentOneChoice';
 
+    import storyMap from '@/storyMap.js';
+
 
 	export default {
 
@@ -67,7 +69,7 @@
         
         data() {
             return {
-                videoInfos: this.$store.state.storyMap.videos[this.videoId],
+                videoInfos: storyMap.videos[this.videoId],
                 choices: [],
                 audios: [],
             }
@@ -85,7 +87,7 @@
         },
 
         mounted() {
-            // console.log(this.audios);
+            // 
         },
 
         methods: {
@@ -114,7 +116,7 @@
 
             choiceActedHandler(choice) {
 
-                this.videoInfos = this.$store.state.storyMap.videos[choice];
+                this.videoInfos = storyMap.videos[choice];
 
             }
 
