@@ -197,7 +197,7 @@ export default {
                 }
             },
         timedActions: [
-    
+
                 {
                     at: 18,
                     url: "naruto-sound.mp3",
