@@ -2,53 +2,51 @@
 <!-- ° ° ° ° ° ° ° ° ° T E M P L A T E ° ° ° ° ° ° ° ° ° -->
 
 <template>
-	<div>
-		<button 
-			class="oneChoice"
-			:isContinuePlaying="choiceInfos.isContinue"
-			@click="choiceClickHandler"
-		>
-			{{choiceInfos.text}}
-		</button>
-	</div>
+<div class="choice-container">
+	<div v-if="choiceInfos.text">
+
+      <button 
+        class="oneChoice"
+        :isContinuePlaying="choiceInfos.isContinue"
+        @click="choiceClickHandler"
+      >
+        {{choiceInfos.text}}
+      </button>
+    </div>
+</div>
 </template>
 
 <!-- ° ° ° ° ° ° ° ° ° L O G I C ° ° ° ° ° ° ° ° ° -->
 <!-- ° ° ° ° ° ° ° ° ° L O G I C ° ° ° ° ° ° ° ° ° -->
 
 <script>
-
 export default {
+  props: {
+    choiceInfos: {
+      type: Object,
+      required: true,
+      default: null,
+    },
+  },
 
-	props: {
-		choiceInfos: {
-			type: Object,
-			required: true
-		}
-	},
+  created() {
+    //
+  },
 
-	created() {
-		// 
-	},
+  mounted() {},
 
-	mounted() {
+  data() {
+    return {};
+  },
 
-	},
-
-	data() {
-		return {
-		}
-	},
-
-	methods: {
-
-		choiceClickHandler() {
-
-			this.$emit("a-choice-have-been-acted", this.choiceInfos.route);
-
-		}
-
-	}
+  methods: {
+    choiceClickHandler() {
+      if (this.choiceInfos.route === "banane") {
+        this.$store.state.weapon = "banane";
+      }
+      this.$emit("a-choice-have-been-acted", this.choiceInfos.route);
+    },
+  },
 };
 </script>
 
@@ -57,13 +55,11 @@ export default {
 <!-- ° ° ° ° ° ° ° ° ° S T Y L E ° ° ° ° ° ° ° ° ° -->
 
 <style scoped lang="scss">
+.oneChoice {
+  display: inline-block;
+  border: solid 5px red;
+  padding: 10px 20px;
 
-	.oneChoice {
-		display: inline-block;
-		border: solid 5px red;
-		padding: 10px 20px;
-
-		cursor: pointer;
-	}
-
+  cursor: pointer;
+}
 </style>

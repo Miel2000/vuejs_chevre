@@ -15,6 +15,8 @@ export default new Vuex.Store({
     actualVideoObj: {},
     actualChoices: [],
     actualSounds: [],
+    actualEnemy: [],
+    weapon:"fusil",
     actualCallToActions: [],
     mana: 100,
     vie: 100,
@@ -29,5 +31,7 @@ export default new Vuex.Store({
     removeMana: (state, x) => {
       state.mana -= x;
     },
+
+
   },
 });

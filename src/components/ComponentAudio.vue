@@ -1,11 +1,11 @@
 <template>
 
-    <div v-if="audioInfos" class="audio-container">
+    <div v-if="audioInfos.url" class="audio-container">
          
             <audio 
-          
+                :volume="0.2"
                 autoplay
-                controls="controls"
+                controls
                 @timeupdate="onTimeUpdate"
                 ref="audioBox"
                 :isContinuePlaying=audioInfos.isContinue
@@ -18,111 +18,44 @@
 
 </template>
 <script>
-
 export default {
+  name: "ComponentAudio",
 
-    name: "ComponentAudio",
-    
-    components: { 
-        
+  components: {},
+
+  props: {
+    audioInfos: {
+      type: Object,
+      required: true,
+    },
+  },
+
+  data() {
+    return {};
+  },
+
+  beforeUpdate() {},
+
+  mounted() {
+    this.audioBox();
+  },
+
+  methods: {
+    playSound() {
+      // console.log('playsouunnd');
     },
 
-    props: {
-        audioInfos: {
-            type: Object,
-            required: true
-        },
-     
+    audioBox: function() {
+      this.$refs.audioBox.attributes.volume.value = 1;
+      console.log("AUDIOBOX : ", this.$refs.audioBox);
     },
 
-    data() {
-		return {
-   
-		}
+    onTimeUpdate(event) {
+      console.log(event.currentTarget.currentTime);
+      // if (event.currentTarget.currentTime >= 35) {
+      //   console.log("yeboi c pas mal");
+      // }
     },
-
-	beforeUpdate() {
-
-	},
-
-	mounted() {
-        this.audioBox()
-        // this.$els.audio.play();
-        // this.audio permet d'attraper les infos envoyées du AudioManager,
-        // il va falloir coder la logique du componentAudio avec ces informations là.
-        // this.audioInfosObject.id
-        // this.audioInfosObject.audioStartTimeCode
-        // this.audioInfosObject.autoPlay
-        // this.audioInfosObject.fadeInStart
-        // this.audioInfosObject.fadeInStop
-        // this.audioInfosObject.url
-
-    },
-  
-
-	methods: {
-
-        playSound() {
-                // console.log('playsouunnd');
-        },
-
-        audioBox: function() {
-            console.log('AUDIOBOX : ',this.$refs);
-        },
-
-        onTimeUpdate( event ) {
-            // console.log(event.currentTarget.currentTime);
-
-
-            // this.compareTimeCodes();
-            // this.checkSounds();
-
-        },
-
-
-
-
-    },
-
-
-    // checkSounds() {
-    
-	// 		// si cette scene a des sounds
-	// 		if (this.sounds) {
-
-	// 			// on itère
-	// 			this.sounds.forEach( oneSound => {
-	
-	// 				// dès qu'un calltoaction doit être déclenché
-	// 				if( this.currentTime >= this.sounds.audioStartTimeCode ) {
-
-	
-	// 						// on play la video
-	// 						this.$el.play();
-
-	
-	// 						// on met le sound dans le store.actualSounds[]
-	// 						this.$store.commit('setAudioToManager', oneSound);
-	
-	
-    //                     }
-							
-                        
-	// 				}
-	// 			);
-
-	// 		}
-		
-	// 	},
-
-
-    
-
-
-
-}
-    
-
-
-    
+  },
+};
 </script>

@@ -1,15 +1,22 @@
 <template>
-    <div>
+    <div class="container">
 
-        <div class="video_and_cta">
+        <div class="video_and_cta scene-container">
+          <div v-if=" Object.keys(videoInfos.self).length !== 0 "  class="video-container">
 
             <ComponentVideo 
                 :video-infos="videoInfos" 
                 @an-action-is-sent="actionHandler"
             />
+          </div>
+     <div v-for="enemy in videoInfos.enemy" :key="enemy.id" class="enemy-container ">
 
-            <ComponentCallToAction/>
-            <!-- v-on:playAfterCta="playAfterCta"  -->
+          <ComponentEnemy
+            @an-enemy-is-sent="enemyHandler"
+            @hitEnemy="hitEnemy($event)" 
+            :enemy="enemy" />
+    </div> 
+          
 
         </div>
 
@@ -42,108 +49,132 @@
 <!-- ° ° ° ° ° ° ° ° ° L O G I C ° ° ° ° ° ° ° ° ° -->
 <!-- ° ° ° ° ° ° ° ° ° L O G I C ° ° ° ° ° ° ° ° ° -->
 <script>
- 
-    import ComponentVideo from '@/components/ComponentVideo';
-    import ComponentAudio from '@/components/ComponentAudio';
-    import ComponentCallToAction from '@/components/ComponentCallToAction';
-    import ComponentOneChoice from '@/components/ComponentOneChoice';
+import ComponentVideo from "@/components/ComponentVideo";
+import ComponentAudio from "@/components/ComponentAudio";
+import ComponentCallToAction from "@/components/ComponentCallToAction";
+import ComponentEnemy from "@/components/ComponentEnemy";
+import ComponentOneChoice from "@/components/ComponentOneChoice";
 
-    import storyMap from '@/storyMap.js';
+import storyMap from "@/storyMap.js";
 
+export default {
+  components: {
+    ComponentVideo,
+    ComponentCallToAction,
+    ComponentOneChoice,
+    ComponentAudio,
+    ComponentEnemy,
+  },
 
-	export default {
+  props: {
+    videoId: {
+      type: String,
+      default: "fusil",
+    },
+  },
 
-		components: {
-            ComponentVideo,
-            ComponentCallToAction,
-            ComponentOneChoice,
-            ComponentAudio
-        },
+  data() {
+    return {
+      videoInfos: storyMap.videos[this.videoId],
+      choices: [],
+      audios: [],
+      enemy: [],
+    };
+  },
 
-        props: {
-            videoId: {
-                type: String,
-                default: "weed"
-            }
-        },
-        
-        data() {
-            return {
-                videoInfos: storyMap.videos[this.videoId],
-                choices: [],
-                audios: [],
-            }
-        },
+  computed: {
+    computedChoices() {
+      return this.choices;
+    },
+    computedAudios() {
+      return this.audios;
+    },
 
-        computed: {
+    computedEnemy() {
+      return this.enemy;
+    },
+    // computedRoutes() {
+    //   console.log(this.routes, "this route yo");
+    //   this.videoInfos.route = this.routes.route;
+    //   return this.routes;
+    // },
+  },
 
-            computedChoices(){
-                return this.choices;
-            },
-            computedAudios(){
-                return this.audios;
-            }
+  mounted() {
+    // if (storyMap.videos[this.videoId].timedActions.route === "banane") {
+    //   console.log("banane");
+    // }
+  },
 
-        },
+  methods: {
+    actionHandler(actionInfos) {
+      // console.log("hey, je suis le parent, et jai recu un event choice avec : ", actionInfos);
 
-        mounted() {
-            // 
-        },
+      switch (actionInfos.type) {
+        case "choice":
+          if (actionInfos.route == "shooting") {
+            this.videoInfos = storyMap.videos["shooting"];
+            this.choices = [];
+          }
+          console.log("dans le switch CHOICE : ", actionInfos);
+          this.choices.push(actionInfos);
+          break;
 
-        methods: {
+        case "sound":
+          console.log("dans le switch SOUND : ", actionInfos);
+          this.audios.push(actionInfos);
+          break;
 
-            actionHandler(actionInfos){
+        default:
+          break;
+      }
+    },
 
-                // console.log("hey, je suis le parent, et jai recu un event choice avec : ", actionInfos);
-            
-                switch (actionInfos.type) {
-                    case "choice":
-                        console.log('dans le switch CHOICE : ',actionInfos)
-                        this.choices.push(actionInfos);
-                        break;
+    enemyHandler(enemyInfo) {
+      switch (enemyInfo.type) {
+        case "enemy":
+          this.enemy.push(enemyInfo);
+          break;
 
-                    case "sound":
-                        console.log('dans le switch SOUND : ',actionInfos);
-                       
-                        this.audios.push(actionInfos);
-                        break;
-                
-                    default:
-                        break;
-                }
+        default:
+          break;
+      }
+    },
 
-            },
+    choiceActedHandler(choice) {
+      this.choices = [];
+      this.audios = [];
+      this.videoInfos = storyMap.videos[choice];
+    },
 
-            choiceActedHandler(choice) {
+    audioActedHandlerOnElement(audio) {
+      this.audios = storyMap.videos[audio];
+    },
 
-                this.videoInfos = storyMap.videos[choice];
-
-            }
-
-         
-            
-        }
-
-    }
-    
+    routeActionHandler(route) {
+      console.log(route);
+    },
+  },
+};
 </script>
 
 <style lang="scss">
+.container {
+  width: 500px;
+  margin: 0 auto;
+}
+.scene-container {
+  width: 70%;
 
-    .scene-container {
-        width: 70%;
-        margin: 0 auto;
-        display: block;
-    }
+  display: block;
+}
 
-    .video_and_cta {
+.video_and_cta {
+  width: 100%;
+  height: 100%;
 
-        width: 100%;
-        height: 100%;
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 </style>

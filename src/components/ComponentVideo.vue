@@ -10,6 +10,8 @@
 
 <template>
 
+<div >
+  
 	<video 
 		class="video-player"
 		:class="{ 
@@ -20,93 +22,66 @@
 		controls 
 		autoplay
 		playsinline
-		@timeupdate="onTimeUpdate" 
+		@timeupdate="onTimeUpdate"
 
 	>
 	</video>
 
+</div>
 </template>
 
 <!-- ° ° ° ° ° ° ° ° ° L O G I C ° ° ° ° ° ° ° ° ° -->
 <!-- ° ° ° ° ° ° ° ° ° L O G I C ° ° ° ° ° ° ° ° ° -->
 
 <script>
-
 export default {
+  props: {
+    videoInfos: {
+      type: Object,
+      required: true,
+    },
+  },
 
-	props: {
-		videoInfos: {
-			type: Object,
-			required: true
-		}
-	},
+  data() {
+    return {};
+  },
 
-	data() {
-		return {
-		}
-	},
+  mounted() {
+    this.isPaused = false;
 
-	mounted() {
+    this.alreadySent = [];
+  },
 
-		this.isPaused = false;
+  methods: {
+    onTimeUpdate(event) {
+      if (this.videoInfos.timedActions) {
+        this.videoInfos.timedActions.forEach((actionInfos) => {
+          if (this.alreadySent.indexOf(actionInfos.id) === -1) {
+            this.compareTimeCodes(
+              event.target.currentTime,
+              actionInfos.at,
+              actionInfos
+            );
+          }
+        });
+      }
+    },
 
-		this.alreadySent = [];
+    compareTimeCodes(currentTimeVideo, timeCodeToTrigger, action) {
+      // console.log('ALL ACTIONS  : ',action);
 
-	},
+      if (action.type) {
+        if (currentTimeVideo >= timeCodeToTrigger) {
+          console.log("weh on emit l'action");
 
-	methods: {
+          this.$emit("an-action-is-sent", action);
 
-	onTimeUpdate( event ) {
-
-			if(this.videoInfos.timedActions){
-
-				this.videoInfos.timedActions.forEach( actionInfos => {
-
-				if ( this.alreadySent.indexOf(actionInfos.id) === -1) {
-
-					this.compareTimeCodes(event.target.currentTime, actionInfos.at, actionInfos);
-
-				}
-
-			});
-
-		
-
-
-		
-		}},
-
-		
-
-	compareTimeCodes(currentTimeVideo, timeCodeToTrigger, action) {
-		
-			
-		// console.log('ALL ACTIONS  : ',action);
-
-			if(action.type){
-
-				if ( currentTimeVideo >= timeCodeToTrigger ) {
-
-				console.log("weh on emit l'action");
-			
-		
-				this.$emit("an-action-is-sent", action);
-		
-
-				this.alreadySent.push(action.id);
-				
-			}
-
-		
-		}
-	}
-}
-}
-	
-
-
-
-
+          this.alreadySent.push(action.id);
+        }
+      }
+    },
+  },
+};
 </script>
 
 
@@ -114,30 +89,23 @@ export default {
 <!-- ° ° ° ° ° ° ° ° ° S T Y L E ° ° ° ° ° ° ° ° ° -->
 
 <style scoped lang="scss">
+.video-player {
+  width: 100%;
 
-	.video-player {
+  // de base, le player n'est pas interactif
+  pointer-events: none;
+  border: solid 15px red;
 
-		width: 100%;
+  transition: border 0.7s, width 0.7s;
 
-		// de base, le player n'est pas interactif
-		pointer-events: none;
-		border: solid 15px red;
+  &.cohabitationCta {
+    width: 80%;
+    margin-right: 50px;
+  }
 
-
-		transition:
-			border .7s,
-			width .7s;
-
-		&.cohabitationCta {
-			width: 80%;
-			margin-right: 50px;
-		}
-
-		&.isInteractive {
-			pointer-events: initial;
-			border: solid 15px green;
-		}
-
-	}
-
+  &.isInteractive {
+    pointer-events: initial;
+    border: solid 15px green;
+  }
+}
 </style>
