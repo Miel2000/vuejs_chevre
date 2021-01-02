@@ -42,11 +42,10 @@ export default {
 
   methods: {
     playSound() {
-      // console.log('playsouunnd');
+      console.log("playsouunnd");
     },
 
     audioBox: function() {
-      this.$refs.audioBox.attributes.volume.value = 1;
       console.log("AUDIOBOX : ", this.$refs.audioBox);
     },
 

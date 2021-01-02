@@ -1,18 +1,17 @@
 <template>
     <div>
         <div>
-            <img  v-on:click="hitEnemy(enemy,$event)"
+            <img  v-on:click="hitEnemy(enemy)"
                 :src="'/assets/images/'+ enemy.url" 
                 alt=""
                 :class="enemy.id"
-            
-            
             />
         </div>
     </div>
 </template>
 
 <script>
+import storyMap from "@/storyMap.js";
 export default {
   props: {
     enemy: {
@@ -20,15 +19,16 @@ export default {
       required: true,
     },
   },
+
   data() {
     return {
       weaponInStore: "",
-      enemies: this.$store.state.actualEnemy,
+      rootWhenFinish: "",
     };
   },
 
   mounted() {
-    console.log(this.$store.state.actualEnemy);
+    console.log("actual enemies", this.$store.state.actualEnemy);
     this.weaponInStore = this.$store.state.weapon;
     this.$emit("an-enemy-is-sent", this.enemy);
     console.log("weh on emit l'enemy", this.enemy);
@@ -43,7 +43,7 @@ export default {
       //   let target = event.currentTarget;
 
       switch (this.weaponInStore) {
-        case "banane":
+        case "banane": {
           this.enemy.vie -= 10;
           const hits_bananes = [
             "./assets/mp3/hits/hit_banane1.mp3",
@@ -60,6 +60,7 @@ export default {
 
           hit_banane.play();
 
+          this.$emit("minus-life", 10);
           if (this.enemy.vie <= 0) {
             this.enemy.vie = 0;
             console.log("DEAD", this.enemy.id);
@@ -71,7 +72,8 @@ export default {
             this.enemy.url + " | Vie : " + this.enemy.vie
           );
           break;
-        case "couteau":
+        }
+        case "couteau": {
           this.enemy.vie -= 50;
 
           const hits_couteau = [
@@ -83,6 +85,7 @@ export default {
           const hit_couteau = new Audio(random_couteau);
 
           hit_couteau.play();
+          this.$emit("minus-life", 50);
 
           if (this.enemy.vie <= 0) {
             this.enemy.vie = 0;
@@ -94,7 +97,8 @@ export default {
             this.enemy.url + " | Vie : " + this.enemy.vie
           );
           break;
-        case "fusil":
+        }
+        case "fusil": {
           this.enemy.vie -= 100;
           const hits_fusil = [
             "./assets/mp3/hits/hit_fusil1.mp3",
@@ -105,7 +109,11 @@ export default {
           const hit_fusil = new Audio(random_fusil);
 
           hit_fusil.play();
+          this.$emit("minus-life", 100);
+
+          console.log('on émite route when finish à "valorant"');
           if (this.enemy.vie <= 0) {
+            this.$emit("root-end", storyMap.videos["valorant"]);
             this.enemy.vie = 0;
             console.log("DEAD", this.enemy.id);
             monImage.classList.add("hide");
@@ -115,6 +123,7 @@ export default {
             this.enemy.url + " | Vie : " + this.enemy.vie
           );
           break;
+        }
 
         default:
           break;

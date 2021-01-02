@@ -68,7 +68,7 @@ export default {
     },
 
     compareTimeCodes(currentTimeVideo, timeCodeToTrigger, action) {
-      // console.log('ALL ACTIONS  : ',action);
+      console.log("ALL ACTIONS  : ", action);
 
       if (action.type) {
         if (currentTimeVideo >= timeCodeToTrigger) {

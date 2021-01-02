@@ -17,7 +17,7 @@ export default {
             timedActions: [
 
                     {
-                        at: 5,
+                        at: 12,
                         id: "intro2",
                         text: "éh wa chu bouillant",
                         route: "intro2",
@@ -43,7 +43,7 @@ export default {
             timedActions: [
 
                 {
-                    at: 5,
+                    at: 15,
                     id: "weed",
                     text: "Start Teh Game",
                     route: "weed",
@@ -72,7 +72,7 @@ export default {
             timedActions: [
     
                 {
-                    at: 2,
+                    at: 56.5,
                     id: "hokage",
                     text: "Devenir Hokage",
                     route: "hokage",
@@ -80,7 +80,7 @@ export default {
                 },
                 
                 {
-                    at: 4,
+                    at: 57.6,
                     id: "papillon",
                     text: "Chasser les papillons",
                     route: "papillon",
@@ -150,7 +150,7 @@ export default {
             timedActions: [
          
                     {
-                        at: 35,
+                        at: 18,
                         url: "naruto-sound.mp3",
                         type:"sound",
                         
@@ -179,9 +179,16 @@ export default {
             timedActions: [
     
                 {
-                    at: 36,
+                    at: 18,
                     url: "naruto-sound.mp3",
                     type:"sound"
+                },
+                {
+                    at: 41,
+                    id:"shooting",
+                    route: "shooting",
+                    type:"choice",
+            
                 },
             ]
         },
@@ -240,6 +247,19 @@ export default {
                 },
          
               ],
+            },
+
+        valorant: {
+
+
+            self: {
+
+                url: "valorant.mp4",
+                controls: true,
+                options: {
+                
+                }
+            },
             }
 
         },

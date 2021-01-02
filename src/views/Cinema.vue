@@ -12,8 +12,9 @@
      <div v-for="enemy in videoInfos.enemy" :key="enemy.id" class="enemy-container ">
 
           <ComponentEnemy
+            @minus-life="MinusEnemyLife"
             @an-enemy-is-sent="enemyHandler"
-            @hitEnemy="hitEnemy($event)" 
+            @hitEnemy="hitEnemy(enemy)" 
             :enemy="enemy" />
     </div> 
           
@@ -69,7 +70,7 @@ export default {
   props: {
     videoId: {
       type: String,
-      default: "fusil",
+      default: "shooting",
     },
   },
 
@@ -79,6 +80,7 @@ export default {
       choices: [],
       audios: [],
       enemy: [],
+      enemiesHealt: 200,
     };
   },
 
@@ -93,17 +95,10 @@ export default {
     computedEnemy() {
       return this.enemy;
     },
-    // computedRoutes() {
-    //   console.log(this.routes, "this route yo");
-    //   this.videoInfos.route = this.routes.route;
-    //   return this.routes;
-    // },
   },
 
   mounted() {
-    // if (storyMap.videos[this.videoId].timedActions.route === "banane") {
-    //   console.log("banane");
-    // }
+    console.log(this.valorant, "video info");
   },
 
   methods: {
@@ -116,6 +111,7 @@ export default {
             this.videoInfos = storyMap.videos["shooting"];
             this.choices = [];
           }
+
           console.log("dans le switch CHOICE : ", actionInfos);
           this.choices.push(actionInfos);
           break;
@@ -131,6 +127,8 @@ export default {
     },
 
     enemyHandler(enemyInfo) {
+      console.log(storyMap.videos["valorant"], "video info");
+
       switch (enemyInfo.type) {
         case "enemy":
           this.enemy.push(enemyInfo);
@@ -139,6 +137,17 @@ export default {
         default:
           break;
       }
+    },
+
+    MinusEnemyLife(hit) {
+      this.enemiesHealt -= hit;
+      if (this.enemiesHealt <= 0) {
+        this.rootEnd(storyMap.videos["valorant"]);
+      }
+    },
+    rootEnd(endpoint) {
+      console.log("route end");
+      this.videoInfos = endpoint;
     },
 
     choiceActedHandler(choice) {

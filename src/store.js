@@ -16,7 +16,7 @@ export default new Vuex.Store({
     actualChoices: [],
     actualSounds: [],
     actualEnemy: [],
-    weapon:"fusil",
+    weapon:"banane",
     actualCallToActions: [],
     mana: 100,
     vie: 100,

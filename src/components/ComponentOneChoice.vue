@@ -44,6 +44,12 @@ export default {
       if (this.choiceInfos.route === "banane") {
         this.$store.state.weapon = "banane";
       }
+      if (this.choiceInfos.route === "couteau") {
+        this.$store.state.weapon = "coteau";
+      }
+      if (this.choiceInfos.route === "fusil") {
+        this.$store.state.weapon = "fusil";
+      }
       this.$emit("a-choice-have-been-acted", this.choiceInfos.route);
     },
   },
