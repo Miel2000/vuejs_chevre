@@ -79,7 +79,7 @@ export default {
   props: {
     videoId: {
       type: String,
-      default: "shooting_remake",
+      default: "hokage",
     },
   },
 
@@ -130,7 +130,10 @@ export default {
           ) {
             this.audios = [];
           }
-          if (actionInfos.route == "shooting_remake") {
+          if (
+            actionInfos.route == "shooting_remake" ||
+            actionInfos.route == "shooting"
+          ) {
             this.enemy = [];
           }
 
@@ -187,6 +190,7 @@ export default {
     },
     rootEnd(endpoint) {
       console.log("route end");
+      this.audios = [];
       this.videoInfos = endpoint;
     },
 

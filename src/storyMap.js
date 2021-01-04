@@ -210,7 +210,8 @@ export default {
                 {
                     at: 18,
                     url: "naruto-sound.mp3",
-                    type:"sound"
+                    type:"sound",
+                    
                 },
                 {
                     at: 41,
