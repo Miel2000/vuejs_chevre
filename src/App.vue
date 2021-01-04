@@ -1,6 +1,3 @@
-<!-- ° ° ° ° ° ° ° ° ° G L O B A L  L A Y O U T ° ° ° ° ° ° ° ° ° -->
-<!-- ° ° ° ° ° ° ° ° ° G L O B A L  L A Y O U T ° ° ° ° ° ° ° ° ° -->
-
 <template>
 
   <div id="app" :data-route="routeName">
@@ -8,6 +5,8 @@
     <div id="nav">
 
       <router-link :to="{ name: 'home' }">Home</router-link>
+      <router-link :to="{ name: 'cinema' }">Scénar Interactif</router-link>
+      <router-link :to="{ name: 'boutique' }">Boutique</router-link>
  
     </div>
 
@@ -26,8 +25,6 @@
 
 </template>
 
-<!-- ° ° ° ° ° ° ° ° ° L O G I C ° ° ° ° ° ° ° ° ° -->
-<!-- ° ° ° ° ° ° ° ° ° L O G I C ° ° ° ° ° ° ° ° ° -->
 
 <script>
 import { pageOptions, pageEnter, pageLeave } from "@/PagesMethods.js";
@@ -35,45 +32,44 @@ import { pageOptions, pageEnter, pageLeave } from "@/PagesMethods.js";
 // import layoutMethods from '@/LayoutMethods.js';
 
 export default {
-
   methods: {
     pageEnter,
-    pageLeave
+    pageLeave,
   },
 
   data: function() {
     return {
       transitionDuration: pageOptions.routerTransitionDuration,
-      routeName: ""
+      routeName: "",
     };
   },
 
   watch: {
-    $route(to, from) {
+    $route(to) {
       this.routeName = to.name;
-    }
+    },
   },
 
   mounted() {
-    // 
+    //
   },
 
   beforeDestroy() {
-    // 
-  }
-
+    //
+  },
 };
-
 </script>
 
 <!-- ° ° ° ° ° ° ° ° ° S T Y L E ° ° ° ° ° ° ° ° ° -->
 <!-- ° ° ° ° ° ° ° ° ° S T Y L E ° ° ° ° ° ° ° ° ° -->
 
 <style lang="scss">
+@import "./styles/_appBase.scss";
+@import "./styles/_appColors.scss";
+@import "./styles/_appLayout.scss";
+@import "./styles/_appNav.scss";
 
-	@import "./styles/_appBase.scss";
-	@import "./styles/_appColors.scss";
-	@import "./styles/_appLayout.scss";
-	@import "./styles/_appNav.scss";
-
+body {
+  background-color: black;
+}
 </style>

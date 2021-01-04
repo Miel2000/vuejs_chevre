@@ -1,47 +1,37 @@
 #app {
+  &[data-route="home"] {
+    --color1: cornflowerblue;
+    --color1-2: #0b55dc;
 
-    &[data-route="home"] {
+    --color2: white;
 
-        --color1: cornflowerblue;
-        --color1-2: #0b55dc;
+    --color3: darkslategray;
+  }
 
-        --color2: white;
+  &[data-route="about"] {
+    --color1: orangered;
+    --color1-2: #aa2e00;
 
-        --color3: darkslategray;
+    --color2: yellow;
 
-    }
-    
-    &[data-route="about"] {
+    --color3: white;
+  }
 
-        --color1: orangered;
-        --color1-2: #aa2e00;
+  &[data-route="bonjour"] {
+    --color1: black;
+    --color1-2: #474747;
 
-        --color2: yellow;
+    --color2: white;
 
-        --color3: white;
+    --color3: red;
+  }
 
-    }
-    
-    &[data-route="bonjour"] {
+  &[data-route="go"] {
+    --color1: burlywood;
+    --color1-2: #c88b3c;
 
-        --color1: black;
-        --color1-2: #474747;
+    --color2: blueviolet;
 
-        --color2: white;
-
-        --color3: red;
-
-    }
-
-    &[data-route="go"] {
-
-        --color1: burlywood;
-        --color1-2: #c88b3c;
-
-        --color2: blueviolet;
-
-        --color3: black;
-
-    }
-    
+    --color3: black;
+  }
 }

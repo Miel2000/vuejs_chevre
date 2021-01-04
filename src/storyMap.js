@@ -115,6 +115,7 @@ export default {
                         id: "banane",
                         text: "Banane",
                         route: "banane",
+                        img: "banane.png",
                         type: "choice"
                     },
                     
@@ -123,6 +124,7 @@ export default {
                         id: "couteau",
                         text: "Couteau",
                         route: "couteau",
+                        img: "couteau.png",
                         type: "choice"
                     },
                     {
@@ -130,10 +132,10 @@ export default {
                         id: "fusil",
                         text: "Fusil",
                         route: "fusil",
+                        img: "fusil.png",
                         type: "choice"
                     }
                 ],
-
         },
 
 
@@ -249,20 +251,208 @@ export default {
               ],
             },
 
-        valorant: {
+        valorant_banane: {
 
 
             self: {
 
-                url: "valorant.mp4",
+                url: "valorant_banane.mp4",
                 controls: true,
                 options: {
                 
                 }
+             },
+            timedActions: [
+
+         {
+                    at: 4,
+                    text:"Go to teh Jungle",
+                    id:"valorant_fusil",
+                    route: "jungle",
+                    type:"choice",
+                },
+                
+                {
+                    at: 4,
+                    text:"SHOOT DEM'ALL",
+                    id:"shooting_remake",
+                    route: "shooting_remake",
+                    type:"choice",
+                },
+                {
+                    at: 7.5,
+                    id: "banane",
+                    text: "Banane",
+                    route: "shooting_remake",
+                    img: "banane.png",
+                    type: "choice"
+                },
+                
+                {
+                    at: 7.5,
+                    id: "couteau",
+                    text: "Couteau",
+                    route: "shooting_remake",
+                    img: "couteau.png",
+                    type: "choice"
+                },
+                {
+                    at: 7.5,
+                    id: "fusil",
+                    text: "Fusil",
+                    route: "shooting_remake",
+                    img: "fusil.png",
+                    type: "choice"
+                }
+              
+              
+            ]
             },
-            }
+
+        
+        valorant_couteau: {
+
+
+            self: {
+
+                url: "valorant_couteau.mp4",
+                controls: true,
+             },
+            timedActions: [
+
+                {
+                    at: 4,
+                    text:"Go to teh Jungle",
+                    id:"valorant_fusil",
+                    route: "jungle",
+                    type:"choice",
+                },
+                
+                {
+                    at: 4,
+                    text:"SHOOT DEM'ALL",
+                    id:"shooting_remake",
+                    route: "shooting_remake",
+                    type:"choice",
+                },
+                {
+                    at: 7.5,
+                    id: "banane",
+                    text: "Banane",
+                    route: "shooting_remake",
+                    img: "banane.png",
+                    type: "choice"
+                },
+                
+                {
+                    at: 7.5,
+                    id: "couteau",
+                    text: "Couteau",
+                    route: "shooting_remake",
+                    img: "couteau.png",
+                    type: "choice"
+                },
+                {
+                    at: 7.5,
+                    id: "fusil",
+                    text: "Fusil",
+                    route: "shooting_remake",
+                    img: "fusil.png",
+                    type: "choice"
+                }
+              
+            ]
+             
+            },
+
+        valorant_fusil: {
+
+
+            self: {
+
+                url: "valorant_fusil.mp4",
+                controls: true,
+             },
+            timedActions: [
+
+                {
+                    at: 4,
+                    text:"Go to teh Jungle",
+                    id:"valorant_fusil",
+                    route: "jungle",
+                    type:"choice",
+                },
+                
+                {
+                    at: 4,
+                    text:"SHOOT DEM'ALL",
+                    id:"shooting_remake",
+                    route: "shooting_remake",
+                    type:"choice",
+                },
+                {
+                    at: 7.5,
+                    id: "banane",
+                    text: "Banane",
+                    route: "shooting_remake",
+                    img: "banane.png",
+                    type: "choice"
+                },
+                
+                {
+                    at: 7.5,
+                    id: "couteau",
+                    text: "Couteau",
+                    route: "shooting_remake",
+                    img: "couteau.png",
+                    type: "choice"
+                },
+                {
+                    at: 7.5,
+                    id: "fusil",
+                    text: "Fusil",
+                    route: "shooting_remake",
+                    img: "fusil.png",
+                    type: "choice"
+                }
+              
+            ]
+            },
+        shooting_remake: {
+
+            self: {
+              
+
+            },
+
+            enemy: [
+                {   id: "castaner",
+                    url: "castaner.png",
+                    vie: 100,
+                    type: "enemy"
+                   
+                },
+                {
+                    id: "castex",
+                    url: "castex.png",
+                    vie: 100,
+                    type: "enemy"
+                   
+                },
+         
+              ],
+           
+            audio_container: [
+                {
+                    
+                    url:"naruto-sound.mp3",
+                    type:"sound"
+                }
+            ]
+
 
         },
 
     }
+}
 

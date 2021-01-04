@@ -1,5 +1,5 @@
 <template>
-
+<div>
     <div v-if="audioInfos.url" class="audio-container">
          
             <audio 
@@ -14,8 +14,8 @@
             
             </audio>
     </div>
-  
 
+</div>
 </template>
 <script>
 export default {

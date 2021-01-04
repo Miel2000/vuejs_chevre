@@ -94,7 +94,7 @@ export default {
 
   // de base, le player n'est pas interactif
   pointer-events: none;
-  border: solid 15px red;
+  // border: solid 15px red;
 
   transition: border 0.7s, width 0.7s;
 
@@ -105,7 +105,7 @@ export default {
 
   &.isInteractive {
     pointer-events: initial;
-    border: solid 15px green;
+    // border: solid 15px green;
   }
 }
 </style>

@@ -16,8 +16,9 @@ export default new Vuex.Store({
     actualChoices: [],
     actualSounds: [],
     actualEnemy: [],
-    weapon:"banane",
     actualCallToActions: [],
+    weapon:"couteau",
+    ninjasLife: 200,
     mana: 100,
     vie: 100,
     playerIsInteractive: true,
@@ -32,6 +33,12 @@ export default new Vuex.Store({
       state.mana -= x;
     },
 
+    addWeapon: (state, x) => {
+      state.weapon = x
+    },
 
-  },
+    minusNinjasLife: (state, x) => {
+      state.ninjasLife -= x;
+    }
+  }
 });

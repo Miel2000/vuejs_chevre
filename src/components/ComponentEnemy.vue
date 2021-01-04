@@ -1,17 +1,23 @@
 <template>
     <div>
-        <div>
-            <img  v-on:click="hitEnemy(enemy)"
-                :src="'/assets/images/'+ enemy.url" 
-                alt=""
-                :class="enemy.id"
-            />
-        </div>
+      
+      <h1 class="text-center eighties" style="color:white"> {{ this.enemy.vie }} %</h1>
+          <div class="healthbar">
+              <div  class="healthbar text-center" :style="{backgroundColor: this.enemy.vie <= 50 ? 'red' : 'green', margin: 0, color: 'white', width: this.enemy.vie + '%' }">
+              </div>
+          </div>
+          <br>
+      <img  v-on:click="hitEnemy(enemy)"
+          :src="'/assets/images/'+ enemy.url" 
+          alt=""
+          :class="enemy.id"
+      />
+    
     </div>
+  
 </template>
 
 <script>
-import storyMap from "@/storyMap.js";
 export default {
   props: {
     enemy: {
@@ -28,10 +34,10 @@ export default {
   },
 
   mounted() {
-    console.log("actual enemies", this.$store.state.actualEnemy);
+    this.enemy.vie = 100;
+    this.$store.state.ninjasLife = 200;
     this.weaponInStore = this.$store.state.weapon;
     this.$emit("an-enemy-is-sent", this.enemy);
-    console.log("weh on emit l'enemy", this.enemy);
   },
 
   methods: {
@@ -60,7 +66,9 @@ export default {
 
           hit_banane.play();
 
-          this.$emit("minus-life", 10);
+          this.$store.commit("minusNinjasLife", 10);
+          this.$emit("minus-life");
+
           if (this.enemy.vie <= 0) {
             this.enemy.vie = 0;
             console.log("DEAD", this.enemy.id);
@@ -85,7 +93,8 @@ export default {
           const hit_couteau = new Audio(random_couteau);
 
           hit_couteau.play();
-          this.$emit("minus-life", 50);
+          this.$store.commit("minusNinjasLife", 50);
+          this.$emit("minus-life");
 
           if (this.enemy.vie <= 0) {
             this.enemy.vie = 0;
@@ -109,11 +118,12 @@ export default {
           const hit_fusil = new Audio(random_fusil);
 
           hit_fusil.play();
-          this.$emit("minus-life", 100);
+          this.$store.commit("minusNinjasLife", 100);
+          this.$emit("minus-life");
 
           console.log('on émite route when finish à "valorant"');
           if (this.enemy.vie <= 0) {
-            this.$emit("root-end", storyMap.videos["valorant"]);
+            // this.$emit("root-end", storyMap.videos["valorant"]);
             this.enemy.vie = 0;
             console.log("DEAD", this.enemy.id);
             monImage.classList.add("hide");
@@ -136,6 +146,26 @@ export default {
 <style lang="scss" scoped>
 img {
   width: 150px;
+}
+
+.eighties {
+  color: #c81914;
+  font-size: 20pt;
+
+  font-family: "Eighties Horror";
+  line-height: 1em;
+  letter-spacing: 3px;
+}
+.healthbar {
+  width: 80%;
+  height: 10px;
+  border-radius: 5% / 50%;
+  border: 1px solid white;
+  margin: auto;
+  transition: width 500ms;
+}
+.text-center {
+  text-align: center;
 }
 
 .hide {
