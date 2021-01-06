@@ -79,7 +79,7 @@ export default {
   props: {
     videoId: {
       type: String,
-      default: "shooting_remake",
+      default: "scribe_1",
     },
   },
 
@@ -90,7 +90,6 @@ export default {
       audios: [],
       audiosBackground: [],
       enemy: [],
-      enemiesHealt: 200,
     };
   },
 

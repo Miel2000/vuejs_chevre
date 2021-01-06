@@ -13,7 +13,7 @@ export default {
                 }
  
             },
-
+     
             timedActions: [
 
                     {
@@ -23,6 +23,8 @@ export default {
                         route: "intro2",
                         type: "choice"
                     },
+             
+
 
                 ],
 
@@ -39,6 +41,12 @@ export default {
                 options: {}
 
             },
+            audio_container: [
+              
+            ],
+            video_container: [
+               
+            ],
 
             timedActions: [
 
@@ -67,6 +75,12 @@ export default {
                 }
  
             },
+            audio_container: [
+              
+            ],
+            video_container: [
+               
+            ],
 
 
             timedActions: [
@@ -108,6 +122,12 @@ export default {
                 options: {}
  
             },
+            audio_container: [
+              
+            ],
+            video_container: [
+               
+            ],
 
             timedActions: [
          
@@ -150,8 +170,14 @@ export default {
                     
                 }
             },
+            audio_container: [
+              
+            ],
+            video_container: [
+               
+            ],
             timedActions: [
-         
+
                     {
                         at: 18,
                         url: "naruto-sound.mp3",
@@ -179,6 +205,12 @@ export default {
             
                 }
             },
+            audio_container: [
+              
+            ],
+            video_container: [
+               
+            ],
             timedActions: [
     
                 {
@@ -206,7 +238,13 @@ export default {
                 
                 }
             },
-        timedActions: [
+            audio_container: [
+              
+            ],
+            video_container: [
+               
+            ],
+            timedActions: [
 
                 {
                     at: 18,
@@ -230,10 +268,13 @@ export default {
         shooting: {
 
             self: {
-
-           
-
             },
+            audio_container: [
+              
+            ],
+            video_container: [
+               
+            ],
 
             enemy: [
                 {   id: "castaner",
@@ -264,13 +305,19 @@ export default {
                 
                 }
              },
+            audio_container: [
+              
+            ],
+            video_container: [
+               
+            ],
             timedActions: [
 
-         {
+                {
                     at: 4,
                     text:"Go to teh Jungle",
                     id:"valorant_fusil",
-                    route: "jungle",
+                    route: "jungle_banane",
                     type:"choice",
                 },
                 
@@ -320,13 +367,19 @@ export default {
                 url: "valorant_couteau.mp4",
                 controls: true,
              },
+            audio_container: [
+              
+            ],
+            video_container: [
+               
+            ],
             timedActions: [
 
                 {
                     at: 4,
                     text:"Go to teh Jungle",
                     id:"jungle",
-                    route: "jungle",
+                    route: "jungle_couteau",
                     type:"choice",
                 },
                 
@@ -375,13 +428,19 @@ export default {
                 url: "valorant_fusil.mp4",
                 controls: true,
              },
+            audio_container: [
+              
+            ],
+            video_container: [
+               
+            ],
             timedActions: [
 
                 {
                     at: 4,
                     text:"Go to teh Jungle",
                     id:"valorant_fusil",
-                    route: "jungle",
+                    route: "jungle_fusil",
                     type:"choice",
                 },
                 
@@ -428,6 +487,18 @@ export default {
 
             },
 
+            audio_container: [
+                {
+                    isLooping:false,
+                    isAutoPlay:true,
+                    url:"naruto-background-sound.mp3",
+                    type:"sound"
+                }
+            ],
+            video_container: [
+               
+            ],
+
             enemy: [
                 {   id: "castaner",
                     url: "castaner.png",
@@ -445,21 +516,14 @@ export default {
          
               ],
            
-            audio_container: [
-                {
-                    isLooping:false,
-                    isAutoPlay:true,
-                    url:"naruto-background-sound.mp3",
-                    type:"sound"
-                }
-            ]
 
 
         },
-        jungle: {
+        jungle_couteau: {
 
             self: {
-              
+                url: "jungle_couteau.mp4",
+                controls: true,
 
             },
            
@@ -479,8 +543,252 @@ export default {
                     isLooping:false
                     
                 }
+            ],
+            timedActions: [
+
+                {
+                    at: 4,
+                    text:"foret",
+                    id:"foret",
+                    route: "foret",
+                    type:"choice",
+                },
+                
+                {
+                    at: 4,
+                    text:"Parler au PNJ",
+                    id:"scribe_1",
+                    route: "scribe_1",
+                    type:"choice",
+                },
+
             ]
 
+        },
+
+        jungle_banane: {
+
+            self: {
+                url: "jungle_banane.mp4",
+                controls: true,
+
+            },
+           
+            audio_container: [
+                {
+                    
+                    url:"rain-background.mp3",
+                    type:"bg_sound",
+                    isLooping:true
+                }
+            ],
+            video_container: [
+                {
+                    
+                    url:"rain-background.mp4",
+                    type:"video",
+                    isLooping:false
+                    
+                }
+            ],
+            timedActions: [
+
+                {
+                    at: 4,
+                    text:"foret",
+                    id:"foret",
+                    route: "foret",
+                    type:"choice",
+                },
+                {
+                    at: 4,
+                    text:"Parler au PNJ",
+                    id:"scribe_1",
+                    route: "scribe_1",
+                    type:"choice",
+                },
+
+            ]
+        },
+
+        scribe_1: {
+            self:{
+                url: "scribe_1.mp4",
+                controls: true,
+                
+            },
+            audio_container: [
+              
+            ],
+            video_container: [
+               
+            ],
+            timedActions: [
+
+                    {
+                        at: 0,
+                        text:"Aller dans la foret",
+                        id:"foret1",
+                        route: "foret",
+                        type:"choice",
+                    },
+                    {
+                        at: 0,
+                        text:"Parler au PNJ",
+                        id:"scribe_2",
+                        route: "scribe_2",
+                        type:"choice",
+                    },
+
+                ]
+
+        },
+        scribe_2: {
+            self:{
+                url: "scribe_2.mp4",
+                controls: true,
+                
+            },
+            audio_container: [
+              
+            ],
+            video_container: [
+               
+            ],
+            timedActions: [
+
+                    {
+                        at: 0,
+                        text:"Aller dans la foret",
+                        id:"foret2",
+                        route: "foret",
+                        type:"choice",
+                    },
+                    {
+                        at: 0,
+                        text:"Parler au PNJ",
+                        id:"scribe_3",
+                        route: "scribe_3",
+                        type:"choice",
+                    },
+
+                ]
+
+        },
+        scribe_3: {
+            self:{
+                url: "scribe_3.mp4",
+                controls: true,
+                
+            },
+            audio_container: [
+              
+            ],
+            video_container: [
+               
+            ],
+            timedActions: [
+
+                    {
+                        at: 0,
+                        text:"Aller dans la foret",
+                        id:"foret3",
+                        route: "foret",
+                        type:"choice",
+                    },
+                    {
+                        at: 0,
+                        text:"Parler au PNJ",
+                        id:"scrib_4",
+                        route: "scribe_4",
+                        type:"choice",
+                    },
+
+                ]
+
+        },
+        scribe_4: {
+            self:{
+                url: "scribe_4.mp4",
+                controls: true,
+                
+            },
+            audio_container: [
+              
+            ],
+            video_container: [
+               
+            ],
+            timedActions: [
+
+                    {
+                        at: 0,
+                        text:"Aller dans la foret",
+                        id:"4foret",
+                        route: "foret",
+                        type:"choice",
+                    },
+                    {
+                        at: 0,
+                        text:"Parler au PNJ",
+                        id:"scrib_last",
+                        route: "scribe_last",
+                        type:"choice",
+                    },
+
+                ]
+
+        },
+        scribe_last: {
+            self:{
+                url: "scribe_last.mp4",
+                controls: true,
+                
+            },
+            audio_container: [
+              
+            ],
+            video_container: [
+               
+            ],
+            timedActions: [
+
+                    {
+                        at: 25.3,
+                        text:"Aller dans cette putin de foret",
+                        id:"5foret",
+                        route: "foret",
+                        type:"choice",
+                    },
+               
+
+                ]
+
+        },
+        foret: {
+            self:{
+                url: "foret.mp4",
+                controls: true,
+                
+            },
+            audio_container: [
+              
+            ],
+            video_container: [
+               
+            ],
+            timedActions: [
+
+                    {
+                        at: 6,
+                        text:"foret",
+                        id:"foret",
+                        route: "foret",
+                        type:"choice",
+                    },
+               
+
+                ]
 
         },
 

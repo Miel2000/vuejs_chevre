@@ -56,6 +56,7 @@ export default {
     onTimeUpdate(event) {
       if (this.videoInfos.timedActions) {
         this.videoInfos.timedActions.forEach((actionInfos) => {
+          console.log("ouaip", actionInfos);
           if (this.alreadySent.indexOf(actionInfos.id) === -1) {
             this.compareTimeCodes(
               event.target.currentTime,

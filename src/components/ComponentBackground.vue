@@ -4,24 +4,26 @@
         <div v-for="backgroundAudio in actualBackgroundInfos.audio_container" :key="backgroundAudio.id">
           <div v-if="backgroundAudio.isLooping" >
                 <audio 
-                    :volume="0.2"
+                   
+                    volume="0.05"
                     autoplay
                     controls
                     loop
                     ref="audioBox"
                 >
-                    <source :src="'/assets/mp3/background/' + backgroundAudio.url"/>
+                    <source id="audioBackgroundBalise" :src="'/assets/mp3/background/' + backgroundAudio.url"/>
                 
                 </audio>
           </div>
           <div v-else>
                <audio 
-                    :volume="0.2"
+      
+                    volume="0.05"
                     autoplay
                     controls
                     ref="audioBox"
                 >
-                    <source :src="'/assets/mp3/background/' + backgroundAudio.url"/>
+                    <source   id="audioBackgroundBalise" :src="'/assets/mp3/background/' + backgroundAudio.url"/>
                 
                 </audio>
           </div>
@@ -54,7 +56,18 @@ export default {
       required: true,
     },
 
-    mounted() {},
+    mounted() {
+      console.log("he ho");
+    },
+
+    computed: {
+      setVolume() {
+        const audioBackgroundBalise = document.getElementById(
+          "audioBackgroundBalise"
+        );
+        audioBackgroundBalise.volume = 1;
+      },
+    },
   },
 };
 </script>
