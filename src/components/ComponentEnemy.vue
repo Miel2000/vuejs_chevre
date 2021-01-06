@@ -45,9 +45,7 @@ export default {
       const monImage = document.querySelector("." + enemy.id);
       console.log(this.enemy.vie, this.enemy.url);
 
-      //   console.log("cta : " + enemy.url, "event :" + event.target);
-      //   let target = event.currentTarget;
-
+      // Quand un coup est émit via le click, selon $store.state.weapon
       switch (this.weaponInStore) {
         case "banane": {
           this.enemy.vie -= 10;

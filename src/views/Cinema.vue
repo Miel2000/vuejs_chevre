@@ -44,7 +44,7 @@
       </div>
   </div>
 
-  <div class="audio-background">
+  <div class="background-scene">
 
       <ComponentBackground :actual-background-infos="videoInfos"  />
     
@@ -79,7 +79,7 @@ export default {
   props: {
     videoId: {
       type: String,
-      default: "hokage",
+      default: "shooting_remake",
     },
   },
 
@@ -107,22 +107,18 @@ export default {
     },
   },
 
-  mounted() {
-    // console.log(this.valorant, "video info");
-  },
+  mounted() {},
 
   methods: {
     actionHandler(actionInfos) {
-      // console.log("hey, je suis le parent, et jai recu un event choice avec : ", actionInfos);
-
       switch (actionInfos.type) {
         case "choice":
-          // condition route['shooting'], permet d'envoyé le choix de la route timé si la route est bien sur shooting (donc ça refresh la route grace au infos du storyMap et ça remet les choix vides)
+          // condition route['shooting'], permet d'envoyer le choix de la route timé si la route est bien sur shooting (donc ça refresh la route grace au infos du storyMap et ça remet les choix vides)
           if (actionInfos.route == "shooting") {
             this.videoInfos = storyMap.videos["shooting"];
             this.choices = [];
           }
-          // quand il propose les routes des armes, la musique s'arrete.
+          // quand il propose les routes des armes, la musique s'arrete car on refresh le tableau audios.
           if (
             actionInfos.route == "banane" ||
             actionInfos.route == "couteau" ||

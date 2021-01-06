@@ -87,6 +87,7 @@ export default {
                     type: "choice"
                 },
                 {
+                  
                     at: 1,
                     id: 'bobmarley',
                     url: 'bob_marley.wav',
@@ -324,7 +325,7 @@ export default {
                 {
                     at: 4,
                     text:"Go to teh Jungle",
-                    id:"valorant_fusil",
+                    id:"jungle",
                     route: "jungle",
                     type:"choice",
                 },
@@ -422,7 +423,8 @@ export default {
         shooting_remake: {
 
             self: {
-              
+                // url: "valorant_fusil.mp4",
+                // controls: true,
 
             },
 
@@ -445,9 +447,37 @@ export default {
            
             audio_container: [
                 {
-                    
-                    url:"naruto-sound.mp3",
+                    isLooping:false,
+                    isAutoPlay:true,
+                    url:"naruto-background-sound.mp3",
                     type:"sound"
+                }
+            ]
+
+
+        },
+        jungle: {
+
+            self: {
+              
+
+            },
+           
+            audio_container: [
+                {
+                    
+                    url:"rain-background.mp3",
+                    type:"bg_sound",
+                    isLooping:true
+                }
+            ],
+            video_container: [
+                {
+                    
+                    url:"rain-background.mp4",
+                    type:"video",
+                    isLooping:false
+                    
                 }
             ]
 

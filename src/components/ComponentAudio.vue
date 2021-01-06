@@ -3,7 +3,8 @@
     <div v-if="audioInfos.url" class="audio-container">
          
             <audio 
-                :volume="0.2"
+                id="audioBalise"
+                :volume="audioInfos.volumed"
                 autoplay
                 controls
                 @timeupdate="onTimeUpdate"
@@ -37,7 +38,8 @@ export default {
   beforeUpdate() {},
 
   mounted() {
-    this.audioBox();
+    const audioBalise = document.getElementById("audioBalise");
+    audioBalise.volume = 0.05;
   },
 
   methods: {
