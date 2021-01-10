@@ -7,18 +7,20 @@
             <ComponentVideo 
                 :video-infos="videoInfos" 
                 @an-action-is-sent="actionHandler"
+                @a-ctas-is-sent="ctasHandler"
+                
             />
           </div>
-    <div v-for="enemy in videoInfos.enemy" :key="enemy.id" class="enemy-container ">
+          <div v-for="enemy in videoInfos.enemy" :key="enemy.id" class="enemy-container ">
 
-          <ComponentEnemy
-            @minus-life="MinusEnemyLife"
-            @an-enemy-is-sent="enemyHandler"
-            @hitEnemy="hitEnemy(enemy)" 
-            :enemy="enemy" 
-            
-            />
-    </div> 
+                <ComponentEnemy
+                  @minus-life="MinusEnemyLife"
+                  @an-enemy-is-sent="enemyHandler"
+                  @hitEnemy="hitEnemy(enemy)" 
+                  :enemy="enemy" 
+                  
+                  />
+          </div> 
   </div>
 
   <div class="choice-container" v-if="computedChoices.length > 0" >
@@ -33,15 +35,23 @@
 
       </div>
   </div>
-  <!-- <ComponentCallToAction /> -->
-     
 
-  <div v-if="computedAudios.length > 0" >
-      <div v-for="audio in computedAudios"
-          :key="audio.id">
+  <div v-if="computedCtas.length > 0" >
+   <div v-for="cta in computedCtas" :key="cta.id">
 
-          <ComponentAudio @an-action-is-sent="computedAudios"  :audio-infos="audio" /> 
-      </div>
+      <ComponentCallToAction :ctas-infos="cta"  @a-cta-is-sent="ctasHandler"  />
+   </div>
+  </div>
+
+  <div class="cta-container">
+    <div v-if="computedAudios.length > 0" >
+        <div v-for="audio in computedAudios"
+            :key="audio.id">
+
+            <ComponentAudio @an-action-is-sent="computedAudios"  :audio-infos="audio" /> 
+        </div>
+    </div>
+
   </div>
 
   <div class="background-scene">
@@ -79,7 +89,7 @@ export default {
   props: {
     videoId: {
       type: String,
-      default: "scribe_1",
+      default: "foret",
     },
   },
 
@@ -88,6 +98,7 @@ export default {
       videoInfos: storyMap.videos[this.videoId],
       choices: [],
       audios: [],
+      ctas: [],
       audiosBackground: [],
       enemy: [],
     };
@@ -104,12 +115,39 @@ export default {
     computedEnemy() {
       return this.enemy;
     },
+
+    computedCtas() {
+      return this.ctas;
+    },
   },
 
   mounted() {},
+  destroyed() {
+    // Récupéré la route au moment du die
+    this.$store.state.routeHandler = this.videoInfos;
+    console.log("cinema vien de die", this.videoInfos);
+    console.log("LE HANDLER", this.$store.state.routeHandler);
+  },
 
   methods: {
+    ctasHandler(cta) {
+      console.log(cta);
+      switch (cta.type) {
+        case "dodge":
+          {
+            console.log("ON EST DANS LE REDIRECT HANDLER", cta);
+            this.ctas.push(cta);
+            // this.videoInfos = storyMap.videos["intro1"];
+          }
+          break;
+
+        default:
+          break;
+      }
+    },
+
     actionHandler(actionInfos) {
+      // this.$store.commit("setActualChoices", actionInfos);
       switch (actionInfos.type) {
         case "choice":
           // condition route['shooting'], permet d'envoyer le choix de la route timé si la route est bien sur shooting (donc ça refresh la route grace au infos du storyMap et ça remet les choix vides)
@@ -117,6 +155,7 @@ export default {
             this.videoInfos = storyMap.videos["shooting"];
             this.choices = [];
           }
+
           // quand il propose les routes des armes, la musique s'arrete car on refresh le tableau audios.
           if (
             actionInfos.route == "banane" ||

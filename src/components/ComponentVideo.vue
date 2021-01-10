@@ -10,7 +10,7 @@
 
 <template>
 
-<div >
+<div>
   
 	<video 
 		class="video-player"
@@ -48,15 +48,55 @@ export default {
 
   mounted() {
     this.isPaused = false;
-
+    this.$store.commit("setActualVideo", this.videoInfos);
     this.alreadySent = [];
   },
 
   methods: {
     onTimeUpdate(event) {
+      // compare les timecodes des ctas
+
+      if (this.videoInfos.ctas) {
+        this.videoInfos.ctas.forEach((ctaInfo) => {
+          if (
+            event.target.currentTime >= ctaInfo.to &&
+            ctaInfo.id == "esquive_fleche" &&
+            this.$store.state.piegeFleche == false
+          ) {
+            console.log(this.$store.state.piegeFleche, "piege fleche activé");
+            const die = new Audio("./assets/mp3/hits/flechedie.wav");
+            this.$store.state.piegeFleche = false;
+            this.$store.state.piegeChat = false;
+            die.play();
+            event.target.currentTime = 0;
+          }
+          if (
+            event.target.currentTime >= ctaInfo.to &&
+            ctaInfo.id == "esquive_chat" &&
+            this.$store.state.piegeChat == false
+          ) {
+            console.log(this.$store.state.piegeFleche, "piege Chat activé");
+            const die = new Audio("./assets/mp3/hits/flechedie.wav");
+            die.play();
+            this.$store.state.piegeFleche = false;
+            this.$store.state.piegeChat = false;
+            event.target.currentTime = 0;
+          }
+
+          if (this.alreadySent.indexOf(ctaInfo.id) === -1) {
+            this.compareAtandTo(
+              event.target.currentTime,
+              ctaInfo.at,
+              ctaInfo.to,
+              ctaInfo
+            );
+          }
+        });
+      }
+
+      // compare les timecodes des timedActions
       if (this.videoInfos.timedActions) {
         this.videoInfos.timedActions.forEach((actionInfos) => {
-          console.log("ouaip", actionInfos);
           if (this.alreadySent.indexOf(actionInfos.id) === -1) {
             this.compareTimeCodes(
               event.target.currentTime,
@@ -67,12 +107,25 @@ export default {
         });
       }
     },
+    // faire une methode qui compareTimeCodeAndRedirect
 
-    compareTimeCodes(currentTimeVideo, timeCodeToTrigger, action) {
+    compareAtandTo(currentTimeVideo, timeCodeAt, timeCodeTo, action) {
+      // console.log("ALL ACTIONS AT -> TO  : ", action);
+      if (action.type == "dodge") {
+        if (currentTimeVideo >= timeCodeAt) {
+          this.$emit("a-ctas-is-sent", action);
+          this.alreadySent.push(action.id);
+
+          console.log("weh on emit l'action at", action);
+        }
+      }
+    },
+
+    compareTimeCodes(currentTimeVideo, timeCodeAt, action) {
       console.log("ALL ACTIONS  : ", action);
 
       if (action.type) {
-        if (currentTimeVideo >= timeCodeToTrigger) {
+        if (currentTimeVideo >= timeCodeAt) {
           console.log("weh on emit l'action");
 
           this.$emit("an-action-is-sent", action);

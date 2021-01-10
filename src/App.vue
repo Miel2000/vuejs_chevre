@@ -70,6 +70,10 @@ export default {
 @import "./styles/_appNav.scss";
 
 body {
-  background-color: black;
+  // background-color: black;
+}
+
+#nav {
+  color: white;
 }
 </style>

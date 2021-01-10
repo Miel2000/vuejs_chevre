@@ -6,13 +6,14 @@
 	<div v-if="choiceInfos.text" style="text-align:center">
     <img v-if="choiceInfos.img"  @click="choiceClickHandler" style="height:100px" :src="'./assets/images/' + choiceInfos.img" :alt="choiceInfos.route">
 
-      <button v-if="!choiceInfos.img"
+      <button v-if="!choiceInfos.img && !choiceInfos.dodge"
         class="oneChoice"
         :isContinuePlaying="choiceInfos.isContinue"
         @click="choiceClickHandler"
       >
         {{choiceInfos.text}}
       </button>
+
     </div>
 
 </template>
@@ -41,8 +42,12 @@ export default {
   },
 
   methods: {
+    dodgeClickHandler() {
+      if (this.choiceInfos.id == "esquive_fleche") {
+        this.$store.commit("switchFleche", false);
+      }
+    },
     choiceClickHandler() {
-      // big condition qui permet de changer d'arme pour rejouer la scéne de shoot ma boi
       if (
         this.choiceInfos.route === "banane" ||
         (this.choiceInfos.route == "shooting_remake" &&
@@ -68,6 +73,7 @@ export default {
       this.$emit("a-choice-have-been-acted", this.choiceInfos.route);
     },
   },
+  // big condition qui permet de changer d'arme pour rejouer la scéne de shoot ma boi
 };
 </script>
 

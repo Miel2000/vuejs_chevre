@@ -778,17 +778,25 @@ export default {
                
             ],
             timedActions: [
-
-                    {
-                        at: 6,
-                        text:"foret",
-                        id:"foret",
-                        route: "foret",
-                        type:"choice",
-                    },
-               
-
-                ]
+           
+        
+             ],
+            ctas: [
+                {
+                    id:"esquive_fleche",
+                    at: 2,
+                    to: 5,
+                    text:'ESQUIVE FLECHE!',
+                    type:"dodge"
+                },
+                {
+                    id:"esquive_chat",
+                    at: 6,
+                    to: 7,
+                    text:'ESQUIVE CHAT!',
+                    type:"dodge"
+                }
+            ],
 
         },
 

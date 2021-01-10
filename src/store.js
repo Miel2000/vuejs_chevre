@@ -16,12 +16,14 @@ export default new Vuex.Store({
     actualChoices: [],
     actualSounds: [],
     actualEnemy: [],
+    actualVideo:[],
     actualCallToActions: [],
     weapon:"couteau",
     ninjasLife: 200,
-    mana: 100,
-    vie: 100,
+    piegeFleche:false,
+    piegeChat:false,
     playerIsInteractive: true,
+    routeHandler:[]
   },
 
   mutations: {
@@ -37,8 +39,25 @@ export default new Vuex.Store({
       state.weapon = x
     },
 
+    switchFleche: (state,x) => {
+      state.piegeFleche = x
+    },
+
+    switchChat: (state,x) => {
+      state.piegeChat = x
+    },
+
+    setActualVideo: (state,x) => {
+      state.actualVideo = x
+    },
+
     minusNinjasLife: (state, x) => {
       state.ninjasLife -= x;
-    }
+    },
+
+    // setActualChoices: (state,x) => {
+    //   state.actualChoices.push(x);
+    // }
+    
   }
 });

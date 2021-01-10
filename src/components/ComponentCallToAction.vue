@@ -9,25 +9,10 @@
 
 <template>
 <div>
-<h1>Shooting</h1>
-
 	<div class="ctas-container">
 
-		<div 
-			v-for="cta in ctas"
-			:key="cta.id"
-			:class="cta.classes" 
-			@click="ctaClick(cta, $event)"
-		>
-
-			<p v-if="cta.text">
-
-				{{cta.text}}
-
-			</p>
-
-			<img v-if="cta.media" :src="videoInfos + cta.media" />
-
+		<div>
+        <button @click="ctaClick(ctasInfos, $event)">	{{ctasInfos.text}}</button>
 		</div>
 
 	</div>
@@ -40,11 +25,12 @@
 <script>
 export default {
   name: "ComponentCallToAction",
-  data() {
-    return {
-      ctas: this.$store.state.actualCallToActions,
-      imagePath: `/assets/images/`,
-    };
+
+  props: {
+    ctasInfos: {
+      type: Object,
+      required: true,
+    },
   },
 
   methods: {
@@ -58,13 +44,21 @@ export default {
 
           this.playManaSound(cta.path);
 
-          // on met à jour le $store.state.mana
           this.$store.commit("addMana", 12);
 
-          // on check si le mana est suffisant
           this.checkManaAmount();
 
           break;
+        case "dodge": {
+          if (cta.id == "esquive_fleche") {
+            console.log(cta.id);
+            this.$store.commit("switchFleche", true);
+          }
+          if (cta.id == "esquive_chat") {
+            console.log(cta.id);
+            this.$store.commit("switchChat", true);
+          }
+        }
       }
     },
 
@@ -108,7 +102,7 @@ export default {
   beforeUpdate() {},
 
   mounted() {
-    // this.ctas = this.$store.state.actualCallToActions;
+    console.log("dans le cta mounted :", this.ctasInfos);
   },
 };
 </script>
