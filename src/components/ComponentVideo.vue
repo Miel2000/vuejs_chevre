@@ -1,11 +1,5 @@
-<!-- Principe : -->
-<!-- Ce component fait beaucoup de choses : -->
-<!-- _ il surveille le currentTime de la video pour déclencher des vérifications selon celui-ci -->
-<!-- __ quand il doit déclencher des choses, c'est souvent : -->
-<!-- ___ mettre à jour le $store.state (les "actualChoices actualCallToActions" etc..) -->
-<!-- ___ parfois des .play() ou des .pause() ou des $store.$emit() selon les spécificités des différents éléments d'intéractions -->
 
-<!-- ° ° ° ° ° ° ° ° ° T E M P L A T E ° ° ° ° ° ° ° ° ° -->
+
 <!-- ° ° ° ° ° ° ° ° ° T E M P L A T E ° ° ° ° ° ° ° ° ° -->
 
 <template>
@@ -84,12 +78,7 @@ export default {
           }
 
           if (this.alreadySent.indexOf(ctaInfo.id) === -1) {
-            this.compareAtandTo(
-              event.target.currentTime,
-              ctaInfo.at,
-              ctaInfo.to,
-              ctaInfo
-            );
+            this.compareForCtas(event.target.currentTime, ctaInfo.at, ctaInfo);
           }
         });
       }
@@ -109,7 +98,7 @@ export default {
     },
     // faire une methode qui compareTimeCodeAndRedirect
 
-    compareAtandTo(currentTimeVideo, timeCodeAt, timeCodeTo, action) {
+    compareForCtas(currentTimeVideo, timeCodeAt, action) {
       // console.log("ALL ACTIONS AT -> TO  : ", action);
       if (action.type == "dodge") {
         if (currentTimeVideo >= timeCodeAt) {

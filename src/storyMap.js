@@ -787,14 +787,16 @@ export default {
                     at: 2,
                     to: 5,
                     text:'ESQUIVE FLECHE!',
-                    type:"dodge"
+                    type:"dodge",
+                    display:true
                 },
                 {
                     id:"esquive_chat",
                     at: 6,
                     to: 7,
                     text:'ESQUIVE CHAT!',
-                    type:"dodge"
+                    type:"dodge",
+                    display:true
                 }
             ],
 

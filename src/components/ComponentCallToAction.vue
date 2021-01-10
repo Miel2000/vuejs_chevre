@@ -1,18 +1,13 @@
-<!-- Principe : -->
-<!-- Quand le store.state.actualCalToActions[] contient qqch -->
-<!-- ce qqch génère automatiquement l'apparition du template ci-dessous -->
-<!-- ce qqch étant un array, on itère (v-for) sur celui-ci pour afficher tous les éléments qui le composent -->
-
-
-<!-- ° ° ° ° ° ° ° ° ° :class="{ active: this.$store.state.actualCallToActions.length !== 0 }" ° ° ° ° ° ° ° ° ° -->
-<!-- ° ° ° ° ° ° ° ° ° T E M P L A T E ° ° ° ° ° ° ° ° ° -->
-
 <template>
 <div>
 	<div class="ctas-container">
 
 		<div>
-        <button @click="ctaClick(ctasInfos, $event)">	{{ctasInfos.text}}</button>
+        <button 
+        :class="ctasInfos.id"
+        @click="ctaClick(ctasInfos, $event)"
+        :style="{ display: isDisplay }"
+        >	{{ctasInfos.text}}</button>
 		</div>
 
 	</div>
@@ -31,6 +26,12 @@ export default {
       type: Object,
       required: true,
     },
+  },
+
+  data() {
+    return {
+      isDisplay: "block",
+    };
   },
 
   methods: {
@@ -52,10 +53,12 @@ export default {
         case "dodge": {
           if (cta.id == "esquive_fleche") {
             console.log(cta.id);
+            this.isDisplay = "none";
             this.$store.commit("switchFleche", true);
           }
           if (cta.id == "esquive_chat") {
             console.log(cta.id);
+            this.isDisplay = "none";
             this.$store.commit("switchChat", true);
           }
         }
