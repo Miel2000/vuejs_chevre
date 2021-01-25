@@ -1,6 +1,3 @@
-<!-- ° ° ° ° ° ° ° ° ° T E M P L A T E ° ° ° ° ° ° ° ° ° -->
-<!-- ° ° ° ° ° ° ° ° ° T E M P L A T E ° ° ° ° ° ° ° ° ° -->
-
 <template>
 
 	<div v-if="choiceInfos.text" style="text-align:center">
@@ -18,8 +15,6 @@
 
 </template>
 
-<!-- ° ° ° ° ° ° ° ° ° L O G I C ° ° ° ° ° ° ° ° ° -->
-<!-- ° ° ° ° ° ° ° ° ° L O G I C ° ° ° ° ° ° ° ° ° -->
 
 <script>
 export default {
@@ -42,11 +37,6 @@ export default {
   },
 
   methods: {
-    dodgeClickHandler() {
-      if (this.choiceInfos.id == "esquive_fleche") {
-        this.$store.commit("switchFleche", false);
-      }
-    },
     choiceClickHandler() {
       if (
         this.choiceInfos.route === "banane" ||
@@ -78,8 +68,7 @@ export default {
 </script>
 
 
-<!-- ° ° ° ° ° ° ° ° ° S T Y L E ° ° ° ° ° ° ° ° ° -->
-<!-- ° ° ° ° ° ° ° ° ° S T Y L E ° ° ° ° ° ° ° ° ° -->
+
 
 <style scoped lang="scss">
 .oneChoice {

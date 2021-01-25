@@ -1,29 +1,37 @@
 <template>
     <div class="container">
 
-      <div class="video_and_cta scene-container">
-          <div v-if=" Object.keys(videoInfos.self).length !== 0 "  class="video-container">
+    <div class="video_and_cta scene-container">
+        <div  v-if=" Object.keys(videoInfos.self).length !== 0 " class="video_container">
 
+          
             <ComponentVideo 
                 :video-infos="videoInfos" 
                 @an-action-is-sent="actionHandler"
                 @a-ctas-is-sent="ctasHandler"
                 
             />
-          </div>
-          <div v-for="enemy in videoInfos.enemy" :key="enemy.id" class="enemy-container ">
+        
+        </div>
+          <div v-for="boss in videoInfos.boss" :key="boss.id" class="boss-container">
+
+                <ComponentBoss
+                  @minus-boss-life="MinusBossLife"
+                  @hitBoss="hitBoss(boss)" 
+                  :boss="boss" 
+                  
+                  />
+          </div> 
+            <div v-for="enemy in videoInfos.enemy" :key="enemy.id" class="enemy-container ">
 
                 <ComponentEnemy
                   @minus-life="MinusEnemyLife"
-                  @an-enemy-is-sent="enemyHandler"
-                  @hitEnemy="hitEnemy(enemy)" 
                   :enemy="enemy" 
                   
                   />
           </div> 
-  </div>
 
-  <div class="choice-container" v-if="computedChoices.length > 0" >
+ <div class="choice-container" v-if="computedChoices.length > 0" >
       <div
           v-for="choice in computedChoices" 
           :key="choice.id">
@@ -34,13 +42,22 @@
           />
 
       </div>
+  </div> 
+
   </div>
+     
 
   <div v-if="computedCtas.length > 0" >
    <div v-for="cta in computedCtas" :key="cta.id">
 
       <ComponentCallToAction :ctas-infos="cta"  @a-cta-is-sent="ctasHandler"  />
    </div>
+  </div>
+  
+  <div class="background-scene">
+
+      <ComponentBackground :actual-background-infos="videoInfos"  />
+    
   </div>
 
   <div class="cta-container">
@@ -54,13 +71,8 @@
 
   </div>
 
-  <div class="background-scene">
 
-      <ComponentBackground :actual-background-infos="videoInfos"  />
-    
-  </div>
-
-    </div>
+</div>
 </template>
 
 
@@ -73,6 +85,7 @@ import ComponentBackground from "@/components/ComponentBackground";
 import ComponentCallToAction from "@/components/ComponentCallToAction";
 import ComponentEnemy from "@/components/ComponentEnemy";
 import ComponentOneChoice from "@/components/ComponentOneChoice";
+import ComponentBoss from "@/components/ComponentBoss";
 
 import storyMap from "@/storyMap.js";
 
@@ -84,12 +97,13 @@ export default {
     ComponentAudio,
     ComponentEnemy,
     ComponentBackground,
+    ComponentBoss,
   },
 
   props: {
     videoId: {
       type: String,
-      default: "foret",
+      default: "boss_fusil",
     },
   },
 
@@ -108,6 +122,7 @@ export default {
     computedChoices() {
       return this.choices;
     },
+
     computedAudios() {
       return this.audios;
     },
@@ -222,6 +237,13 @@ export default {
         }
       }
     },
+    MinusBossLife() {
+      if (this.$store.state.bossLife <= 0) {
+        console.log("redirect dajns condition");
+        this.rootEnd(storyMap.videos["generique"]);
+      }
+    },
+
     rootEnd(endpoint) {
       console.log("route end");
       this.audios = [];
@@ -236,27 +258,35 @@ export default {
 </script>
 
 <style lang="scss">
-.container {
-  width: 500px;
-  margin: 0 auto;
-}
-.scene-container {
-  width: 70%;
-
-  display: block;
-}
-
 .choice-container {
+  position: absolute;
   display: flex;
   justify-content: space-evenly;
+  bottom: 20px;
 }
 
 .video_and_cta {
-  width: 100%;
+  margin: 0 auto;
   height: 100%;
-
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.video_container {
+  width: 100%;
+  position: absolute;
+
+  bottom: 0%;
+  left: 0;
+  z-index: -1;
+}
+
+.background-scene {
+  z-index: -1;
+  position: absolute;
+
+  bottom: 0%;
+  left: 0;
 }
 </style>

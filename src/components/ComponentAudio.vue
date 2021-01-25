@@ -6,7 +6,7 @@
                 id="audioBalise"
                 :volume="audioInfos.volumed"
                 autoplay
-                controls
+        
                 @timeupdate="onTimeUpdate"
                 ref="audioBox"
                 :isContinuePlaying=audioInfos.isContinue
@@ -39,7 +39,7 @@ export default {
 
   mounted() {
     const audioBalise = document.getElementById("audioBalise");
-    audioBalise.volume = 0.05;
+    audioBalise.volume = 0.8;
   },
 
   methods: {

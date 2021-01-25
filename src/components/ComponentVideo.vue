@@ -7,7 +7,7 @@
 <div>
   
 	<video 
-		class="video-player"
+	
 		:class="{ 
 			cohabitationCta: this.$store.state.actualCallToActions.length !== 0,
 			isInteractive: this.$store.state.playerIsInteractive
@@ -17,7 +17,10 @@
 		autoplay
 		playsinline
 		@timeupdate="onTimeUpdate"
-
+    :style="{
+      width:  this.largeur ? this.largeur : '',
+      
+      }"
 	>
 	</video>
 
@@ -37,10 +40,17 @@ export default {
   },
 
   data() {
-    return {};
+    return {
+      largeur: "",
+    };
   },
 
   mounted() {
+    this.largeur = this.videoInfos.self.css
+      ? this.videoInfos.self.css.width
+      : "";
+
+    console.log("width : ", this.largeur);
     this.isPaused = false;
     this.$store.commit("setActualVideo", this.videoInfos);
     this.alreadySent = [];
@@ -58,7 +68,7 @@ export default {
             this.$store.state.piegeFleche == false
           ) {
             console.log(this.$store.state.piegeFleche, "piege fleche activé");
-            const die = new Audio("./assets/mp3/hits/flechedie.wav");
+            const die = new Audio("./assets/mp3/hits/piege_fleche.mp3");
             this.$store.state.piegeFleche = false;
             this.$store.state.piegeChat = false;
             die.play();
@@ -70,7 +80,7 @@ export default {
             this.$store.state.piegeChat == false
           ) {
             console.log(this.$store.state.piegeFleche, "piege Chat activé");
-            const die = new Audio("./assets/mp3/hits/flechedie.wav");
+            const die = new Audio("./assets/mp3/hits/piege_chat.mp3");
             die.play();
             this.$store.state.piegeFleche = false;
             this.$store.state.piegeChat = false;
@@ -133,22 +143,20 @@ export default {
 
 <style scoped lang="scss">
 .video-player {
-  width: 100%;
-
   // de base, le player n'est pas interactif
   pointer-events: none;
   // border: solid 15px red;
 
-  transition: border 0.7s, width 0.7s;
+  // transition: border 0.7s, width 0.7s;
 
-  &.cohabitationCta {
-    width: 80%;
-    margin-right: 50px;
-  }
+  // &.cohabitationCta {
+  //   width: 80%;
+  //   margin-right: 50px;
+  // }
 
-  &.isInteractive {
-    pointer-events: initial;
-    // border: solid 15px green;
-  }
+  // &.isInteractive {
+  //   pointer-events: initial;
+  //   // border: solid 15px green;
+  // }
 }
 </style>

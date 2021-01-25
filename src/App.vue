@@ -74,6 +74,6 @@ body {
 }
 
 #nav {
-  color: white;
+  color: grey;
 }
 </style>

@@ -35,7 +35,7 @@
         <div  class="background-video-container" v-for="backgroundVideo in actualBackgroundInfos.video_container" :key="backgroundVideo.id">
           <div class="background-video-loop">
             <div v-if="backgroundVideo.isLooping">
-                <video loop autoplay :src="'/assets/videos/background/'  + backgroundVideo.url "></video>
+                <video controls loop autoplay :src="'/assets/videos/background/'  + backgroundVideo.url "></video>
             </div>
             <div v-else>
                 <video  autoplay :src="'/assets/videos/background/'  + backgroundVideo.url "></video>
@@ -74,9 +74,12 @@ export default {
 
 <style lang="scss" scoped>
 .background-video-container {
-  z-index: -1;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
+
+  /* Preserve aspet ratio */
+  min-width: 100%;
+  min-height: 100%;
 }
 </style>

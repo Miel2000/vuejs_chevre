@@ -38,14 +38,16 @@ export default {
 
                 url: "intro2.mp4",
                 controls: true,
-                options: {}
-
+                css: {
+                    width: '100%'
+            
+                }
             },
             audio_container: [
               
             ],
             video_container: [
-               
+          
             ],
 
             timedActions: [
@@ -79,7 +81,7 @@ export default {
               
             ],
             video_container: [
-               
+ 
             ],
 
 
@@ -273,7 +275,11 @@ export default {
               
             ],
             video_container: [
-               
+                {   
+                    url:"shooting_naruto.mp4",
+                    type:"video",
+                    isLooping:true
+                }
             ],
 
             enemy: [
@@ -437,7 +443,7 @@ export default {
             timedActions: [
 
                 {
-                    at: 4,
+                    at: 23,
                     text:"Go to teh Jungle",
                     id:"valorant_fusil",
                     route: "jungle_fusil",
@@ -445,14 +451,7 @@ export default {
                 },
                 
                 {
-                    at: 4,
-                    text:"SHOOT DEM'ALL",
-                    id:"shooting_remake",
-                    route: "shooting_remake",
-                    type:"choice",
-                },
-                {
-                    at: 7.5,
+                    at: 23,
                     id: "banane",
                     text: "Banane",
                     route: "shooting_remake",
@@ -461,7 +460,7 @@ export default {
                 },
                 
                 {
-                    at: 7.5,
+                    at: 23,
                     id: "couteau",
                     text: "Couteau",
                     route: "shooting_remake",
@@ -469,7 +468,7 @@ export default {
                     type: "choice"
                 },
                 {
-                    at: 7.5,
+                    at: 23,
                     id: "fusil",
                     text: "Fusil",
                     route: "shooting_remake",
@@ -496,7 +495,11 @@ export default {
                 }
             ],
             video_container: [
-               
+                {   
+                    url:"shooting_naruto.mp4",
+                    type:"video",
+                    isLooping:true
+                }
             ],
 
             enemy: [
@@ -519,6 +522,7 @@ export default {
 
 
         },
+
         jungle_couteau: {
 
             self: {
@@ -565,6 +569,50 @@ export default {
             ]
 
         },
+        jungle_fusil: {
+
+            self: {
+                url: "jungle_fusil.mp4",
+                controls: true,
+
+            },
+           
+            video_container: [
+                {
+                    
+                    url:"rain-background.mp4",
+                    type:"video",
+                    isLooping:true
+                    
+                }
+            ],
+            timedActions: [
+
+                {
+                    at: 4,
+                    text:"foret",
+                    id:"foret",
+                    route: "foret",
+                    type:"choice",
+                },
+                
+                {
+                    at: 4,
+                    text:"Parler au PNJ",
+                    id:"scribe_1",
+                    route: "scribe_1",
+                    type:"choice",
+                },
+                {  
+                    at:0,
+                    url:"background/rain-background.mp3",
+                    type:"sound",
+                    isLooping:true
+                },
+
+            ]
+
+        },
 
         jungle_banane: {
 
@@ -574,14 +622,7 @@ export default {
 
             },
            
-            audio_container: [
-                {
-                    
-                    url:"rain-background.mp3",
-                    type:"bg_sound",
-                    isLooping:true
-                }
-            ],
+
             video_container: [
                 {
                     
@@ -617,9 +658,6 @@ export default {
                 controls: true,
                 
             },
-            audio_container: [
-              
-            ],
             video_container: [
                
             ],
@@ -765,9 +803,9 @@ export default {
                 ]
 
         },
-        foret: {
+        foret_banane: {
             self:{
-                url: "foret.mp4",
+                url: "foret_banane.mp4",
                 controls: true,
                 
             },
@@ -798,6 +836,183 @@ export default {
                     type:"dodge",
                     display:true
                 }
+            ],
+
+        },
+        foret_couteau: {
+            self:{
+                url: "foret_couteau.mp4",
+                controls: true,
+                
+            },
+            audio_container: [
+              
+            ],
+            video_container: [
+               
+            ],
+            timedActions: [
+           
+        
+             ],
+            ctas: [
+                {
+                    id:"esquive_fleche",
+                    at: 2,
+                    to: 5,
+                    text:'ESQUIVE FLECHE!',
+                    type:"dodge",
+                    display:true
+                },
+                {
+                    id:"esquive_chat",
+                    at: 6,
+                    to: 7,
+                    text:'ESQUIVE CHAT!',
+                    type:"dodge",
+                    display:true
+                }
+            ],
+
+        },
+        foret_fusil: {
+            self:{
+                url: "foret_fusil.mp4",
+                controls: true,
+                
+            },
+            audio_container: [
+              
+            ],
+            video_container: [
+               
+            ],
+            timedActions: [
+           
+        
+             ],
+            ctas: [
+                {
+                    id:"esquive_fleche",
+                    at: 2,
+                    to: 5,
+                    text:'ESQUIVE FLECHE!',
+                    type:"dodge",
+                    display:true
+                },
+                {
+                    id:"esquive_chat",
+                    at: 6,
+                    to: 7,
+                    text:'ESQUIVE CHAT!',
+                    type:"dodge",
+                    display:true
+                }
+            ],
+
+        },
+        boss_banane: {
+            self:{
+           
+            },
+            audio_container: [
+              
+            ],
+            video_container: [
+               
+            ],
+            timedActions: [
+           
+        
+             ],
+        
+            boss: [
+                {   id: "boss_banane",
+                    url: "boss.png",
+                    vieBoss: 1000,
+                    degatBoss: 10,
+                    type: "boss"
+                   
+                },
+            ],
+
+        },
+        boss_couteau: {
+            self:{
+           
+            },
+            audio_container: [
+              
+            ],
+            video_container: [
+               
+            ],
+            timedActions: [
+           
+        
+             ],
+        
+            boss: [
+                {   id: "boss_couteau",
+                    url: "boss.png",
+                    vieBoss: 1000,
+                    degatBoss: 10,
+                    type: "boss"
+                   
+                },
+            ],
+
+        },
+        boss_fusil: {
+            self:{
+           
+            },
+            audio_container: [
+              
+            ],
+            video_container: [
+               
+            ],
+            timedActions: [
+           
+        
+             ],
+        
+            boss: [
+                {   id: "boss_fusil",
+                    url: "boss.png",
+                    vieBoss: 1000,
+                    degatBoss: 10,
+                    type: "boss"
+                   
+                },
+            ],
+
+        },
+        generique: {
+            self:{
+                url: "generique.mp4",
+                controls: true,
+            },
+            audio_container: [
+              
+            ],
+            video_container: [
+               
+            ],
+            timedActions: [
+           
+        
+             ],
+        
+            boss: [
+                {   id: "boss_fusil",
+                    url: "boss.png",
+                    vieBoss: 1000,
+                    degatBoss: 10,
+                    type: "boss"
+                   
+                },
             ],
 
         },

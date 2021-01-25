@@ -35,6 +35,7 @@ export default {
 
   mounted() {
     this.enemy.vie = 100;
+    this.enemy.vieBoss = 1000;
     this.$store.state.ninjasLife = 200;
     this.weaponInStore = this.$store.state.weapon;
     this.$emit("an-enemy-is-sent", this.enemy);

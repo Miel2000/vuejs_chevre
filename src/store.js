@@ -19,7 +19,9 @@ export default new Vuex.Store({
     actualVideo:[],
     actualCallToActions: [],
     weapon:"couteau",
+    myLife: 100,
     ninjasLife: 200,
+    bossLife: 300,
     piegeFleche:false,
     piegeChat:false,
     playerIsInteractive: true,
@@ -53,6 +55,14 @@ export default new Vuex.Store({
 
     minusNinjasLife: (state, x) => {
       state.ninjasLife -= x;
+    },
+
+    minusBossLife: (state, x) => {
+      state.bossLife -= x;
+    },
+
+    minusMyLife: (state, x) => {
+      state.myLife -= x;
     },
 
     // setActualChoices: (state,x) => {
