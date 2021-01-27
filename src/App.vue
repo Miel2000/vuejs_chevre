@@ -7,6 +7,7 @@
       <router-link :to="{ name: 'home' }">Home</router-link>
       <router-link :to="{ name: 'cinema' }">Scénar Interactif</router-link>
       <router-link :to="{ name: 'boutique' }">Boutique</router-link>
+      <router-link :to="{ name: 'rdm' }">Roue du meme</router-link>
  
     </div>
 
@@ -69,9 +70,9 @@ export default {
 @import "./styles/_appLayout.scss";
 @import "./styles/_appNav.scss";
 
-body {
-  // background-color: black;
-}
+// body {
+//   // background-color: black;
+// }
 
 #nav {
   color: grey;

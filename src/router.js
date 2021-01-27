@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Cinema from './views/Cinema.vue'
 import Home from './views/Home.vue'
 import Boutique from './views/Boutique.vue'
+import RoueDuMeme from './views/RoueDuMeme.vue'
 
 Vue.use(Router)
 
@@ -28,6 +29,13 @@ export default new Router({
 			path: "/boutique",
 			name: "boutique",
 			component: Boutique,
+			meta: {},
+			props: true
+		},
+		{
+			path: "/rouedumeme",
+			name: "rdm",
+			component: RoueDuMeme,
 			meta: {},
 			props: true
 		}

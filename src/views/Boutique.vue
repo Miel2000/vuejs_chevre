@@ -1,9 +1,16 @@
 <template>
     <div>
-        <h1>Boutique</h1>
-        <video width="300px" loop autoplay>
+
+        <!-- <video width="300px" loop autoplay>
             <source :src="'/assets/videos/boutique/smyler.mp4'">
-        </video>
+        </video> -->
+
+        <div class="item">
+            <img style="width:200px;"  :src="'/assets/images/boutique/chine.jpg'"  class="js-image" alt="">
+            <h2>Titre photo</h2>
+            <p>Lorem ipsum.</p>
+        </div>
+       
     </div>
 </template>
 

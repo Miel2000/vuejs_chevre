@@ -26,7 +26,7 @@ export default new Vuex.Store({
     piegeChat:false,
     playerIsInteractive: true,
     routeHandler:[]
-  },
+  },  
 
   mutations: {
     addMana: (state, x) => {
