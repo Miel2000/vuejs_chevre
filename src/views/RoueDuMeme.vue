@@ -3,7 +3,14 @@
     <!-- ROUE DU MEME AU CLICK -->
 
     <div class="rdm-click">
-      <img  ref="poring" class="poring" src="assets/rdm/img/poring.png" :randomHandler="alreadyStoredNumber" @click="getRandomMeme"/>
+      <img
+          ref="poring" 
+          class="poring" 
+          src="/assets/rdm/img/poring.png" 
+          :randomHandler="alreadyStoredNumber" 
+          @click="getRandomMeme()" 
+          v-on:click="animateAsset" />
+
     </div>
 
     <!-- ROUE DU MEME SELECT OPTION -->
@@ -15,7 +22,7 @@
             </select>
         </div> -->
 
-    <br>
+    <br />
     <div v-if="randomMeme">
       <div class="image-container">
         <img :src="randomMeme.image" alt="" />
@@ -23,6 +30,7 @@
       <div class="audio-container">
         <audio
           id="monAudio"
+          ref="monAudio"
           :src="randomMeme.audio"
           volume="0.2"
           autoplay
@@ -40,80 +48,62 @@
 </template>
 
 <script>
+import { memes } from "@/rdmData.js";
+import { TimelineLite } from "gsap";
 
-  import { TimelineLite } from "gsap";
+export default {
+  name: "RoueDuMeme",
 
-  import { memes } from "@/rdmData.js";
+  data() {
+    return {
+      memes,
+      actualNumber: 0,
+      alreadyStoredNumber: [],
+      monAudio: "",
+    };
+  },
 
-  export default {
+  mounted: () => {
+    console.log("bien mounted");
+    this.timeline = new TimelineLite();
+    console.log("ma tl : ", this.timeline);
+    this.poring = this.$refs.poring;
+  },
 
-    name: "RoueDuMeme",
-
-    data() {
-      return {
-        memes: memes,
-        actualNumber: 0,
-        alreadyStoredNumber: [],
-        monAudio: ""
-      };
-    },
-
-    computed: {
-      
-      randomMeme(){
-        return this.getRandomMeme;
-      }
-
-    },
-
-    mounted(){
-      console.log("bien mounted");
-
-      this.timeline = new TimelineLite();
-
-      console.log("ma tl : ", this.timeline);
-    },
-
-    methods: {
-
-      getRandomMeme(){
-
-        // console.log(this.$refs.poring);
-
-        let randomNumber = Math.floor(Math.random() * memes.length);
-
-        this.actualNumber = randomNumber;
-
-        this.alreadyStoredNumber.push(randomNumber);
-
-        this.animateAsset();
-
-        return memes[randomNumber];
-
+  computed: {
+    randomMeme: {
+      get: function() {
+        return this.getRandomMeme();
       },
+    },
+  },
 
-      animateAsset(){
+  methods: {
+    getRandomMeme() {
+      let randomNumber = Math.floor(Math.random() * memes.length);
+      this.actualNumber = randomNumber;
 
-        console.log("anim triggered");
+      this.alreadyStoredNumber.push(randomNumber);
 
-        this.timeline.to(this.$refs.poring, 2.5, 
-          {
-            ease: "bounce.out",
-            y: -50,
-          }
-        );
+      return memes[randomNumber];
+    },
+    animateAsset() {
+      console.log("anim triggered", this.$refs.poring);
 
-      }
-
-    }
-
-  };
+      this.timeline.to(this.poring, {
+        duration: 2.5,
+        ease: "power2.out",
+        y: -500,
+      });
+    },
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss" scoped>
-  img {
-    margin: 0 auto;
-    width: 200px;
-  }
+<style scoped>
+img {
+  margin: 0 auto;
+  width: 200px;
+}
 </style>
