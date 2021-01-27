@@ -46,7 +46,7 @@
   import { memes } from "@/rdmData.js";
 
   export default {
-    
+
     name: "RoueDuMeme",
 
     data() {
@@ -59,23 +59,10 @@
     },
 
     computed: {
-
-      randomMeme: {
-
-        get: function() {
-          return this.getRandomMeme;
-        },
-
-        set: function() {
-          return {
-            id: "100",
-            image: "static/img/memes/relance.jpg",
-            audio: "static/audio/memes/turrset.wav",
-            isDejaPasse: false,
-          };
-        },
-
-      },
+      
+      randomMeme(){
+        return this.getRandomMeme;
+      }
 
     },
 
