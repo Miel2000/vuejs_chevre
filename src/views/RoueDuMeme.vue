@@ -63,7 +63,7 @@ export default {
     };
   },
 
-  mounted: () => {
+  mounted(){
     console.log("bien mounted");
     this.timeline = new TimelineLite();
     console.log("ma tl : ", this.timeline);
@@ -71,10 +71,11 @@ export default {
   },
 
   computed: {
-    randomMeme: {
-      get: function() {
-        return this.getRandomMeme();
-      },
+    randomMeme(){
+
+      console.log("ton console log");
+
+      return this.getRandomMeme();
     },
   },
 
@@ -90,8 +91,7 @@ export default {
     animateAsset() {
       console.log("anim triggered", this.$refs.poring);
 
-      this.timeline.to(this.poring, {
-        duration: 2.5,
+      this.timeline.to(this.poring, 2.5, {
         ease: "power2.out",
         y: -500,
       });
