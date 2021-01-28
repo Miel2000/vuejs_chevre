@@ -8,7 +8,7 @@
           class="poring" 
           src="/assets/rdm/img/poring.png" 
           :randomHandler="alreadyStoredNumber" 
-          @click="getRandomMeme()" 
+          @click="getRandomMeme" 
           v-on:click="animateAsset" />
 
     </div>
@@ -63,7 +63,7 @@ export default {
     };
   },
 
-  mounted(){
+  mounted() {
     console.log("bien mounted");
     this.timeline = new TimelineLite();
     console.log("ma tl : ", this.timeline);
@@ -71,9 +71,8 @@ export default {
   },
 
   computed: {
-    randomMeme(){
-
-      console.log("ton console log");
+    randomMeme() {
+      
 
       return this.getRandomMeme();
     },
@@ -92,8 +91,8 @@ export default {
       console.log("anim triggered", this.$refs.poring);
 
       this.timeline.to(this.poring, 2.5, {
-        ease: "power2.out",
-        y: -500,
+        ease: "s",
+        y: -50,
       });
     },
   },
