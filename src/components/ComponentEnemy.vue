@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div :class="enemy.id"  :ref="enemy.id">
       
       <h1 class="text-center eighties" style="color:white"> {{ this.enemy.vie }} %</h1>
           <div class="healthbar">
@@ -11,6 +11,7 @@
           :src="'/assets/images/'+ enemy.url" 
           alt=""
           :class="enemy.id"
+         
       />
     
     </div>
@@ -18,6 +19,8 @@
 </template>
 
 <script>
+import { TimelineLite } from "gsap";
+
 export default {
   props: {
     enemy: {
@@ -35,10 +38,33 @@ export default {
 
   mounted() {
     this.enemy.vie = 100;
-    this.enemy.vieBoss = 1000;
+
     this.$store.state.ninjasLife = 200;
     this.weaponInStore = this.$store.state.weapon;
     this.$emit("an-enemy-is-sent", this.enemy);
+
+    if (this.enemy.id == "castex") {
+      this.castex = this.$refs.castex;
+      this.timelineCastex = new TimelineLite();
+      console.log("anim triggered", this.$refs.castex);
+      this.timelineCastex.to(this.$refs.castex, 1.5, {
+        y: 200,
+        ease: "Linear.easeNone",
+        yoyo: true,
+        repeat: -1,
+      });
+    }
+    if (this.enemy.id == "castaner") {
+      this.castaner = this.$refs.castaner;
+      this.timelineCastaner = new TimelineLite();
+      this.timelineCastaner.to(this.$refs.castaner, 1, {
+        x: -400,
+        ease: "Linear.easeNone",
+        repeat: -1,
+        yoyo: true,
+      });
+      console.log(this.castaner);
+    }
   },
 
   methods: {

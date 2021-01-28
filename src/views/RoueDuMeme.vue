@@ -13,15 +13,6 @@
 
     </div>
 
-    <!-- ROUE DU MEME SELECT OPTION -->
-    <!-- <div v-if="memes">
-            <select v-model="randomMeme"  id="meme_select">
-                <label for="meme_select"></label>
-                <option  value="">Choisissez un meme</option>
-                <option  v-for="meme in memes" :value="meme"  :key="meme.id" placeholder="yeet"></option>
-            </select>
-        </div> -->
-
     <br />
     <div v-if="randomMeme">
       <div class="image-container">
@@ -72,8 +63,6 @@ export default {
 
   computed: {
     randomMeme() {
-      
-
       return this.getRandomMeme();
     },
   },

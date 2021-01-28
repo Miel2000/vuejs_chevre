@@ -103,7 +103,7 @@ export default {
   props: {
     videoId: {
       type: String,
-      default: "boss_fusil",
+      default: "shooting",
     },
   },
 
@@ -280,6 +280,12 @@ export default {
   bottom: 0%;
   left: 0;
   z-index: -1;
+}
+
+.enemy-container {
+  top: 10%;
+  margin: 0 auto;
+  position: absolute;
 }
 
 .background-scene {
