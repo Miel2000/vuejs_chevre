@@ -38,13 +38,11 @@ export default {
 
   mounted() {
     this.enemy.vie = 100;
-
     this.$store.state.ninjasLife = 200;
     this.weaponInStore = this.$store.state.weapon;
     this.$emit("an-enemy-is-sent", this.enemy);
 
     if (this.enemy.id == "castex") {
-      this.castex = this.$refs.castex;
       this.timelineCastex = new TimelineLite();
       console.log("anim triggered", this.$refs.castex);
       this.timelineCastex.to(this.$refs.castex, 1.5, {
@@ -55,7 +53,6 @@ export default {
       });
     }
     if (this.enemy.id == "castaner") {
-      this.castaner = this.$refs.castaner;
       this.timelineCastaner = new TimelineLite();
       this.timelineCastaner.to(this.$refs.castaner, 1, {
         x: -400,
@@ -63,7 +60,6 @@ export default {
         repeat: -1,
         yoyo: true,
       });
-      console.log(this.castaner);
     }
   },
 
