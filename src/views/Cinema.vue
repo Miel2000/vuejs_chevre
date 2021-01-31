@@ -79,13 +79,13 @@
 <!-- ° ° ° ° ° ° ° ° ° L O G I C ° ° ° ° ° ° ° ° ° -->
 <!-- ° ° ° ° ° ° ° ° ° L O G I C ° ° ° ° ° ° ° ° ° -->
 <script>
-import ComponentVideo from "@/components/ComponentVideo";
-import ComponentAudio from "@/components/ComponentAudio";
-import ComponentBackground from "@/components/ComponentBackground";
-import ComponentCallToAction from "@/components/ComponentCallToAction";
-import ComponentEnemy from "@/components/ComponentEnemy";
-import ComponentOneChoice from "@/components/ComponentOneChoice";
-import ComponentBoss from "@/components/ComponentBoss";
+import ComponentVideo from "@/components/CinemaComponents/ComponentVideo";
+import ComponentAudio from "@/components/CinemaComponents/ComponentAudio";
+import ComponentBackground from "@/components/CinemaComponents/ComponentBackground";
+import ComponentCallToAction from "@/components/CinemaComponents/ComponentCallToAction";
+import ComponentEnemy from "@/components/CinemaComponents/ComponentEnemy";
+import ComponentOneChoice from "@/components/CinemaComponents/ComponentOneChoice";
+import ComponentBoss from "@/components/CinemaComponents/ComponentBoss";
 
 import storyMap from "@/storyMap.js";
 

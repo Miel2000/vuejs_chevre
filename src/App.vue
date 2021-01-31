@@ -8,6 +8,7 @@
       <router-link :to="{ name: 'cinema' }">Scénar Interactif</router-link>
       <router-link :to="{ name: 'boutique' }">Boutique</router-link>
       <router-link :to="{ name: 'rdm' }">Roue du meme</router-link>
+      <router-link :to="{ name: 'game' }">GameCenter</router-link>
  
     </div>
 

@@ -77,11 +77,18 @@ export default {
       return memes[randomNumber];
     },
     animateAsset() {
+      let randomNumber = Math.floor(Math.random() * 50);
+
       console.log("anim triggered", this.$refs.poring);
 
-      this.timeline.to(this.poring, 2.5, {
+      this.timeline.to(this.poring, 0.2, {
         ease: "s",
-        y: -50,
+        y: "-" + randomNumber,
+      });
+      this.timeline.to(this.poring, 0.2, {
+        ease: "s",
+        y: 0,
+        x: 0,
       });
     },
   },
