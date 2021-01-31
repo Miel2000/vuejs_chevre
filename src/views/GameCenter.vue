@@ -1,6 +1,8 @@
 <template>
     <div>
-        <papillon-game></papillon-game>
+      <div class="papillon-game">
+          <papillon-game></papillon-game>
+      </div>
     </div>
 </template>
 
@@ -11,5 +13,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style  scoped>
+.papillon-game {
+  margin: 0 auto;
+}
 </style>
