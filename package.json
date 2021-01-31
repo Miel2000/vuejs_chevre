@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@ion-phaser/core": "^1.2.3",
-    "gsap": "^2.0.2",
+    "gsap": "^3.6.0",
     "phaser": "^3.52.0",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
