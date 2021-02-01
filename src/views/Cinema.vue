@@ -76,8 +76,6 @@
 </template>
 
 
-<!-- ° ° ° ° ° ° ° ° ° L O G I C ° ° ° ° ° ° ° ° ° -->
-<!-- ° ° ° ° ° ° ° ° ° L O G I C ° ° ° ° ° ° ° ° ° -->
 <script>
 import ComponentVideo from "@/components/CinemaComponents/ComponentVideo";
 import ComponentAudio from "@/components/CinemaComponents/ComponentAudio";

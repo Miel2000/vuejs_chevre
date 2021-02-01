@@ -27,7 +27,6 @@ export default {
   data() {
     return {
       initialize: false,
-      player: this.player,
 
       game: {
         width: 800,
@@ -36,11 +35,14 @@ export default {
           default: "arcade",
           arcarde: {
             gravity: { y: 100 },
-            enableBody: true,
+            debug: true,
           },
         },
         type: Phaser.AUTO,
         scene: {
+          init() {
+            this.cameras.main.setBackgroundColor("#24252A");
+          },
           preload() {
             this.cameras.main.setBackgroundColor("#24252A");
             this.load.spritesheet(
@@ -62,10 +64,11 @@ export default {
 
             // const self = this;
 
+            this.platforms = this.physics.add.staticGroup();
             this.player = this.physics.add.sprite(100, 450, "chevre");
             this.player.setBounce(0.2);
             this.player.setCollideWorldBounds(true);
-            this.player.setGravityY(300).bind(this);
+            this.player.setVelocityY(200).bind(this);
 
             console.log("this : ", this);
             console.log("self : ", self);
@@ -98,7 +101,7 @@ export default {
             });
 
             // ce qui utilisera la physique passera par platforms
-            this.platforms = this.physics.add.staticGroup();
+
             this.add.image(400, 300, "sky");
             this.platforms
               .create(400, 568, "ground")
@@ -107,6 +110,8 @@ export default {
             this.platforms.create(10, 250, "ground").setScale(0.3);
             this.add.image(400, 300, "chevre");
           },
+
+          update() {},
         },
       },
     };

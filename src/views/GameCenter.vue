@@ -1,15 +1,17 @@
 <template>
     <div>
       <div class="papillon-game">
-          <papillon-game></papillon-game>
+          <CanvasGameComponent></CanvasGameComponent>
       </div>
     </div>
 </template>
 
 <script>
-import PapillonGame from "../components/GameCenterComponents/PapillonGame.vue";
+import CanvasGameComponent from "../components/GameCenterComponents/CanvasGameComponent.vue";
 export default {
-  components: { PapillonGame },
+  components: {
+    CanvasGameComponent,
+  },
 };
 </script>
 
