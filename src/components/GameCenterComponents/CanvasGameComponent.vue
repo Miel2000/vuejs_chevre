@@ -1,6 +1,5 @@
 <template>
     <div>
-        <h1>canvas yo</h1>
         <div :id="containerId" v-if="downloaded" />
         <div class="placeholder" v-else>
             Downloaaaad... !
@@ -20,7 +19,7 @@ export default {
   },
 
   async mounted() {
-    const game = await import(/* webpackChunckName: "game" */ "@/components/GameCenterComponents/config/game");
+    const game = await import("@/components/GameCenterComponents/config/game");
     this.downloaded = true;
     this.$nextTick(() => {
       this.gameInstance = game.launch(this.containerId);
