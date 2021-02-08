@@ -1,25 +1,43 @@
 import { Scene } from 'phaser';
+import { Phaser } from 'phaser';
 
 
 export default class PlayScene extends Scene {
+  
     constructor () {
- 
 
+        
         super({ key: 'PlayScene' })
     }
 
     create () {
-        
-// __Sky
+
+ 
+// __ Background
         this.add.image(400,300, 'sky');
 
-// __Physics items
+// __ Butterflys
+   
 
-        this.platforms = this.physics.add.staticGroup();
-        this.platforms.create(400, 568, 'ground').refreshBody();
-        this.platforms.create(400, 420, 'ground').setScale(0.5).refreshBody();
-    
-// __Player
+ this.butterfly = this.physics.add.group({
+    key: 'butterfly',
+    repeat: 11,
+    setXY: { x: 12, y: 0, stepX: 70 }
+});
+
+ this.butterfly.children.iterate(function (child) {
+
+    child.setBounceY(0.45);
+
+});
+// __ Physics items
+
+this.platforms = this.physics.add.staticGroup();
+this.platforms.create(400, 568, 'ground').refreshBody();
+this.platforms.create(400, 420, 'ground').setScale(0.5).refreshBody();
+
+
+// __ Player
         this.player =  this.physics.add.sprite(400,200, 'chevre');
         this.player.setBounce(0.4);
         this.player.setCollideWorldBounds(true);
@@ -63,6 +81,13 @@ export default class PlayScene extends Scene {
              this.sound.play('bamboo', { volume: 0.75 })
         })
 
+// Butterflys collect
+        this.physics.add.collider(this.butterfly, this.platforms);
+        this.physics.add.overlap(this.player, this.butterfly, collectButterfly, null, this);
+        function collectButterfly (player, star)
+        {
+            star.disableBody(true, true);
+        }
 
     }
 
@@ -91,12 +116,14 @@ export default class PlayScene extends Scene {
         {
             console.log('turn');
             this.player.setVelocityX(0);
-
+            
             this.player.anims.play('turn');
         }
 
         if (cursors.up.isDown && this.player.body.touching.down)
         {
+
+          
             this.player.setVelocityY(-330);
         }
     }

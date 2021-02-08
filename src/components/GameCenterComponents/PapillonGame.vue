@@ -54,6 +54,7 @@ export default {
             this.load.image("tree", "assets/gamecenter/img/tree.png");
             this.load.image("sky", "assets/gamecenter/img/sky.png");
             this.load.image("poring", "assets/gamecenter/img/poring.png");
+            this.load.image("poring", "assets/gamecenter/img/poring.png");
           },
 
           create: function() {
