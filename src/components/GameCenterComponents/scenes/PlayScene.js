@@ -5,13 +5,21 @@ import { Phaser } from 'phaser';
 export default class PlayScene extends Scene {
     
     constructor () {
+        
+        const scoreText = "";
         super({ key: 'PlayScene' })
     }
 
     create () {
 
+
     // __ Background
         this.add.image(400,300, 'sky');
+        this.cameras.main.setBackgroundColor("#FFFFFF");
+    
+    // __ Score 
+        this.score = 0;
+        this.scoreText = this.add.text(16, 16, 'score: 0', {fontSize: '32px', fill:'#000'});
 
     // __ Butterflys
         this.butterfly = this.physics.add.group({
@@ -68,18 +76,27 @@ export default class PlayScene extends Scene {
         this.physics.add.collider( this.player, this.platforms);
 
     // __ Sound when physics
-        this.sound.add('bamboo')
-        this.physics.world.on('worldbounds', () => {
-                this.sound.play('bamboo', { volume: 0.75 })
-        })
+        this.sound.add('bamboo');
+        // this.physics.world.on('worldbounds', () => {
+        // })
 
     // Butterflys collect
         this.physics.add.collider(this.butterfly, this.platforms);
         this.physics.add.overlap(this.player, this.butterfly, collectButterfly, null, this);
-        function collectButterfly (player, star)
+        function collectButterfly (player, butterfly)
         {
-            star.disableBody(true, true);
+            this.sound.play('bamboo', { volume: 0.75 })
+            butterfly.disableBody(true, true);
+            this.score += 10;
+            this.scoreText.setText('Score: ' + this.score);
         }
+
+    // __ Camera 
+        this.camera = this.cameras.main;
+        this.camera.startFollow(this.player);
+        this.camera.setFollowOffset(20, 0);
+        // this.camera.setLerp(0,0);
+    
     }
 
 
