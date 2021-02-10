@@ -101,7 +101,7 @@ export default {
   props: {
     videoId: {
       type: String,
-      default: "shooting",
+      default: "intro1",
     },
   },
 

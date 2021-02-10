@@ -1,26 +1,43 @@
 import { Scene } from 'phaser';
-import { Phaser } from 'phaser';
 
 
 export default class PlayScene extends Scene {
     
     constructor () {
         
-        const scoreText = "";
+        
         super({ key: 'PlayScene' })
     }
 
     create () {
+        
+        this.platforms = this.physics.add.staticGroup();
+    //__ init
 
-
+    
     // __ Background
         this.add.image(400,300, 'sky');
         this.cameras.main.setBackgroundColor("#FFFFFF");
-    
+        this.add.image(1980, 420, "evangeliun");
+        
+    // __ Chemin d'images physique 
+
+    this.platforms.create(650, 10, "blunty").refreshBody();
+    this.platforms.create(650, 600, "tete").refreshBody();
+    this.platforms.create(1020, 600, "crackhead").refreshBody();
+    this.platforms.create(780, 600, "doubt").refreshBody();
+    this.platforms.create(1480, 600, "uchiwa").refreshBody();
+    this.platforms.create(1250, 600, "snes").refreshBody();
+    this.platforms.create(1200, 200, "justice").refreshBody();
+    this.platforms.create(1690, 620, "jul").refreshBody();
+    this.platforms.create(1690, 900, "chat").refreshBody();
+
+
+    // this.scene.add.video(1020,400, 'ramiel')
+
     // __ Score 
         this.score = 0;
-        this.scoreText = this.add.text(16, 16, 'score: 0', {fontSize: '32px', fill:'#000'});
-
+  
     // __ Butterflys
         this.butterfly = this.physics.add.group({
             key: 'butterfly',
@@ -36,7 +53,6 @@ export default class PlayScene extends Scene {
 
     // __ Physics items
 
-        this.platforms = this.physics.add.staticGroup();
         this.platforms.create(400, 568, 'ground').refreshBody();
         this.platforms.create(400, 420, 'ground').setScale(0.5).refreshBody();
 
@@ -74,6 +90,7 @@ export default class PlayScene extends Scene {
 
     // __ Colliders
         this.physics.add.collider( this.player, this.platforms);
+        this.physics.add.collider(this.butterfly, this.platforms);
 
     // __ Sound when physics
         this.sound.add('bamboo');
@@ -81,7 +98,6 @@ export default class PlayScene extends Scene {
         // })
 
     // Butterflys collect
-        this.physics.add.collider(this.butterfly, this.platforms);
         this.physics.add.overlap(this.player, this.butterfly, collectButterfly, null, this);
         function collectButterfly (player, butterfly)
         {
@@ -92,6 +108,10 @@ export default class PlayScene extends Scene {
         }
 
     // __ Camera 
+    // console.log(this.player.position.x );
+
+        this.scoreText = this.add.text(  this.player.body.position.x + 50,this.player.body.position.y + 10, 'score: 0', {fontSize: '32px', fill:'#000'});
+
         this.camera = this.cameras.main;
         this.camera.startFollow(this.player);
         this.camera.setFollowOffset(20, 0);
