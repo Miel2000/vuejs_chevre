@@ -25,7 +25,8 @@ export default new Vuex.Store({
     piegeFleche:false,
     piegeChat:false,
     playerIsInteractive: true,
-    routeHandler:[]
+    routeHandler:[],
+    scoreGame: 0
   },  
 
   mutations: {

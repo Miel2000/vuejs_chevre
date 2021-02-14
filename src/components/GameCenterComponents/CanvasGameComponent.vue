@@ -4,6 +4,7 @@
         <div class="placeholder" v-else>
             Downloaaaad... !
         </div>
+      <img  v-if="downloaded && imgTrigger" :src="'/assets/gamecenter/img/soleil.png'"/>
     </div>
 </template>
 
@@ -14,6 +15,7 @@ export default {
     return {
       downloaded: false,
       gameInstance: null,
+      imgTrigger: false,
       containerId: "game-container",
     };
   },
@@ -21,10 +23,16 @@ export default {
   async mounted() {
     const game = await import("@/components/GameCenterComponents/config/game");
     this.downloaded = true;
+
     this.$nextTick(() => {
       this.gameInstance = game.launch(this.containerId);
+      // console.log(this.gameInstance.scene.game.keys, " Game Instance");
+      // this.gameInstance.scene.start("BootScene");
     });
+    console.log(window);
   },
+
+  updated() {},
 
   destroyed() {
     this.gameInstance.destroy(false);
@@ -33,4 +41,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+img {
+  position: absolute;
+  top: 5vh;
+  right: 5vh;
+}
 </style>
