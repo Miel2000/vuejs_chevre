@@ -2,6 +2,7 @@ import Phaser from 'phaser'
 import BootScene from '@/components/GameCenterComponents/scenes/BootScene'
 import PlayScene from '@/components/GameCenterComponents/scenes/PlayScene'
 import Level2 from '@/components/GameCenterComponents/scenes/Level2'
+import LevelPizza from '@/components/GameCenterComponents/scenes/LevelPizza'
 
 
 function launch(containerId) {
@@ -13,11 +14,11 @@ function launch(containerId) {
     physics: {
       default: 'arcade',
       arcade: {
-        gravity: { y: 400 },
+        gravity: { y: 100 },
         debug: false
       }
     },
-    scene: [BootScene, PlayScene, Level2]
+    scene: [BootScene, PlayScene, Level2, LevelPizza]
   })
 }
 

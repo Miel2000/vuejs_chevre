@@ -2,6 +2,7 @@ import { Scene } from 'phaser';
 import  Phaser from 'phaser';
 
 import door from '@/components/GameCenterComponents/assets/img/level1/door.png'
+import doorPizza from '@/components/GameCenterComponents/assets/img/level1/pizza.png'
 
 function checkOverlap(spriteA, spriteB) {
     // console.log("sprite A : " + spriteA.getBounds(), "sprite B :" + spriteB.getBounds())
@@ -18,15 +19,29 @@ export default class PlayScene extends Scene {
         super({ key: 'PlayScene' })
     }
 
+    init(data) {
+        // this.score = data.scoreGame;
+        if(data.isFromPizzaria){
+            this.isFromPizzaria = true
+        } else if (data.isFromLevel2) {
+            this.isFromLevel2 = true
+
+        }
+        console.log('this pizzaria is it from ',this.isFromPizzaria);
+        this.backedScore = data.scoring;
+        console.log('backedScore : ',  this.backedScore )
+
+    }
+
     preload(){
       this.doorLvl2 =  this.load.image('door', door)
+      this.doorPizza =  this.load.image('doorPizza', doorPizza)
     }
     
     
     
     create () {
- 
-  
+
     this.platforms = this.physics.add.staticGroup();
     //__ init
 
@@ -37,7 +52,7 @@ export default class PlayScene extends Scene {
     this.cameras.main.setBackgroundColor("#FFFFFF");
     this.add.image(1980, 420, "evangeliun");
     this.doorLvl2 = this.add.sprite(500, 925, "door").setScale(0.4);
-    console.log(this.doorLvl2);
+    this.doorPizza = this.add.sprite(2215, 800, "doorPizza");
 
     
     // __ Chemin d'images physique 
@@ -111,7 +126,20 @@ export default class PlayScene extends Scene {
     this.platforms.create(780, 950, "doubt").refreshBody();
 
     // __ Player
-    this.player =  this.physics.add.sprite(400,200, 'chevre');
+    if(this.isFromPizzaria){
+        console.log('oui oui cest bien true')
+        this.player =  this.physics.add.sprite(2150,810, 'chevre');
+        this.isFromPizzaria = false
+    } else if (this.isFromLevel2) {
+        this.player =  this.physics.add.sprite(500,900, 'chevre');
+        this.isFromLevel2 = false
+
+    }
+    else {
+        this.player =  this.physics.add.sprite(400,200, 'chevre');
+    }
+        
+   
     this.player.setBounce(0.4);
     this.player.setCollideWorldBounds(true);
 
@@ -141,6 +169,9 @@ export default class PlayScene extends Scene {
             frameRate: 10,
             repeat: -1,
         });
+        
+    
+  
 
     // __ Colliders
     this.physics.add.collider( this.player, this.platforms);
@@ -155,6 +186,7 @@ export default class PlayScene extends Scene {
         this.degats += shotgun.data.get('degats');
         this.weaponText.setText('Arme: ' + shotgun.data.get('name'));
         this.sound.play('reload_shotgun', { volume: 0.5 })
+        this.playerData.data.set('weapon', shotgun.data.get('name'));
 
     }
 
@@ -168,14 +200,10 @@ export default class PlayScene extends Scene {
         this.sound.play('bamboo', { volume: 0.4})
         butterfly.disableBody(true, true);
         this.score += butterfly.data.get('points');
-        this.data.set('pp', this.score );
-
         
         if(this.score >= 180) {
             this.sound.play('fire_sound', { volume: 0.4})
-            
         }
-    
         this.scoreText.setText('Score: ' + this.score + ' pp') ;
     }
 
@@ -190,17 +218,7 @@ export default class PlayScene extends Scene {
     this.camera.startFollow(this.player);
     this.camera.setFollowOffset(20, 0);
     // this.camera.setLerp(0,0);
-    
-    this.playerData =  this.add.text(200,300, { font: '64px Courier', fill: '#00ff00' });
-    // this.data.set('weapon', this.weapon );
 
-
-    this.playerData.setText([
-    'pp: ' + this.data.get('pp'),
-    'weapon: ' + this.data.get('weapon')
-
-]);
-    
     }
 
 
@@ -245,8 +263,15 @@ update() {
         if (Phaser.Input.Keyboard.JustDown(cursors.space)) {
             if (checkOverlap(this.player, this.doorLvl2 )) {
             // console.log(this.player, this.door, 'okok')
-              this.scene.start("Level2");
-            } 
-  
+              this.scene.start("Level2", {
+                  score :this.score,
+                  weapon: this.weapon 
+                });
+            }
+            if (checkOverlap(this.player, this.doorPizza )) {
+            // console.log(this.player, this.door, 'okok')
+              this.scene.start("LevelPizza");
+            }  
         }
+    
 }}

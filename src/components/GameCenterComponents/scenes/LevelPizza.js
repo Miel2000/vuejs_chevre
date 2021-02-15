@@ -11,24 +11,18 @@ function checkOverlap(spriteA, spriteB) {
 }
 
 
-export default class Level2 extends Scene{
+export default class LevelPizza extends Scene{
 
     constructor(){
          super({
-            key: 'Level2'
+            key: 'LevelPizza'
         });
-        this.scoreGame = 0;
+   
     }
 
-    init (data) {
-        // console.log('data on init :', data.score);
-        if(data.score){
-
-            this.scoreGame =+ data.score;
-        }
-        console.log('data on init :', this.scoreGame );
-    }
+  
     preload () {
+        console.log('ehhoooo');
         this.door_to_lvl_2 =  this.load.image('door', door)
         this.load.spritesheet(
             "chevre",
@@ -44,7 +38,6 @@ export default class Level2 extends Scene{
 
     this.cameras.main.setBackgroundColor("#FFFFFF");
 
-    this.monSoleil = this.add.image(200,50, "soleil").setOrigin(0,0);
    
     // platforms
     this.platforms.create(400, 568, 'cicada').refreshBody();
@@ -125,7 +118,9 @@ export default class Level2 extends Scene{
     if (Phaser.Input.Keyboard.JustDown(cursors.space)) {
         if (checkOverlap(this.player, this.door_to_lvl_2 )) {
         // console.log(this.player, this.door, 'okok')
-            this.scene.start("PlayScene", {isFromLevel2 : true});
+            this.scene.start("PlayScene", {
+                isFromPizzaria: true
+            });
         } 
     }
 
