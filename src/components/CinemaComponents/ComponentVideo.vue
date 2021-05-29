@@ -8,10 +8,12 @@
   
 	<video 
 	
-		:class="{ 
+		:class=" { 
 			cohabitationCta: this.$store.state.actualCallToActions.length !== 0,
-			isInteractive: this.$store.state.playerIsInteractive
-		}"
+			isInteractive: this.$store.state.playerIsInteractive,
+      video_box : 'video_box'
+     
+		}  "
 		:src="'/assets/videos/' + videoInfos.self.url"
 		controls 
 		autoplay
@@ -96,13 +98,7 @@ export default {
       // compare les timecodes des timedActions
       if (this.videoInfos.timedActions) {
         this.videoInfos.timedActions.forEach((actionInfos) => {
-          if (this.alreadySent.indexOf(actionInfos.id) === -1) {
-            this.compareTimeCodes(
-              event.target.currentTime,
-              actionInfos.at,
-              actionInfos
-            );
-          }
+          this.compareTimeCodes(event.target.currentTime, actionInfos);
         });
       }
     },
@@ -120,16 +116,47 @@ export default {
       }
     },
 
-    compareTimeCodes(currentTimeVideo, timeCodeAt, action) {
+    compareTimeCodes(currentTimeVideo, action) {
       console.log("ALL ACTIONS  : ", action);
 
       if (action.type) {
-        if (currentTimeVideo >= timeCodeAt) {
+        if (
+          currentTimeVideo >= action.at &&
+          this.alreadySent.indexOf(action.id) === -1
+        ) {
           console.log("weh on emit l'action");
 
           this.$emit("an-action-is-sent", action);
 
           this.alreadySent.push(action.id);
+        }
+
+        if (
+          this.alreadySent.indexOf(action.id) !== -1 &&
+          currentTimeVideo >= action.to
+        ) {
+          console.log("le deuxieme if est trigger ", action);
+          // on envoi le remove
+          // check si le .to est dépassé par le currentTimeVideo && qu'il est dans le tableau
+          // si c'est le cas, alors, il faut $emit un an-action-is-sent avec comme "action" une string qui dit "remove choice"
+
+          const actionUpdated = action;
+          action.doThis = "remove-choice";
+
+          this.$emit("an-action-is-sent", action);
+        }
+      }
+    },
+
+    compareTimeCodesToDeleteChoice(currentTimeVideo, timeCodeTo, action) {
+      console.log("ALL ACTIONS  : ", action);
+      // const result = action.filter((a) => a.id ==     );
+
+      if (action.type) {
+        if (currentTimeVideo <= timeCodeTo) {
+          console.log("SHOULD DELETE MOFOS");
+
+          this.alreadySent.pop(action.id);
         }
       }
     },
@@ -142,6 +169,9 @@ export default {
 <!-- ° ° ° ° ° ° ° ° ° S T Y L E ° ° ° ° ° ° ° ° ° -->
 
 <style scoped lang="scss">
+.video_box {
+  width: 700px;
+}
 .video-player {
   // de base, le player n'est pas interactif
   pointer-events: none;

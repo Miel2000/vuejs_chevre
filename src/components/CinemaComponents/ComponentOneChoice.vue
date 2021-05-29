@@ -38,6 +38,12 @@ export default {
 
   methods: {
     choiceClickHandler() {
+      this.exceptionsManager();
+
+      this.$emit("a-choice-have-been-acted", this.choiceInfos.route);
+    },
+
+    exceptionsManager() {
       if (
         this.choiceInfos.route === "banane" ||
         (this.choiceInfos.route == "shooting_remake" &&
@@ -59,8 +65,6 @@ export default {
       ) {
         this.$store.commit("addWeapon", "fusil");
       }
-
-      this.$emit("a-choice-have-been-acted", this.choiceInfos.route);
     },
   },
   // big condition qui permet de changer d'arme pour rejouer la scéne de shoot ma boi

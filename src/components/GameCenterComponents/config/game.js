@@ -1,7 +1,7 @@
 import Phaser from 'phaser'
 import BootScene from '@/components/GameCenterComponents/scenes/BootScene'
 import PlayScene from '@/components/GameCenterComponents/scenes/PlayScene'
-import Level2 from '@/components/GameCenterComponents/scenes/Level2'
+import LevelLava from '@/components/GameCenterComponents/scenes/LevelLava'
 import LevelPizza from '@/components/GameCenterComponents/scenes/LevelPizza'
 
 
@@ -18,7 +18,7 @@ function launch(containerId) {
         debug: false
       }
     },
-    scene: [BootScene, PlayScene, Level2, LevelPizza]
+    scene: [BootScene, PlayScene, LevelLava, LevelPizza]
   })
 }
 

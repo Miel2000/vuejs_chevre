@@ -1,7 +1,7 @@
 <template>
     <div :class="enemy.id"  :ref="enemy.id">
       
-      <h1 class="text-center eighties" style="color:white"> {{ this.enemy.vie }} %</h1>
+      <h1 class="text-center eighties" style="color:black"> {{ this.enemy.vie }} %</h1>
           <div class="healthbar">
               <div  class="healthbar text-center" :style="{backgroundColor: this.enemy.vie <= 50 ? 'red' : 'green', margin: 0, color: 'white', width: this.enemy.vie + '%' }">
               </div>
@@ -172,7 +172,6 @@ img {
 .eighties {
   color: #c81914;
   font-size: 20pt;
-
   font-family: "Eighties Horror";
   line-height: 1em;
   letter-spacing: 3px;
@@ -187,6 +186,7 @@ img {
 }
 .text-center {
   text-align: center;
+  color: #c81914;
 }
 
 .hide {

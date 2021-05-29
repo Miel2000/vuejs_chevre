@@ -23,13 +23,22 @@ export default class PlayScene extends Scene {
         // this.score = data.scoreGame;
         if(data.isFromPizzaria){
             this.isFromPizzaria = true
-        } else if (data.isFromLevel2) {
-            this.isFromLevel2 = true
+        } else if (data.isFromLevelLava) {
+            this.isFromLevelLava = true
 
         }
-        console.log('this pizzaria is it from ',this.isFromPizzaria);
+        if(data.backedScore){
+            this.score += Number(data.backedScore)
+        } else {
+            this.score = 0 ;
+
+        }
+
+        console.log('Player is coming from Pizzaria ?  ',this.isFromPizzaria);
+        console.log('Player is coming from Laval level ?  ',this.isFromLevelLava);
+      
         this.backedScore = data.scoring;
-        console.log('backedScore : ',  this.backedScore )
+        console.log('backedScore : ',  this.score )
 
     }
 
@@ -87,8 +96,7 @@ export default class PlayScene extends Scene {
         child.data.set('degats', 100);     
     });
     // __ Score 
-    this.score = 0;
-    this.degats = 0;
+  
   
     // __ Butterflys
 
@@ -130,9 +138,9 @@ export default class PlayScene extends Scene {
         console.log('oui oui cest bien true')
         this.player =  this.physics.add.sprite(2150,810, 'chevre');
         this.isFromPizzaria = false
-    } else if (this.isFromLevel2) {
+    } else if (this.isFromLevelLava) {
         this.player =  this.physics.add.sprite(500,900, 'chevre');
-        this.isFromLevel2 = false
+        this.isFromLevelLava = false
 
     }
     else {
@@ -169,9 +177,7 @@ export default class PlayScene extends Scene {
             frameRate: 10,
             repeat: -1,
         });
-        
-    
-  
+
 
     // __ Colliders
     this.physics.add.collider( this.player, this.platforms);
@@ -186,7 +192,6 @@ export default class PlayScene extends Scene {
         this.degats += shotgun.data.get('degats');
         this.weaponText.setText('Arme: ' + shotgun.data.get('name'));
         this.sound.play('reload_shotgun', { volume: 0.5 })
-        this.playerData.data.set('weapon', shotgun.data.get('name'));
 
     }
 
@@ -194,7 +199,8 @@ export default class PlayScene extends Scene {
    
  
     this.physics.add.overlap(this.player, this.butterfly, collectButterfly, null, this);
-
+    
+    this.scoreText = this.add.text( 220, 330, 'Score: 0 pp', {fontSize: '32px', fill:'#000'});
     function collectButterfly (player, butterfly)
     {
         this.sound.play('bamboo', { volume: 0.4})
@@ -211,7 +217,6 @@ export default class PlayScene extends Scene {
     // __ Camera 
     // console.log(this.player.position.x );
 
-    this.scoreText = this.add.text( 220, 330, 'Score: 0 pp', {fontSize: '32px', fill:'#000'});
  
 
     this.camera = this.cameras.main;
@@ -263,7 +268,7 @@ update() {
         if (Phaser.Input.Keyboard.JustDown(cursors.space)) {
             if (checkOverlap(this.player, this.doorLvl2 )) {
             // console.log(this.player, this.door, 'okok')
-              this.scene.start("Level2", {
+              this.scene.start("LevelLava", {
                   score :this.score,
                   weapon: this.weapon 
                 });

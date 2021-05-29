@@ -312,7 +312,12 @@ export default {
                 }
              },
             audio_container: [
-              
+                {
+                    isLooping:false,
+                    isAutoPlay:true,
+                    url:"valorant_sound.mp3",
+                    type:"sound"
+                }
             ],
             video_container: [
                
@@ -320,7 +325,7 @@ export default {
             timedActions: [
 
                 {
-                    at: 4,
+                    at: 14,
                     text:"Go to teh Jungle",
                     id:"valorant_fusil",
                     route: "jungle_banane",
@@ -334,17 +339,9 @@ export default {
                     route: "shooting_remake",
                     type:"choice",
                 },
-                {
-                    at: 7.5,
-                    id: "banane",
-                    text: "Banane",
-                    route: "shooting_remake",
-                    img: "banane.png",
-                    type: "choice"
-                },
                 
                 {
-                    at: 7.5,
+                    at: 15,
                     id: "couteau",
                     text: "Couteau",
                     route: "shooting_remake",
@@ -374,7 +371,12 @@ export default {
                 controls: true,
              },
             audio_container: [
-              
+                {
+                    isLooping:false,
+                    isAutoPlay:true,
+                    url:"valorant_couteau_sound.mp3",
+                    type:"sound"
+                }
             ],
             video_container: [
                
@@ -385,7 +387,7 @@ export default {
                     at: 4,
                     text:"Go to teh Jungle",
                     id:"jungle",
-                    route: "jungle_couteau",
+                    route: "fantome_noyade",
                     type:"choice",
                 },
                 
@@ -405,14 +407,6 @@ export default {
                     type: "choice"
                 },
                 
-                {
-                    at: 7.5,
-                    id: "couteau",
-                    text: "Couteau",
-                    route: "shooting_remake",
-                    img: "couteau.png",
-                    type: "choice"
-                },
                 {
                     at: 7.5,
                     id: "fusil",
@@ -435,6 +429,12 @@ export default {
                 controls: true,
              },
             audio_container: [
+                  {
+                    isLooping:false,
+                    isAutoPlay:true,
+                    url:"valorant_fusil_sound.mp3",
+                    type:"sound"
+                }
               
             ],
             video_container: [
@@ -467,14 +467,6 @@ export default {
                     img: "couteau.png",
                     type: "choice"
                 },
-                {
-                    at: 23,
-                    id: "fusil",
-                    text: "Fusil",
-                    route: "shooting_remake",
-                    img: "fusil.png",
-                    type: "choice"
-                }
               
             ]
             },
@@ -523,21 +515,16 @@ export default {
 
         },
 
-        jungle_couteau: {
+        fantome_noyade: {
 
             self: {
-                url: "jungle_couteau.mp4",
+                url: "fantome_noyade.mp4",
                 controls: true,
 
             },
            
             audio_container: [
-                {
-                    
-                    url:"rain-background.mp3",
-                    type:"bg_sound",
-                    isLooping:true
-                }
+      
             ],
             video_container: [
                 {
@@ -551,15 +538,17 @@ export default {
             timedActions: [
 
                 {
-                    at: 4,
-                    text:"foret",
-                    id:"foret",
-                    route: "foret",
+                    at: 56,
+                    to: 63,
+                    text:"Noyer le fantome",
+                    id:"noyade_1",
+                    route: "noyade_1",
                     type:"choice",
                 },
                 
                 {
-                    at: 4,
+                    at: 70,
+                    to: 75,
                     text:"Parler au PNJ",
                     id:"scribe_1",
                     route: "scribe_1",
@@ -569,7 +558,7 @@ export default {
             ]
 
         },
-        jungle_fusil: {
+        noyade_1: {
 
             self: {
                 url: "jungle_fusil.mp4",
@@ -580,10 +569,7 @@ export default {
             video_container: [
                 {
                     
-                    url:"rain-background.mp4",
-                    type:"video",
-                    isLooping:true
-                    
+    
                 }
             ],
             timedActions: [
@@ -818,7 +804,7 @@ export default {
             timedActions: [
            
         
-             ],
+            ],
             ctas: [
                 {
                     id:"esquive_fleche",

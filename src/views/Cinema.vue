@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+      <p>{{ videoInfos  }}</p>
 
     <div class="video_and_cta scene-container">
         <div  v-if=" Object.keys(videoInfos.self).length !== 0 " class="video_container">
@@ -12,7 +13,21 @@
                 
             />
         
+      </div>
+
+  </div>
+    <div class="choice-container" v-if="computedChoices.length > 0" >
+        <div
+            v-for="choice in computedChoices" 
+            :key="choice.id">
+
+            <ComponentOneChoice 
+                :choice-infos="choice"
+                @a-choice-have-been-acted="choiceActedHandler"
+            />
+
         </div>
+  </div> 
           <div v-for="boss in videoInfos.boss" :key="boss.id" class="boss-container">
 
                 <ComponentBoss
@@ -22,7 +37,7 @@
                   
                   />
           </div> 
-            <div v-for="enemy in videoInfos.enemy" :key="enemy.id" class="enemy-container ">
+            <div v-for="enemy in videoInfos.enemy" :key="enemy.id" class="enemy-container">
 
                 <ComponentEnemy
                   @minus-life="MinusEnemyLife"
@@ -30,22 +45,7 @@
                   
                   />
           </div> 
-
- <div class="choice-container" v-if="computedChoices.length > 0" >
-      <div
-          v-for="choice in computedChoices" 
-          :key="choice.id">
-
-          <ComponentOneChoice 
-              :choice-infos="choice"
-              @a-choice-have-been-acted="choiceActedHandler"
-          />
-
-      </div>
-  </div> 
-
-  </div>
-     
+  
 
   <div v-if="computedCtas.length > 0" >
    <div v-for="cta in computedCtas" :key="cta.id">
@@ -65,7 +65,8 @@
         <div v-for="audio in computedAudios"
             :key="audio.id">
 
-            <ComponentAudio @an-action-is-sent="computedAudios"  :audio-infos="audio" /> 
+            <ComponentAudio :audio-infos="audio" /> 
+
         </div>
     </div>
 
@@ -101,7 +102,7 @@ export default {
   props: {
     videoId: {
       type: String,
-      default: "intro1",
+      default: "fantome_noyade",
     },
   },
 
@@ -161,31 +162,18 @@ export default {
 
     actionHandler(actionInfos) {
       // this.$store.commit("setActualChoices", actionInfos);
+
       switch (actionInfos.type) {
         case "choice":
           // condition route['shooting'], permet d'envoyer le choix de la route timé si la route est bien sur shooting (donc ça refresh la route grace au infos du storyMap et ça remet les choix vides)
-          if (actionInfos.route == "shooting") {
-            this.videoInfos = storyMap.videos["shooting"];
-            this.choices = [];
-          }
-
-          // quand il propose les routes des armes, la musique s'arrete car on refresh le tableau audios.
-          if (
-            actionInfos.route == "banane" ||
-            actionInfos.route == "couteau" ||
-            actionInfos.route == "fusil"
-          ) {
-            this.audios = [];
-          }
-          if (
-            actionInfos.route == "shooting_remake" ||
-            actionInfos.route == "shooting"
-          ) {
-            this.enemy = [];
-          }
+          this.exceptionChoiceManager(actionInfos);
 
           console.log("dans le switch CHOICE : ", actionInfos);
-          this.choices.push(actionInfos);
+          //  this.choices.push(actionInfos);
+          break;
+
+        case "remove-choice":
+          this.choices = [];
           break;
 
         case "sound":
@@ -197,6 +185,32 @@ export default {
           break;
       }
     },
+
+    exceptionChoiceManager(actionInfos) {
+      
+      if (actionInfos.route == "shooting") {
+        this.videoInfos = storyMap.videos["shooting"];
+        this.choices = [];
+      }
+
+      // quand il propose les routes des armes, la musique s'arrete.
+      if ( actionInfos.route == "banane" || actionInfos.route == "couteau" || actionInfos.route == "fusil" ) {
+        this.audios = [];
+      }
+
+      if ( actionInfos.route == "shooting_remake" || actionInfos.route == "shooting" ) {
+        this.enemy = [];
+      }
+
+      // Quand la  valeur de doThis est remove-choice, on supprime le choix.
+      if ( actionInfos.doThis && actionInfos.doThis === "remove-choice" ) {
+        this.choices = [];
+      } else {
+        this.choices.push(actionInfos);
+      }
+
+    },
+
     choiceActedHandler(choice) {
       this.choices = [];
 
@@ -257,7 +271,6 @@ export default {
 
 <style lang="scss">
 .choice-container {
-  position: absolute;
   display: flex;
   justify-content: space-evenly;
   bottom: 20px;
@@ -265,25 +278,15 @@ export default {
 
 .video_and_cta {
   margin: 0 auto;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .video_container {
-  width: 100%;
-  position: absolute;
-
-  bottom: 0%;
-  left: 0;
   z-index: -1;
 }
 
 .enemy-container {
-  top: 10%;
+  width: 200px;
   margin: 0 auto;
-  position: absolute;
 }
 
 .background-scene {

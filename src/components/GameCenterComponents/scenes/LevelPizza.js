@@ -1,5 +1,6 @@
 import { Scene } from 'phaser';
 import  Phaser from 'phaser';
+
 import door from '@/components/GameCenterComponents/assets/img/level1/door.png'
 
 function checkOverlap(spriteA, spriteB) {
@@ -20,9 +21,15 @@ export default class LevelPizza extends Scene{
    
     }
 
+    // init(data){
+    //     if(data.score){
+    //         this.score = data.score;
+    //     }
+    // }
+
   
     preload () {
-        console.log('ehhoooo');
+      
         this.door_to_lvl_2 =  this.load.image('door', door)
         this.load.spritesheet(
             "chevre",
@@ -31,6 +38,7 @@ export default class LevelPizza extends Scene{
         );
     }
     create () {
+
 
     this.door_to_lvl_2 = this.add.sprite(400, 460, "door").setScale(0.5);
 
@@ -43,7 +51,11 @@ export default class LevelPizza extends Scene{
     this.platforms.create(400, 568, 'cicada').refreshBody();
 
 
-    this.player = this.physics.add.sprite(400,200,  'chevre');
+    this.player = this.physics.add.sprite(400,500,  'chevre');
+    // __ Particules
+
+
+
     this.player.setBounce(0.4);
     this.player.setCollideWorldBounds(true);
          
@@ -85,10 +97,11 @@ export default class LevelPizza extends Scene{
     this.camera.startFollow(this.player);
     this.camera.setFollowOffset(20, 0);
 
-    }
+    
+}
 
-   update () {
-     const cursors = this.input.keyboard.createCursorKeys();
+update () {
+       const cursors = this.input.keyboard.createCursorKeys();
 
     // Mouvements
     if (cursors.left.isDown)
@@ -109,8 +122,8 @@ export default class LevelPizza extends Scene{
             this.player.setVelocityX(0);
             this.player.anims.play('turn');
         }
-
-    if (cursors.up.isDown && this.player.body.touching.down)
+        
+        if (cursors.up.isDown && this.player.body.touching.down)
         {
             this.player.setVelocityY(-330);
         }
@@ -119,7 +132,8 @@ export default class LevelPizza extends Scene{
         if (checkOverlap(this.player, this.door_to_lvl_2 )) {
         // console.log(this.player, this.door, 'okok')
             this.scene.start("PlayScene", {
-                isFromPizzaria: true
+                isFromPizzaria: true,
+                score: this.score
             });
         } 
     }

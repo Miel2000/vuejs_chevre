@@ -1,6 +1,8 @@
 import { Scene } from 'phaser';
 import  Phaser from 'phaser';
 import door from '@/components/GameCenterComponents/assets/img/level1/door.png'
+import backgroundLava from '@/components/GameCenterComponents/assets/img/level2/background-lava.png'
+
 
 function checkOverlap(spriteA, spriteB) {
     // console.log("sprite A : " + spriteA.getBounds(), "sprite B :" + spriteB.getBounds())
@@ -11,22 +13,23 @@ function checkOverlap(spriteA, spriteB) {
 }
 
 
-export default class Level2 extends Scene{
+export default class LevelLava extends Scene {
 
     constructor(){
          super({
-            key: 'Level2'
+            key: 'LevelLava'
         });
-        this.scoreGame = 0;
+        
     }
 
     init (data) {
         // console.log('data on init :', data.score);
+         
         if(data.score){
 
-            this.scoreGame =+ data.score;
+            this.backedScore = data.score;
+            console.log('data on init :', this.backedScore );
         }
-        console.log('data on init :', this.scoreGame );
     }
     preload () {
         this.door_to_lvl_2 =  this.load.image('door', door)
@@ -35,6 +38,9 @@ export default class Level2 extends Scene{
             this.chevre,
             { frameWidth: 100, frameHeight: 87 }
         );
+       
+
+       
     }
     create () {
 
@@ -55,7 +61,8 @@ export default class Level2 extends Scene{
     this.player.setCollideWorldBounds(true);
          
     this.physics.add.collider(this.player, this.platforms);
-    
+
+
 
     this.anims.create({
             key: "left",
@@ -125,7 +132,10 @@ export default class Level2 extends Scene{
     if (Phaser.Input.Keyboard.JustDown(cursors.space)) {
         if (checkOverlap(this.player, this.door_to_lvl_2 )) {
         // console.log(this.player, this.door, 'okok')
-            this.scene.start("PlayScene", {isFromLevel2 : true});
+            this.scene.start("PlayScene", {
+                isFromLevelLava : true,
+                backedScore: this.backedScore
+            });
         } 
     }
 
