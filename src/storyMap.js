@@ -3,7 +3,7 @@ export default {
     videos: {
 
         intro1: {
-
+            id: 'intro1',
             self: {
 
                 url: "intro1.mp4",
@@ -33,15 +33,12 @@ export default {
         },
         
         intro2: {
-
+            id: 'intro2',
             self: {
 
                 url: "intro2.mp4",
                 controls: true,
-                css: {
-                    width: '100%'
-            
-                }
+               
             },
             audio_container: [
               
@@ -67,7 +64,7 @@ export default {
         },
 
         weed: {
-
+            id: 'weed',
             self: { 
 
                 url: "weed_start.mp4",
@@ -116,7 +113,7 @@ export default {
         },
 
         hokage: {
-
+            id: 'hokage',
             self: { 
 
                 url: "weed_hokage.mp4",
@@ -163,7 +160,7 @@ export default {
 
 
         banane: {
-
+            id:"banane",
             self: {
 
                 url: "weed_hokage_banane.mp4",
@@ -198,7 +195,7 @@ export default {
         },
 
         couteau: {
-
+            id:"couteau",
             self: {
 
                 url: "weed_hokage_couteau.mp4",
@@ -231,7 +228,7 @@ export default {
         },
 
         fusil: {
-
+            id:"fusil",
             self: {
 
                 url: "weed_hokage_fusil.mp4",
@@ -268,7 +265,7 @@ export default {
 
 
         shooting: {
-
+            id:"shooting",
             self: {
             },
             audio_container: [
@@ -301,7 +298,7 @@ export default {
             },
 
         valorant_banane: {
-
+            id:"valorant_banane",
 
             self: {
 
@@ -313,8 +310,7 @@ export default {
              },
             audio_container: [
                 {
-                    isLooping:false,
-                    isAutoPlay:true,
+                  
                     url:"valorant_sound.mp3",
                     type:"sound"
                 }
@@ -364,7 +360,7 @@ export default {
         
         valorant_couteau: {
 
-
+            id:"valorant_couteau",
             self: {
 
                 url: "valorant_couteau.mp4",
@@ -421,7 +417,7 @@ export default {
             },
 
         valorant_fusil: {
-
+            id:"valorant_fusil",
 
             self: {
 
@@ -429,12 +425,12 @@ export default {
                 controls: true,
              },
             audio_container: [
-                  {
-                    isLooping:false,
-                    isAutoPlay:true,
-                    url:"valorant_fusil_sound.mp3",
-                    type:"sound"
-                }
+                // {
+                //     isLooping:false,
+                //     isAutoPlay:true,
+                //     url:"valorant_fusil_sound.mp3",
+                //     type:"sound"
+                //   }
               
             ],
             video_container: [
@@ -467,47 +463,58 @@ export default {
                     img: "couteau.png",
                     type: "choice"
                 },
+                {
+                    at:0,
+                    to:33,
+                    isLooping:false,
+                    isAutoPlay:true,
+                    url:"background/valorant_fusil_sound.mp3",
+                    type:"sound"
+                }
+                  
               
             ]
             },
         shooting_remake: {
-
+            id:"shooting_remake",
             self: {
                 // url: "valorant_fusil.mp4",
                 // controls: true,
 
             },
+           
 
             audio_container: [
-                {
-                    isLooping:false,
-                    isAutoPlay:true,
-                    url:"naruto-background-sound.mp3",
-                    type:"sound"
-                }
+            {
+                
+                url:"naruto-background-sound.mp3",
+                type:"sound"
+            }
+
             ],
             video_container: [
-                {   
-                    url:"shooting_naruto.mp4",
-                    type:"video",
-                    isLooping:true
-                }
+            {   
+                url:"shooting_naruto.mp4",
+                type:"video",
+                isLooping:true
+            }
             ],
 
             enemy: [
-                {   id: "castaner",
-                    url: "castaner.png",
-                    vie: 100,
-                    type: "enemy"
-                   
-                },
-                {
-                    id: "castex",
-                    url: "castex.png",
-                    vie: 100,
-                    type: "enemy"
-                   
-                },
+            {   id: "castaner",
+                url: "castaner.png",
+                vie: 100,
+                type: "enemy"
+                
+            },
+            {
+                id: "castex",
+                url: "castex.png",
+                vie: 100,
+                type: "enemy"
+                
+            },
+            
          
               ],
            
@@ -516,7 +523,7 @@ export default {
         },
 
         fantome_noyade: {
-
+            id:"fantome_noyade",
             self: {
                 url: "fantome_noyade.mp4",
                 controls: true,
@@ -549,9 +556,9 @@ export default {
                 {
                     at: 70,
                     to: 75,
-                    text:"Parler au PNJ",
-                    id:"scribe_1",
-                    route: "scribe_1",
+                    text:"222 NOYER FANTOME",
+                    id:"noyade_2",
+                    route: "noyade_2",
                     type:"choice",
                 },
 
@@ -559,7 +566,7 @@ export default {
 
         },
         noyade_1: {
-
+            id:"noyade_1",
             self: {
                 url: "jungle_fusil.mp4",
                 controls: true,
@@ -601,7 +608,7 @@ export default {
         },
 
         jungle_banane: {
-
+            id:"jungle_banane",
             self: {
                 url: "jungle_banane.mp4",
                 controls: true,
@@ -638,158 +645,9 @@ export default {
             ]
         },
 
-        scribe_1: {
-            self:{
-                url: "scribe_1.mp4",
-                controls: true,
-                
-            },
-            video_container: [
-               
-            ],
-            timedActions: [
-
-                    {
-                        at: 0,
-                        text:"Aller dans la foret",
-                        id:"foret1",
-                        route: "foret",
-                        type:"choice",
-                    },
-                    {
-                        at: 0,
-                        text:"Parler au PNJ",
-                        id:"scribe_2",
-                        route: "scribe_2",
-                        type:"choice",
-                    },
-
-                ]
-
-        },
-        scribe_2: {
-            self:{
-                url: "scribe_2.mp4",
-                controls: true,
-                
-            },
-            audio_container: [
-              
-            ],
-            video_container: [
-               
-            ],
-            timedActions: [
-
-                    {
-                        at: 0,
-                        text:"Aller dans la foret",
-                        id:"foret2",
-                        route: "foret",
-                        type:"choice",
-                    },
-                    {
-                        at: 0,
-                        text:"Parler au PNJ",
-                        id:"scribe_3",
-                        route: "scribe_3",
-                        type:"choice",
-                    },
-
-                ]
-
-        },
-        scribe_3: {
-            self:{
-                url: "scribe_3.mp4",
-                controls: true,
-                
-            },
-            audio_container: [
-              
-            ],
-            video_container: [
-               
-            ],
-            timedActions: [
-
-                    {
-                        at: 0,
-                        text:"Aller dans la foret",
-                        id:"foret3",
-                        route: "foret",
-                        type:"choice",
-                    },
-                    {
-                        at: 0,
-                        text:"Parler au PNJ",
-                        id:"scrib_4",
-                        route: "scribe_4",
-                        type:"choice",
-                    },
-
-                ]
-
-        },
-        scribe_4: {
-            self:{
-                url: "scribe_4.mp4",
-                controls: true,
-                
-            },
-            audio_container: [
-              
-            ],
-            video_container: [
-               
-            ],
-            timedActions: [
-
-                    {
-                        at: 0,
-                        text:"Aller dans la foret",
-                        id:"4foret",
-                        route: "foret",
-                        type:"choice",
-                    },
-                    {
-                        at: 0,
-                        text:"Parler au PNJ",
-                        id:"scrib_last",
-                        route: "scribe_last",
-                        type:"choice",
-                    },
-
-                ]
-
-        },
-        scribe_last: {
-            self:{
-                url: "scribe_last.mp4",
-                controls: true,
-                
-            },
-            audio_container: [
-              
-            ],
-            video_container: [
-               
-            ],
-            timedActions: [
-
-                    {
-                        at: 25.3,
-                        text:"Aller dans cette putin de foret",
-                        id:"5foret",
-                        route: "foret",
-                        type:"choice",
-                    },
-               
-
-                ]
-
-        },
+        
         foret_banane: {
+            id:"foret_banane",
             self:{
                 url: "foret_banane.mp4",
                 controls: true,
@@ -826,6 +684,7 @@ export default {
 
         },
         foret_couteau: {
+            id:"foret_couteau",
             self:{
                 url: "foret_couteau.mp4",
                 controls: true,
@@ -862,6 +721,7 @@ export default {
 
         },
         foret_fusil: {
+            id:"foret_fusil",
             self:{
                 url: "foret_fusil.mp4",
                 controls: true,
@@ -898,6 +758,7 @@ export default {
 
         },
         boss_banane: {
+            id:"boss_banane",
             self:{
            
             },
@@ -924,6 +785,7 @@ export default {
 
         },
         boss_couteau: {
+            id:"boss_couteau",
             self:{
            
             },
@@ -950,6 +812,7 @@ export default {
 
         },
         boss_fusil: {
+            id:"boss_fusil",
             self:{
            
             },
@@ -976,6 +839,7 @@ export default {
 
         },
         generique: {
+            id:"generique",
             self:{
                 url: "generique.mp4",
                 controls: true,

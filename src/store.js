@@ -12,13 +12,12 @@ export default new Vuex.Store({
     storyMap,
     currentTimeVideo: 0,
     currentTimeAudio: 0,
-    actualVideoObj: {},
     actualChoices: [],
     actualSounds: [],
     actualEnemy: [],
     actualVideo:[],
     actualCallToActions: [],
-    weapon:"couteau",
+    weapon:"fusil",
     myLife: 100,
     ninjasLife: 200,
     bossLife: 300,
@@ -52,6 +51,10 @@ export default new Vuex.Store({
 
     setActualVideo: (state,x) => {
       state.actualVideo = x
+    },
+
+    setActualBackground: (state,x) => {
+      state.setActualBackground = x
     },
 
     minusNinjasLife: (state, x) => {

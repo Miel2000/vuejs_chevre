@@ -102,7 +102,7 @@ export default {
   props: {
     videoId: {
       type: String,
-      default: "fantome_noyade",
+      default: "intro1",
     },
   },
 
@@ -114,6 +114,7 @@ export default {
       ctas: [],
       audiosBackground: [],
       enemy: [],
+      backInfos : [],
     };
   },
 
@@ -135,7 +136,21 @@ export default {
     },
   },
 
-  mounted() {},
+  mounted() {
+
+    // this.$store.state.actualSounds = this.audios;
+    // this.$store.state.actualEnemy = this.enemy;
+    // this.$store.state.actualChoices = this.choices;
+    // this.$store.state.actuelVideo = this.videoInfos;
+    // this.$store.state.actualCallToActions = this.ctas;
+
+    console.log(this.videoInfos.id ,'video id')
+    if(this.videoId === 'shooting_remake'){
+      this.videoInfos = this.videoInfos['shooting_remake'];
+      console.log('mounted cinema');
+
+    }
+  },
   destroyed() {
     // Récupéré la route au moment du die
     this.$store.state.routeHandler = this.videoInfos;
@@ -177,6 +192,7 @@ export default {
           break;
 
         case "sound":
+          this.audios = [];
           console.log("dans le switch SOUND : ", actionInfos);
           this.audios.push(actionInfos);
           break;
@@ -193,13 +209,19 @@ export default {
         this.choices = [];
       }
 
+ 
+
+
       // quand il propose les routes des armes, la musique s'arrete.
       if ( actionInfos.route == "banane" || actionInfos.route == "couteau" || actionInfos.route == "fusil" ) {
         this.audios = [];
+       
       }
 
       if ( actionInfos.route == "shooting_remake" || actionInfos.route == "shooting" ) {
+              
         this.enemy = [];
+      
       }
 
       // Quand la  valeur de doThis est remove-choice, on supprime le choix.
@@ -212,15 +234,20 @@ export default {
     },
 
     choiceActedHandler(choice) {
+     
+      
       this.choices = [];
 
+      
       this.videoInfos = storyMap.videos[choice];
     },
 
     enemyHandler(enemyInfo) {
       switch (enemyInfo.type) {
         case "enemy":
+          this.audios =[];
           this.enemy.push(enemyInfo);
+         
           break;
 
         default:
@@ -232,16 +259,21 @@ export default {
       if (this.$store.state.ninjasLife <= 0) {
         switch (this.$store.state.weapon) {
           case "banane":
+           
             this.rootEnd(storyMap.videos["valorant_banane"]);
+         
 
             break;
           case "couteau":
+           
             this.rootEnd(storyMap.videos["valorant_couteau"]);
+          
 
             break;
           case "fusil":
+           
             this.rootEnd(storyMap.videos["valorant_fusil"]);
-
+            
             break;
 
           default:
@@ -262,9 +294,6 @@ export default {
       this.videoInfos = endpoint;
     },
 
-    audioActedHandlerOnElement(audio) {
-      this.audios = storyMap.videos[audio];
-    },
   },
 };
 </script>

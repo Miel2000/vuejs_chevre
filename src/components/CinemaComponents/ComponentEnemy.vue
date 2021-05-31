@@ -40,6 +40,10 @@ export default {
     this.enemy.vie = 100;
     this.$store.state.ninjasLife = 200;
     this.weaponInStore = this.$store.state.weapon;
+
+    this.videoId = this.$store.state.actualVideo;
+    console.log(this.videoId.id,'video id yo component enemy')
+
     this.$emit("an-enemy-is-sent", this.enemy);
 
     if (this.enemy.id == "castex") {
@@ -153,6 +157,7 @@ export default {
             "fusil utilisée sur",
             this.enemy.url + " | Vie : " + this.enemy.vie
           );
+          this.videoId = this.$store.state.actualVideo;
           break;
         }
 

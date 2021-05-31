@@ -60,6 +60,7 @@ export default {
 
   methods: {
     onTimeUpdate(event) {
+
       // compare les timecodes des ctas
 
       if (this.videoInfos.ctas) {
@@ -102,7 +103,7 @@ export default {
         });
       }
     },
-    // faire une methode qui compareTimeCodeAndRedirect
+    
 
     compareForCtas(currentTimeVideo, timeCodeAt, action) {
       // console.log("ALL ACTIONS AT -> TO  : ", action);
@@ -117,7 +118,7 @@ export default {
     },
 
     compareTimeCodes(currentTimeVideo, action) {
-      console.log("ALL ACTIONS  : ", action);
+      // console.log("ALL ACTIONS  : ", action);
 
       if (action.type) {
         if (
@@ -136,14 +137,12 @@ export default {
           currentTimeVideo >= action.to
         ) {
           console.log("le deuxieme if est trigger ", action);
-          // on envoi le remove
-          // check si le .to est dépassé par le currentTimeVideo && qu'il est dans le tableau
-          // si c'est le cas, alors, il faut $emit un an-action-is-sent avec comme "action" une string qui dit "remove choice"
 
           const actionUpdated = action;
-          action.doThis = "remove-choice";
+          
+          actionUpdated.doThis = "remove-choice";
 
-          this.$emit("an-action-is-sent", action);
+          this.$emit("an-action-is-sent", actionUpdated);
         }
       }
     },

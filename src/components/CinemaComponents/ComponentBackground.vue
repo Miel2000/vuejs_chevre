@@ -2,33 +2,19 @@
 <div>
     <div v-if="actualBackgroundInfos.audio_container">
         <div v-for="backgroundAudio in actualBackgroundInfos.audio_container" :key="backgroundAudio.id">
-          <div v-if="backgroundAudio.isLooping" >
+        
                 <audio 
                    
                     volume="0.05"
                     autoplay
                     controls
-                    loop
+                   
                     ref="audioBox"
                 >
                     <source id="audioBackgroundBalise" :src="'/assets/mp3/background/' + backgroundAudio.url"/>
                 
                 </audio>
-          </div>
-          <div v-else>
-               <audio 
-      
-                    volume="0.05"
-                    autoplay
-                    controls
-                    ref="audioBox"
-                >
-                    <source   id="audioBackgroundBalise" :src="'/assets/mp3/background/' + backgroundAudio.url"/>
-                
-                </audio>
-          </div>
-
-         </div>
+          </div>     
     </div>
 
     <div v-if="actualBackgroundInfos.video_container">
@@ -49,6 +35,7 @@
 
 <script>
 export default {
+
   name: "ComponentBackground",
   props: {
     actualBackgroundInfos: {
@@ -57,7 +44,9 @@ export default {
     },
 
     mounted() {
-      console.log("he ho");
+  
+        this.actualBackgroundInfos = this.$store.state.actualBackgroundInfos;
+   
     },
 
     computed: {

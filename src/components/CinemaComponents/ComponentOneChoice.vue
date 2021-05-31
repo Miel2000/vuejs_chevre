@@ -17,6 +17,7 @@
 
 
 <script>
+import storyMap from "@/storyMap.js";
 export default {
   props: {
     choiceInfos: {
@@ -41,9 +42,17 @@ export default {
       this.exceptionsManager();
 
       this.$emit("a-choice-have-been-acted", this.choiceInfos.route);
+  
     },
 
     exceptionsManager() {
+
+      //quand je clique sur le choix d'une nouvelle arme, en direction de la scene shooting_remake
+      // if(this.choiceInfos.id === "shooting_remake"){
+  
+      //    this.$store.commit('setActualVideo', storyMap.videos['shooting_remake'])
+      // }
+
       if (
         this.choiceInfos.route === "banane" ||
         (this.choiceInfos.route == "shooting_remake" &&
@@ -65,6 +74,7 @@ export default {
       ) {
         this.$store.commit("addWeapon", "fusil");
       }
+  
     },
   },
   // big condition qui permet de changer d'arme pour rejouer la scéne de shoot ma boi
