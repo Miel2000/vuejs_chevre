@@ -1,4 +1,8 @@
 <template>
+
+<div>
+<div v-if="enemy">
+ 
     <div :class="enemy.id"  :ref="enemy.id">
       
       <h1 class="text-center eighties" style="color:black"> {{ this.enemy.vie }} %</h1>
@@ -7,14 +11,21 @@
               </div>
           </div>
           <br>
-      <img  v-on:click="hitEnemy(enemy)"
-          :src="'/assets/images/'+ enemy.url" 
-          alt=""
-          :class="enemy.id"
-         
-      />
+          
+              <img  v-on:click="hitEnemy(enemy)"
+                  :src="'/assets/images/'+ enemy.url" 
+                  alt=""
+                  :class="enemy.id"
+                
+              />
+       </div>
     
     </div>
+
+</div>
+
+ 
+
   
 </template>
 

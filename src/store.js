@@ -9,14 +9,19 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+
     storyMap,
+
     currentTimeVideo: 0,
     currentTimeAudio: 0,
+
+    actualVideo: storyMap.videos['intro1'],
     actualChoices: [],
-    actualSounds: [],
+    actualBackgroundAudio: [],
+    actualAudio: [],
     actualEnemy: [],
-    actualVideo:[],
     actualCallToActions: [],
+
     weapon:"fusil",
     myLife: 100,
     ninjasLife: 200,
@@ -29,6 +34,32 @@ export default new Vuex.Store({
   },  
 
   mutations: {
+
+    // 
+    setActualVideo: (state,x) => {
+      state.actualVideo = x
+    },
+
+    setActualChoices: (state,x) => {
+      state.setActualChoices = x
+    },
+
+    setActualBackground: (state,x) => {
+      state.setActualBackground = x
+    },
+
+    setActualAudio:(state,x) => {
+      state.actualAudio = x
+    },
+
+    setActualEnemy:(state,x) => {
+      state.actualEnemy = x
+    },
+    
+    setActualCallToActions:(state,x) => {
+      state.actualCallToActions = x;
+    },
+
     addMana: (state, x) => {
       state.mana += x;
     },
@@ -47,14 +78,6 @@ export default new Vuex.Store({
 
     switchChat: (state,x) => {
       state.piegeChat = x
-    },
-
-    setActualVideo: (state,x) => {
-      state.actualVideo = x
-    },
-
-    setActualBackground: (state,x) => {
-      state.setActualBackground = x
     },
 
     minusNinjasLife: (state, x) => {

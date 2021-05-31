@@ -267,6 +267,11 @@ export default {
         shooting: {
             id:"shooting",
             self: {
+                url: "--",
+                controls: true,
+                options: {
+                
+                }
             },
             audio_container: [
               

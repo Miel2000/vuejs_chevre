@@ -1,7 +1,7 @@
 <template>
 <div>
-    <div v-if="actualBackgroundInfos.audio_container">
-        <div v-for="backgroundAudio in actualBackgroundInfos.audio_container" :key="backgroundAudio.id">
+    <div v-if="actualBackgroundInfos">
+        <div >
         
                 <audio 
                    
@@ -16,21 +16,13 @@
                 </audio>
           </div>     
     </div>
-
-    <div v-if="actualBackgroundInfos.video_container">
-        <div  class="background-video-container" v-for="backgroundVideo in actualBackgroundInfos.video_container" :key="backgroundVideo.id">
-          <div class="background-video-loop">
-            <div v-if="backgroundVideo.isLooping">
+            <div>
                 <video controls loop autoplay :src="'/assets/videos/background/'  + backgroundVideo.url "></video>
             </div>
-            <div v-else>
-                <video  autoplay :src="'/assets/videos/background/'  + backgroundVideo.url "></video>
-            </div>
-          </div>
+      
 
          </div>
-    </div>
-</div>
+
 </template>
 
 <script>
@@ -43,11 +35,7 @@ export default {
       required: true,
     },
 
-    mounted() {
-  
-        this.actualBackgroundInfos = this.$store.state.actualBackgroundInfos;
-   
-    },
+    mounted() {},
 
     computed: {
       setVolume() {

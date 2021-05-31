@@ -28,23 +28,29 @@
 
         </div>
   </div> 
-          <div v-for="boss in videoInfos.boss" :key="boss.id" class="boss-container">
+    <div v-for="boss in videoInfos.boss" :key="boss.id" class="boss-container">
 
-                <ComponentBoss
-                  @minus-boss-life="MinusBossLife"
-                  @hitBoss="hitBoss(boss)" 
-                  :boss="boss" 
-                  
-                  />
-          </div> 
-            <div v-for="enemy in videoInfos.enemy" :key="enemy.id" class="enemy-container">
+          <ComponentBoss
+            @minus-boss-life="MinusBossLife"
+            @hitBoss="hitBoss(boss)" 
+            :boss="boss" 
+            
+            />
+    </div> 
 
-                <ComponentEnemy
-                  @minus-life="MinusEnemyLife"
-                  :enemy="enemy" 
-                  
-                  />
-          </div> 
+
+    <div class="enemy-container" v-if='computedVideoInfos.enemy'>
+          <div v-if="computedVideoInfos.enemy.length > 0">
+              <div v-for="e in computedVideoInfos.enemy" :key="e.id" class="enemy " >
+                  <ComponentEnemy
+                      @minus-life="MinusEnemyLife"
+                      :enemy="e" 
+                    
+                    />
+              </div> 
+          </div>
+    </div>
+       
   
 
   <div v-if="computedCtas.length > 0" >
@@ -54,13 +60,21 @@
    </div>
   </div>
   
-  <div class="background-scene">
+ <div class="background-scene">
+    <div v-if="computedBackgroundAudios" >
+        <div v-if="computedBackgroundAudios.length > 0" >
+            <div v-for="backgroundAudio in computedBackgroundAudios" :key="backgroundAudio.id">
 
-      <ComponentBackground :actual-background-infos="videoInfos"  />
+                <ComponentBackground :actual-background-infos="backgroundAudio" />
+            </div>
+      </div>
+  </div>
     
   </div>
 
-  <div class="cta-container">
+      <!-- <ComponentBackground :actual-background-infos="videoInfos"  /> -->
+
+  <div class="audio-container">
     <div v-if="computedAudios.length > 0" >
         <div v-for="audio in computedAudios"
             :key="audio.id">
@@ -99,22 +113,21 @@ export default {
     ComponentBoss,
   },
 
-  props: {
-    videoId: {
-      type: String,
-      default: "intro1",
-    },
-  },
+  // props: {
+  //   videoId: {
+  //     type: String,
+  //     default: "intro2",
+  //   },
+  // },
 
   data() {
     return {
-      videoInfos: storyMap.videos[this.videoId],
-      choices: [],
-      audios: [],
-      ctas: [],
-      audiosBackground: [],
-      enemy: [],
-      backInfos : [],
+      videoInfos:        this.$store.state.actualVideo,
+      choices:           this.$store.state.actualChoices,
+      audios:            this.$store.state.actualAudio,
+      ctas:              this.$store.state.actualCallToActions,
+      audiosBackgrounds: this.$store.state.actualBackgroundAudio,
+      enemys:            this.$store.state.actualEnemy,
     };
   },
 
@@ -127,30 +140,24 @@ export default {
       return this.audios;
     },
 
-    computedEnemy() {
-      return this.enemy;
+    computedEnemys() {
+      return this.enemys;
     },
 
     computedCtas() {
       return this.ctas;
     },
-  },
+    computedBackgroundAudios() {
+      return this.audiosBackgrounds;
+    },
 
-  mounted() {
-
-    // this.$store.state.actualSounds = this.audios;
-    // this.$store.state.actualEnemy = this.enemy;
-    // this.$store.state.actualChoices = this.choices;
-    // this.$store.state.actuelVideo = this.videoInfos;
-    // this.$store.state.actualCallToActions = this.ctas;
-
-    console.log(this.videoInfos.id ,'video id')
-    if(this.videoId === 'shooting_remake'){
-      this.videoInfos = this.videoInfos['shooting_remake'];
-      console.log('mounted cinema');
-
+    computedVideoInfos() {
+      return this.videoInfos;
     }
   },
+
+  mounted() {},
+
   destroyed() {
     // Récupéré la route au moment du die
     this.$store.state.routeHandler = this.videoInfos;
