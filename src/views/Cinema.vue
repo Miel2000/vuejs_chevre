@@ -2,10 +2,11 @@
     <div class="container">
       <p>{{ videoInfos  }}</p>
 
+
+                                <!-- VIDEO
+                                    Component switch  -->
     <div class="video_and_cta scene-container">
         <div  v-if=" !computedVideoInfos.isBackground " class="video_container">
-
-          
             <ComponentVideo 
                 :video-infos="videoInfos" 
                 @an-action-is-sent="actionHandler"
@@ -13,11 +14,14 @@
                 @a-background-is-sent="backgroundsHandler"
                 
             />
-        
       </div>
-
   </div>
-    <div class="choice-container" v-if="computedChoices.length > 0" >
+
+                            <!-- CHOICE
+                                Component switch types : 
+                                {'choice','remove-choice', 'sound'<-??? à check
+                                                                          ...   -->
+  <div class="choice-container" v-if="computedChoices.length > 0" >
         <div
             v-for="choice in computedChoices" 
             :key="choice.id">
@@ -29,17 +33,9 @@
 
         </div>
   </div> 
-    <!-- <div v-for="boss in videoInfos.boss" :key="boss.id" class="boss-container">
 
-          <ComponentBoss
-            @minus-boss-life="MinusBossLife"
-            @hitBoss="hitBoss(boss)" 
-            :boss="boss" 
-            
-            />
-    </div>  -->
-
-
+                              <!-- ENEMY 
+                                  Componenent switch types : {'enemy', ...   -->
     <div class="enemy-container" v-if='computedVideoInfos.enemy'>
           <div v-if="computedVideoInfos.enemy.length > 0">
               <div v-for="e in computedVideoInfos.enemy" :key="e.id" class="enemy " >
@@ -52,41 +48,51 @@
           </div>
     </div>
        
-  
-
+                                <!-- CALL TO ACTIONS
+                                    Component switch types : {'dodge', ...   -->
   <div v-if="computedCtas.length > 0" >
-   <div v-for="cta in computedCtas" :key="cta.id">
+    <div v-for="cta in computedCtas" :key="cta.id">
 
-      <ComponentCallToAction :ctas-infos="cta"  @a-cta-is-sent="ctasHandler"  />
-   </div>
+        <ComponentCallToAction :ctas-infos="cta"  @a-cta-is-sent="ctasHandler"  />
+    </div>
   </div>
-  
+
+                                      
+                                  <!-- BACKGROUND
+                                      Componenent -->
  <div class="background-scene">
-    <div v-if="computedVideoInfos" >
+      <div v-if="computedVideoInfos" >
 
-        <div v-if="computedVideoInfos.isBackground" >
-            <div v-for="backGroundInfos in  computedVideoInfos.background_container" :key="backGroundInfos.id">
+          <div v-if="computedVideoInfos.isBackground" >
+              <div v-for="backGroundInfos in  computedVideoInfos.background_container" :key="backGroundInfos.id">
 
-                <ComponentBackground :actual-background-infos="backGroundInfos" />
-            </div>
-      </div>
+                  <ComponentBackground :actual-background-infos="backGroundInfos" />
+              </div>
+        </div>
+    </div>
   </div>
-    
-  </div>
 
-      <!-- <ComponentBackground :actual-background-infos="videoInfos"  /> -->
-
+                                    <!--  AUDIO
+                                        Componenent  -->
   <div class="audio-container">
     <div v-if="computedAudios.length > 0" >
         <div v-for="audio in computedAudios"
             :key="audio.id">
-
             <ComponentAudio :audio-infos="audio" /> 
-
         </div>
     </div>
-
   </div>
+                                    <!--  WAITING ZONE  -->
+
+      <!-- <div v-for="boss in videoInfos.boss" :key="boss.id" class="boss-container">
+
+          <ComponentBoss
+            @minus-boss-life="MinusBossLife"
+            @hitBoss="hitBoss(boss)" 
+            :boss="boss" 
+            
+            />
+    </div>  -->
 
 
 </div>
@@ -158,19 +164,10 @@ export default {
     }
   },
 
-  mounted() {
-
-    this.audios = this.$store.state.actualAudio;
-
-    this.backGrounds = this.$store.state.actualBackground;
-
-    console.log('yes, timedAction est vide regarde',this.$store.state.actualVideo);
-
-
-  },
+  mounted() {},
 
   destroyed() {
-    // Récupéré la route au moment du die
+    // Récupéré la route au moment du die, permet la navigation entre chaques scénes.
     this.$store.state.routeHandler = this.videoInfos;
     console.log("cinema vien de die", this.videoInfos);
     console.log("LE HANDLER", this.$store.state.routeHandler);
