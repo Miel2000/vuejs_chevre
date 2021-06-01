@@ -3,13 +3,14 @@
       <p>{{ videoInfos  }}</p>
 
     <div class="video_and_cta scene-container">
-        <div  v-if=" Object.keys(videoInfos.self).length !== 0 " class="video_container">
+        <div  v-if=" !computedVideoInfos.isBackground " class="video_container">
 
           
             <ComponentVideo 
                 :video-infos="videoInfos" 
                 @an-action-is-sent="actionHandler"
                 @a-ctas-is-sent="ctasHandler"
+                @a-background-is-sent="backgroundsHandler"
                 
             />
         
@@ -28,7 +29,7 @@
 
         </div>
   </div> 
-    <div v-for="boss in videoInfos.boss" :key="boss.id" class="boss-container">
+    <!-- <div v-for="boss in videoInfos.boss" :key="boss.id" class="boss-container">
 
           <ComponentBoss
             @minus-boss-life="MinusBossLife"
@@ -36,7 +37,7 @@
             :boss="boss" 
             
             />
-    </div> 
+    </div>  -->
 
 
     <div class="enemy-container" v-if='computedVideoInfos.enemy'>
@@ -61,11 +62,12 @@
   </div>
   
  <div class="background-scene">
-    <div v-if="computedBackgroundAudios" >
-        <div v-if="computedBackgroundAudios.length > 0" >
-            <div v-for="backgroundAudio in computedBackgroundAudios" :key="backgroundAudio.id">
+    <div v-if="computedVideoInfos" >
 
-                <ComponentBackground :actual-background-infos="backgroundAudio" />
+        <div v-if="computedVideoInfos.isBackground" >
+            <div v-for="backGroundInfos in  computedVideoInfos.background_container" :key="backGroundInfos.id">
+
+                <ComponentBackground :actual-background-infos="backGroundInfos" />
             </div>
       </div>
   </div>
@@ -126,7 +128,7 @@ export default {
       choices:           this.$store.state.actualChoices,
       audios:            this.$store.state.actualAudio,
       ctas:              this.$store.state.actualCallToActions,
-      audiosBackgrounds: this.$store.state.actualBackgroundAudio,
+      backGrounds:       this.$store.state.actualBackground,
       enemys:            this.$store.state.actualEnemy,
     };
   },
@@ -147,8 +149,8 @@ export default {
     computedCtas() {
       return this.ctas;
     },
-    computedBackgroundAudios() {
-      return this.audiosBackgrounds;
+    computedBackground() {
+      return this.backGrounds;
     },
 
     computedVideoInfos() {
@@ -156,7 +158,16 @@ export default {
     }
   },
 
-  mounted() {},
+  mounted() {
+
+    this.audios = this.$store.state.actualAudio;
+
+    this.backGrounds = this.$store.state.actualBackground;
+
+    console.log('yes, timedAction est vide regarde',this.$store.state.actualVideo);
+
+
+  },
 
   destroyed() {
     // Récupéré la route au moment du die
@@ -180,6 +191,10 @@ export default {
         default:
           break;
       }
+    },
+
+    backgroundsHandler(background){
+      console.log("BACKGROUND",background);
     },
 
     actionHandler(actionInfos) {
@@ -221,12 +236,12 @@ export default {
 
       // quand il propose les routes des armes, la musique s'arrete.
       if ( actionInfos.route == "banane" || actionInfos.route == "couteau" || actionInfos.route == "fusil" ) {
-        this.audios = [];
-       
+         this.audios = [];
+         this.$store.commit('setActualAudio', []); 
       }
 
       if ( actionInfos.route == "shooting_remake" || actionInfos.route == "shooting" ) {
-              
+                  
         this.enemy = [];
       
       }

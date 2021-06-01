@@ -237,12 +237,7 @@ export default {
                 
                 }
             },
-            audio_container: [
-              
-            ],
-            video_container: [
-               
-            ],
+         
             timedActions: [
 
                 {
@@ -264,43 +259,51 @@ export default {
         },
 
 
-        shooting: {
+        shooting:  {
             id:"shooting",
-            self: {
-                url: "--",
-                controls: true,
-                options: {
-                
-                }
-            },
-            audio_container: [
-              
-            ],
-            video_container: [
-                {   
-                    url:"shooting_naruto.mp4",
-                    type:"video",
-                    isLooping:true
-                }
-            ],
+            isBackground: true,
+            // self: {
+            //     url:"background/shooting_naruto.mp4",
+            //     control:true,
+            //     css:{
 
-            enemy: [
-                {   id: "castaner",
-                    url: "castaner.png",
-                    vie: 100,
-                    type: "enemy"
-                   
-                },
-                {
-                    id: "castex",
-                    url: "castex.png",
-                    vie: 100,
-                    type: "enemy"
-                   
-                },
+            //     },
+            //     isLooping: true,
+            //     displayControl: false
+            // },
+           
+
+            background_container: [
          
-              ],
+            {   
+                url:"shooting_naruto.mp4",
+                control:true,
+                css:{},
+                isLooping: true,
+                displayControl: false,
+                type:"video"
+            
             },
+        ],
+            enemy: [
+            {   id: "castaner",
+                url: "castaner.png",
+                vie: 100,
+                type: "enemy"
+                
+            },
+            {
+                id: "castex",
+                url: "castex.png",
+                vie: 100,
+                type: "enemy"
+                
+            },
+            
+         
+        ],
+
+        },
 
         valorant_banane: {
             id:"valorant_banane",
@@ -313,16 +316,7 @@ export default {
                 
                 }
              },
-            audio_container: [
-                {
-                  
-                    url:"valorant_sound.mp3",
-                    type:"sound"
-                }
-            ],
-            video_container: [
-               
-            ],
+            background_container: [],
             timedActions: [
 
                 {
@@ -335,12 +329,12 @@ export default {
                 
                 {
                     at: 4,
-                    text:"SHOOT DEM'ALL",
                     id:"shooting_remake",
+                    text:"SHOOT DEM'ALL",
                     route: "shooting_remake",
                     type:"choice",
                 },
-                
+      
                 {
                     at: 15,
                     id: "couteau",
@@ -356,6 +350,14 @@ export default {
                     route: "shooting_remake",
                     img: "fusil.png",
                     type: "choice"
+                },
+                {
+                    at:0,
+                    to:33,
+                    isLooping:false,
+                    isAutoPlay:true,
+                    url:"background/valorant_sound.mp3",
+                    type:"sound"
                 }
               
               
@@ -371,17 +373,7 @@ export default {
                 url: "valorant_couteau.mp4",
                 controls: true,
              },
-            audio_container: [
-                {
-                    isLooping:false,
-                    isAutoPlay:true,
-                    url:"valorant_couteau_sound.mp3",
-                    type:"sound"
-                }
-            ],
-            video_container: [
-               
-            ],
+            background_container: [],
             timedActions: [
 
                 {
@@ -415,6 +407,14 @@ export default {
                     route: "shooting_remake",
                     img: "fusil.png",
                     type: "choice"
+                },
+                {
+                    at:0,
+                    to:34.9,
+                    isLooping:false,
+                    isAutoPlay:true,
+                    url:"background/valorant_couteau_sound.mp3",
+                    type:"sound"
                 }
               
             ]
@@ -429,18 +429,7 @@ export default {
                 url: "valorant_fusil.mp4",
                 controls: true,
              },
-            audio_container: [
-                // {
-                //     isLooping:false,
-                //     isAutoPlay:true,
-                //     url:"valorant_fusil_sound.mp3",
-                //     type:"sound"
-                //   }
-              
-            ],
-            video_container: [
-               
-            ],
+            background_container: [],
             timedActions: [
 
                 {
@@ -482,29 +471,23 @@ export default {
             },
         shooting_remake: {
             id:"shooting_remake",
-            self: {
-                // url: "valorant_fusil.mp4",
-                // controls: true,
-
-            },
-           
-
-            audio_container: [
+            isBackground: true,
+            background_container: [
             {
-                
+               
                 url:"naruto-background-sound.mp3",
                 type:"sound"
-            }
-
-            ],
-            video_container: [
+            },
             {   
                 url:"shooting_naruto.mp4",
-                type:"video",
-                isLooping:true
-            }
-            ],
-
+                control:true,
+                css:{},
+                isLooping: true,
+                displayControl: false,
+                type:"video"
+              
+            },
+        ],
             enemy: [
             {   id: "castaner",
                 url: "castaner.png",
@@ -519,9 +502,8 @@ export default {
                 type: "enemy"
                 
             },
-            
-         
-              ],
+        ],
+             timedActions: []
            
 
 
@@ -535,18 +517,16 @@ export default {
 
             },
            
-            audio_container: [
-      
-            ],
-            video_container: [
-                {
+       
+            // background_container: [
+            //     {
                     
-                    url:"rain-background.mp4",
-                    type:"video",
-                    isLooping:false
+            //         url:"rain-background.mp4",
+            //         type:"video",
+            //         isLooping:false
                     
-                }
-            ],
+            //     }
+            // ],
             timedActions: [
 
                 {
@@ -578,12 +558,7 @@ export default {
 
             },
            
-            video_container: [
-                {
-                    
-    
-                }
-            ],
+      
             timedActions: [
 
                 {

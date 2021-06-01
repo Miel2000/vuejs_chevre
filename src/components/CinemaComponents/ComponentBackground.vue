@@ -1,6 +1,7 @@
 <template>
 <div>
-    <div v-if="actualBackgroundInfos">
+  <p>coucou</p>
+    <div v-if="actualBackgroundInfos.type === 'sound'">
         <div >
         
                 <audio 
@@ -11,17 +12,19 @@
                    
                     ref="audioBox"
                 >
-                    <source id="audioBackgroundBalise" :src="'/assets/mp3/background/' + backgroundAudio.url"/>
+                    <source id="audioBackgroundBalise" :src="'/assets/mp3/background/' + actualBackgroundInfos.url"/>
                 
                 </audio>
           </div>     
     </div>
-            <div>
-                <video controls loop autoplay :src="'/assets/videos/background/'  + backgroundVideo.url "></video>
-            </div>
-      
 
-         </div>
+
+    <div  v-if="actualBackgroundInfos.type === 'video'">
+        <video controls loop autoplay :src="'/assets/videos/background/'  + actualBackgroundInfos.url "></video>
+    </div>
+
+
+  </div>
 
 </template>
 

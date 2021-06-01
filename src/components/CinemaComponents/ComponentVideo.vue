@@ -5,7 +5,7 @@
 <template>
 
 <div>
-  
+
 	<video 
 	
 		:class=" { 
@@ -53,8 +53,17 @@ export default {
       : "";
 
     console.log("width : ", this.largeur);
+  
     this.isPaused = false;
+
     this.$store.commit("setActualVideo", this.videoInfos);
+
+    if(this.videoInfos.id === "shooting_remake"){
+        this.$store.commit("setActualBackground", this.videoInfos);
+      // this.$emit("a-background-is-sent", this.videoInfos);
+      // console.log('shooting_remake scene : ', this.videoInfos);
+    }
+    
     this.alreadySent = [];
   },
 
@@ -102,6 +111,8 @@ export default {
           this.compareTimeCodes(event.target.currentTime, actionInfos);
         });
       }
+
+      // 
     },
     
 
@@ -116,6 +127,7 @@ export default {
         }
       }
     },
+
 
     compareTimeCodes(currentTimeVideo, action) {
       // console.log("ALL ACTIONS  : ", action);
@@ -143,19 +155,6 @@ export default {
           actionUpdated.doThis = "remove-choice";
 
           this.$emit("an-action-is-sent", actionUpdated);
-        }
-      }
-    },
-
-    compareTimeCodesToDeleteChoice(currentTimeVideo, timeCodeTo, action) {
-      console.log("ALL ACTIONS  : ", action);
-      // const result = action.filter((a) => a.id ==     );
-
-      if (action.type) {
-        if (currentTimeVideo <= timeCodeTo) {
-          console.log("SHOULD DELETE MOFOS");
-
-          this.alreadySent.pop(action.id);
         }
       }
     },

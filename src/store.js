@@ -15,9 +15,9 @@ export default new Vuex.Store({
     currentTimeVideo: 0,
     currentTimeAudio: 0,
 
-    actualVideo: storyMap.videos['intro1'],
+    actualVideo: storyMap.videos['valorant_banane'],
     actualChoices: [],
-    actualBackgroundAudio: [],
+    actualBackground: [],
     actualAudio: [],
     actualEnemy: [],
     actualCallToActions: [],
