@@ -37,6 +37,8 @@ export default {
     return {};
   },
 
+ 
+
   methods: {
     choiceClickHandler() {
       this.exceptionsManager();
@@ -58,21 +60,32 @@ export default {
         (this.choiceInfos.route == "shooting_remake" &&
           this.choiceInfos.id == "banane")
       ) {
-        this.$store.commit("addWeapon", "banane");
+        // this.$store.commit("setActualWeapon", "banane");
+        this.$store.state.actualWeapon = "banane";
+        console.log("l'arme choisi est  banane ", this.$store.state.actualWeapon );
+
       }
       if (
         this.choiceInfos.route === "couteau" ||
         (this.choiceInfos.route == "shooting_remake" &&
           this.choiceInfos.id == "couteau")
       ) {
-        this.$store.commit("addWeapon", "couteau");
+
+        // this.$store.commit("setActualWeapon", "couteau");
+        this.$store.state.actualWeapon = "couteau";
+        console.log("l'arme choisi est  couteau " , this.$store.state.actualWeapon);
+
       }
       if (
         this.choiceInfos.route === "fusil" ||
         (this.choiceInfos.route == "shooting_remake" &&
           this.choiceInfos.id == "fusil")
       ) {
-        this.$store.commit("addWeapon", "fusil");
+
+        // this.$store.commit("setActualWeapon", "fusil");
+        this.$store.state.actualWeapon = "fusil";
+        console.log("l'arme choisi est  fusil ", this.$store.state.actualWeapon );
+
       }
   
     },

@@ -15,14 +15,14 @@ export default new Vuex.Store({
     currentTimeVideo: 0,
     currentTimeAudio: 0,
 
-    actualVideo: storyMap.videos['valorant_banane'],
+    actualVideo: storyMap.videos['hokage'],
     actualChoices: [],
     actualBackground: [],
     actualAudio: [],
     actualEnemy: [],
     actualCallToActions: [],
+    actualWeapon:"",
 
-    weapon:"fusil",
     myLife: 100,
     ninjasLife: 200,
     bossLife: 300,
@@ -37,28 +37,37 @@ export default new Vuex.Store({
 
     // 
     setActualVideo: (state,x) => {
-      state.actualVideo = x
+      state.actualVideo = x;
     },
 
     setActualChoices: (state,x) => {
-      state.setActualChoices = x
+      state.setActualChoices = x;
     },
 
     setActualBackground: (state,x) => {
-      state.setActualBackground = x
+      state.setActualBackground = x;
     },
 
     setActualAudio:(state,x) => {
-      state.actualAudio = x
+      state.actualAudio = x;
     },
 
     setActualEnemy:(state,x) => {
-      state.actualEnemy = x
+      state.actualEnemy = x;
     },
     
     setActualCallToActions:(state,x) => {
       state.actualCallToActions = x;
     },
+
+    // setActualWeapon: (state, x) => {
+      
+    //   state.actualWeapon += x;
+    //    console.log('state :', state);
+    //   console.log('x : ', x)
+    // },
+
+
 
     addMana: (state, x) => {
       state.mana += x;
@@ -66,10 +75,6 @@ export default new Vuex.Store({
 
     removeMana: (state, x) => {
       state.mana -= x;
-    },
-
-    addWeapon: (state, x) => {
-      state.weapon = x
     },
 
     switchFleche: (state,x) => {

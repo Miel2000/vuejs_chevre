@@ -121,13 +121,8 @@ export default {
                 options: {}
  
             },
-            audio_container: [
-              
-            ],
-            video_container: [
-               
-            ],
-
+            background_container: [],
+         
             timedActions: [
          
                     {
@@ -321,17 +316,9 @@ export default {
 
                 {
                     at: 14,
-                    text:"Go to teh Jungle",
+                    text:"Aller dans la jungle",
                     id:"valorant_fusil",
                     route: "jungle_banane",
-                    type:"choice",
-                },
-                
-                {
-                    at: 4,
-                    id:"shooting_remake",
-                    text:"SHOOT DEM'ALL",
-                    route: "shooting_remake",
                     type:"choice",
                 },
       
@@ -378,17 +365,9 @@ export default {
 
                 {
                     at: 4,
-                    text:"Go to teh Jungle",
+                    text:"Aller dans la jungle",
                     id:"jungle",
                     route: "fantome_noyade",
-                    type:"choice",
-                },
-                
-                {
-                    at: 4,
-                    text:"SHOOT DEM'ALL",
-                    id:"shooting_remake",
-                    route: "shooting_remake",
                     type:"choice",
                 },
                 {
@@ -434,7 +413,7 @@ export default {
 
                 {
                     at: 23,
-                    text:"Go to teh Jungle",
+                    text:"Aller dans la jungle",
                     id:"valorant_fusil",
                     route: "jungle_fusil",
                     type:"choice",

@@ -31,7 +31,7 @@
 
 <script>
 import { TimelineLite } from "gsap";
-
+ 
 export default {
   props: {
     enemy: {
@@ -48,9 +48,11 @@ export default {
   },
 
   mounted() {
+    this.$store.commit('setActualAudio', [])
+    this.$store.state.actualVideo = [];
     this.enemy.vie = 100;
     this.$store.state.ninjasLife = 200;
-    this.weaponInStore = this.$store.state.weapon;
+    this.weaponInStore = this.$store.state.actualWeapon;
 
     this.videoId = this.$store.state.actualVideo;
     console.log(this.videoId.id,'video id yo component enemy')
@@ -59,7 +61,7 @@ export default {
 
     if (this.enemy.id == "castex") {
       this.timelineCastex = new TimelineLite();
-      console.log("anim triggered", this.$refs.castex);
+      console.log("image triggered", this.$refs.castex);
       this.timelineCastex.to(this.$refs.castex, 1.5, {
         y: 200,
         ease: "Linear.easeNone",
@@ -168,7 +170,7 @@ export default {
             "fusil utilisée sur",
             this.enemy.url + " | Vie : " + this.enemy.vie
           );
-          this.videoId = this.$store.state.actualVideo;
+         
           break;
         }
 

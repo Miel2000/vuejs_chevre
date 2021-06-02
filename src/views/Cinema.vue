@@ -7,6 +7,7 @@
                                     Component switch  -->
     <div class="video_and_cta scene-container">
         <div  v-if=" !computedVideoInfos.isBackground " class="video_container">
+
             <ComponentVideo 
                 :video-infos="videoInfos" 
                 @an-action-is-sent="actionHandler"
@@ -39,11 +40,13 @@
     <div class="enemy-container" v-if='computedVideoInfos.enemy'>
           <div v-if="computedVideoInfos.enemy.length > 0">
               <div v-for="e in computedVideoInfos.enemy" :key="e.id" class="enemy " >
+
                   <ComponentEnemy
                       @minus-life="MinusEnemyLife"
                       :enemy="e" 
                     
                     />
+
               </div> 
           </div>
     </div>
@@ -54,6 +57,7 @@
     <div v-for="cta in computedCtas" :key="cta.id">
 
         <ComponentCallToAction :ctas-infos="cta"  @a-cta-is-sent="ctasHandler"  />
+
     </div>
   </div>
 
@@ -67,6 +71,7 @@
               <div v-for="backGroundInfos in  computedVideoInfos.background_container" :key="backGroundInfos.id">
 
                   <ComponentBackground :actual-background-infos="backGroundInfos" />
+
               </div>
         </div>
     </div>
@@ -78,7 +83,9 @@
     <div v-if="computedAudios.length > 0" >
         <div v-for="audio in computedAudios"
             :key="audio.id">
+
             <ComponentAudio :audio-infos="audio" /> 
+
         </div>
     </div>
   </div>
@@ -136,6 +143,7 @@ export default {
       ctas:              this.$store.state.actualCallToActions,
       backGrounds:       this.$store.state.actualBackground,
       enemys:            this.$store.state.actualEnemy,
+      weapon:            this.$store.state.actualWeapon
     };
   },
 
@@ -161,6 +169,10 @@ export default {
 
     computedVideoInfos() {
       return this.videoInfos;
+    },
+
+    computedWeapon(){
+      return this.weapon;
     }
   },
 
@@ -199,7 +211,6 @@ export default {
 
       switch (actionInfos.type) {
         case "choice":
-          // condition route['shooting'], permet d'envoyer le choix de la route timé si la route est bien sur shooting (donc ça refresh la route grace au infos du storyMap et ça remet les choix vides)
           this.exceptionChoiceManager(actionInfos);
 
           console.log("dans le switch CHOICE : ", actionInfos);
@@ -228,8 +239,6 @@ export default {
         this.choices = [];
       }
 
- 
-
 
       // quand il propose les routes des armes, la musique s'arrete.
       if ( actionInfos.route == "banane" || actionInfos.route == "couteau" || actionInfos.route == "fusil" ) {
@@ -254,10 +263,8 @@ export default {
 
     choiceActedHandler(choice) {
      
-      
       this.choices = [];
 
-      
       this.videoInfos = storyMap.videos[choice];
     },
 
@@ -276,7 +283,7 @@ export default {
 
     MinusEnemyLife() {
       if (this.$store.state.ninjasLife <= 0) {
-        switch (this.$store.state.weapon) {
+        switch (this.$store.state.actualWeapon) {
           case "banane":
            
             this.rootEnd(storyMap.videos["valorant_banane"]);

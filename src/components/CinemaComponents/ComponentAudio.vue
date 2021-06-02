@@ -52,7 +52,7 @@ export default {
     },
 
     onTimeUpdate(event) {
-      console.log(event.currentTarget.currentTime);
+      // console.log(event.currentTarget.currentTime);
       // if (event.currentTarget.currentTime >= 35) {
       //   console.log("yeboi c pas mal");
       // }

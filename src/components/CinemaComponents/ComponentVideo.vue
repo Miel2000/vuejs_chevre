@@ -69,7 +69,7 @@ export default {
 
   methods: {
     onTimeUpdate(event) {
-
+      // Si y'a des ctas
       // compare les timecodes des ctas
 
       if (this.videoInfos.ctas) {
@@ -108,7 +108,7 @@ export default {
       // compare les timecodes des timedActions
       if (this.videoInfos.timedActions) {
         this.videoInfos.timedActions.forEach((actionInfos) => {
-          this.compareTimeCodes(event.target.currentTime, actionInfos);
+          this.compareForTimedActions(event.target.currentTime, actionInfos);
         });
       }
 
@@ -116,41 +116,41 @@ export default {
     },
     
 
-    compareForCtas(currentTimeVideo, timeCodeAt, action) {
-      // console.log("ALL ACTIONS AT -> TO  : ", action);
-      if (action.type == "dodge") {
+    compareForCtas(currentTimeVideo, timeCodeAt, cta) {
+      // console.log("ALL ctaS AT -> TO  : ", cta);
+      if (cta.type == "dodge") {
         if (currentTimeVideo >= timeCodeAt) {
-          this.$emit("a-ctas-is-sent", action);
-          this.alreadySent.push(action.id);
+          this.$emit("a-ctas-is-sent", cta);
+          this.alreadySent.push(cta.id);
 
-          console.log("weh on emit l'action at", action);
+          console.log("emit des ctas", cta);
         }
       }
     },
 
 
-    compareTimeCodes(currentTimeVideo, action) {
-      // console.log("ALL ACTIONS  : ", action);
+    compareForTimedActions(currentTimeVideo, oneTimedAction) {
+      // console.log("ALL ACTIONS  : ", oneTimedAction);
 
-      if (action.type) {
+      if (oneTimedAction.type) {
         if (
-          currentTimeVideo >= action.at &&
-          this.alreadySent.indexOf(action.id) === -1
+          currentTimeVideo >= oneTimedAction.at &&
+          this.alreadySent.indexOf(oneTimedAction.id) === -1
         ) {
-          console.log("weh on emit l'action");
+          console.log("weh on emit l'oneTimedAction");
 
-          this.$emit("an-action-is-sent", action);
+          this.$emit("an-action-is-sent", oneTimedAction);
 
-          this.alreadySent.push(action.id);
+          this.alreadySent.push(oneTimedAction.id);
         }
 
         if (
-          this.alreadySent.indexOf(action.id) !== -1 &&
-          currentTimeVideo >= action.to
+          this.alreadySent.indexOf(oneTimedAction.id) !== -1 &&
+          currentTimeVideo >= oneTimedAction.to
         ) {
-          console.log("le deuxieme if est trigger ", action);
+          console.log("le deuxieme if est trigger ", oneTimedAction);
 
-          const actionUpdated = action;
+          const actionUpdated = oneTimedAction;
           
           actionUpdated.doThis = "remove-choice";
 
