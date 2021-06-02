@@ -3,29 +3,26 @@
 <!-- ° ° ° ° ° ° ° ° ° T E M P L A T E ° ° ° ° ° ° ° ° ° -->
 
 <template>
-
 <div>
+  <div  >
 
-	<video 
-	
-		:class=" { 
-			cohabitationCta: this.$store.state.actualCallToActions.length !== 0,
-			isInteractive: this.$store.state.playerIsInteractive,
-      video_box : 'video_box'
-     
-		}  "
-		:src="'/assets/videos/' + videoInfos.self.url"
-		controls 
-		autoplay
-		playsinline
-		@timeupdate="onTimeUpdate"
-    :style="{
-      width:  this.largeur ? this.largeur : '',
+    <video 
+    
+      :class=" { 
+       
+        video_box : 'video_box'
       
-      }"
-	>
-	</video>
+      }  "
+      :src="'/assets/videos/' + videoInfos.self.url"
+      controls 
+      autoplay
+      playsinline
+      @timeupdate="onTimeUpdate"
+     
+    >
+    </video>
 
+  </div>
 </div>
 </template>
 
@@ -41,22 +38,9 @@ export default {
     },
   },
 
-  data() {
-    return {
-      largeur: "",
-    };
-  },
 
   mounted() {
-    this.largeur = this.videoInfos.self.css
-      ? this.videoInfos.self.css.width
-      : "";
-
-    console.log("width : ", this.largeur);
-  
-    this.isPaused = false;
-
-    this.$store.commit("setActualVideo", this.videoInfos);
+    console.log('c la video : ' , this.videoInfos)
 
     if(this.videoInfos.id === "shooting_remake"){
         this.$store.commit("setActualBackground", this.videoInfos);
@@ -150,11 +134,11 @@ export default {
         ) {
           console.log("le deuxieme if est trigger ", oneTimedAction);
 
-          const actionUpdated = oneTimedAction;
+          // const actionUpdated = oneTimedAction;
           
-          actionUpdated.doThis = "remove-choice";
+          // actionUpdated.doThis = "remove-choice";
 
-          this.$emit("an-action-is-sent", actionUpdated);
+          // this.$emit("an-action-is-sent", actionUpdated);
         }
       }
     },

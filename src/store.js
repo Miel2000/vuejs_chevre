@@ -15,13 +15,13 @@ export default new Vuex.Store({
     currentTimeVideo: 0,
     currentTimeAudio: 0,
 
-    actualVideo: storyMap.videos['hokage'],
-    actualChoices: [],
+    actualVideo: storyMap.videos['weed'],
+    actualChoices: {},
     actualBackground: [],
-    actualAudio: [],
+    actualAudio: {},
     actualEnemy: [],
     actualCallToActions: [],
-    actualWeapon:"",
+    actualWeapon:"fusil",
 
     myLife: 100,
     ninjasLife: 200,
@@ -33,6 +33,28 @@ export default new Vuex.Store({
     scoreGame: 0
   },  
 
+  getters : {
+    computedWeapon(state) {
+      return state.actualWeapon;
+    },
+    computedVideo(state){
+      return state.actualVideo;
+    },
+    computedAudio(state){
+      return state.actualAudio;
+    },
+    computedEnemy(state){
+      return state.actualEnemy;
+    },
+    computedStoryMap(state) {
+      return state.storyMap;
+    },
+    computedChoices(state){
+      return state.actualChoices;
+    }
+
+  },
+
   mutations: {
 
     // 
@@ -41,11 +63,11 @@ export default new Vuex.Store({
     },
 
     setActualChoices: (state,x) => {
-      state.setActualChoices = x;
+      state.actualChoices = x;
     },
 
     setActualBackground: (state,x) => {
-      state.setActualBackground = x;
+      state.actualBackground = x;
     },
 
     setActualAudio:(state,x) => {
@@ -60,12 +82,10 @@ export default new Vuex.Store({
       state.actualCallToActions = x;
     },
 
-    // setActualWeapon: (state, x) => {
-      
-    //   state.actualWeapon += x;
-    //    console.log('state :', state);
-    //   console.log('x : ', x)
-    // },
+    setActualWeapon: (state, x) => {
+      state.actualWeapon = x;
+    
+    },
 
 
 

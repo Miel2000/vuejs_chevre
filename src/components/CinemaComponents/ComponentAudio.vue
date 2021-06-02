@@ -1,16 +1,13 @@
 <template>
 <div>
+  
     <div v-if="audioInfos.url" class="audio-container">
+       <p>coucou audio</p>
          
-            <audio 
-                id="audioBalise"
-                :volume="audioInfos.volumed"
+            <audio   
                 autoplay
-        
-                @timeupdate="onTimeUpdate"
-                ref="audioBox"
-                :isContinuePlaying=audioInfos.isContinue
-            >
+                controls 
+                >
                 <source :src="'/assets/mp3/' + audioInfos.url"/>
             
             </audio>
@@ -35,28 +32,11 @@ export default {
     return {};
   },
 
-  beforeUpdate() {},
 
   mounted() {
-    const audioBalise = document.getElementById("audioBalise");
-    audioBalise.volume = 0.8;
+    console.log('audio qui monte yep')
   },
 
-  methods: {
-    playSound() {
-      console.log("playsouunnd");
-    },
-
-    audioBox: function() {
-      console.log("AUDIOBOX : ", this.$refs.audioBox);
-    },
-
-    onTimeUpdate(event) {
-      // console.log(event.currentTarget.currentTime);
-      // if (event.currentTarget.currentTime >= 35) {
-      //   console.log("yeboi c pas mal");
-      // }
-    },
-  },
+  methods: {},
 };
 </script>

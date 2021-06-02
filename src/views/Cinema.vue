@@ -1,20 +1,30 @@
 <template>
     <div class="container">
-      <p>{{ videoInfos  }}</p>
+      <p> Computed Videos Infos : {{ computedVideoInfos  }}</p>
+      <p> Computed Weapon :{{ computedWeapon  }}</p>
+      <p> Computed Enemys :{{ computedEnemys  }}</p>
+      <p> Computed Audios :{{ computedAudios  }}</p>
+      <p> Computed Choices :{{ computedChoices  }}</p>
+      <p> Computed Ctas :{{ computedCtas  }}</p>
+      
 
 
                                 <!-- VIDEO
                                     Component switch  -->
-    <div class="video_and_cta scene-container">
-        <div  v-if=" !computedVideoInfos.isBackground " class="video_container">
+    <div class="video-container">
+      
+        <div  v-if="computedVideoInfos" class="video_container">
+          <p>coucou</p>
+            <div>
 
             <ComponentVideo 
-                :video-infos="videoInfos" 
+                :video-infos="computedVideoInfos" 
                 @an-action-is-sent="actionHandler"
                 @a-ctas-is-sent="ctasHandler"
-                @a-background-is-sent="backgroundsHandler"
+              
                 
             />
+            </div>
       </div>
   </div>
 
@@ -22,24 +32,25 @@
                                 Component switch types : 
                                 {'choice','remove-choice', 'sound'<-??? à check
                                                                           ...   -->
-  <div class="choice-container" v-if="computedChoices.length > 0" >
-        <div
-            v-for="choice in computedChoices" 
-            :key="choice.id">
+  <div class="choice-container"  >
+    <div v-if="computedChoices">
+
+        <div>
 
             <ComponentOneChoice 
-                :choice-infos="choice"
+                :choice-infos="computedChoices"
                 @a-choice-have-been-acted="choiceActedHandler"
             />
 
         </div>
+    </div>
   </div> 
 
                               <!-- ENEMY 
                                   Componenent switch types : {'enemy', ...   -->
-    <div class="enemy-container" v-if='computedVideoInfos.enemy'>
-          <div v-if="computedVideoInfos.enemy.length > 0">
-              <div v-for="e in computedVideoInfos.enemy" :key="e.id" class="enemy " >
+    <div class="enemy-container">
+          <div v-if=" computedEnemys.enemy && computedEnemys.enemy.length > 0">
+              <div v-for="e in computedEnemys.enemy" :key="e.id" class="enemy " >
 
                   <ComponentEnemy
                       @minus-life="MinusEnemyLife"
@@ -80,13 +91,15 @@
                                     <!--  AUDIO
                                         Componenent  -->
   <div class="audio-container">
-    <div v-if="computedAudios.length > 0" >
-        <div v-for="audio in computedAudios"
-            :key="audio.id">
+    <div v-if="computedAudios" >
+       
+        <div>
 
-            <ComponentAudio :audio-infos="audio" /> 
+              <ComponentAudio :audio-infos="computedAudios" /> 
 
         </div>
+
+        
     </div>
   </div>
                                     <!--  WAITING ZONE  -->
@@ -137,9 +150,9 @@ export default {
 
   data() {
     return {
-      videoInfos:        this.$store.state.actualVideo,
-      choices:           this.$store.state.actualChoices,
-      audios:            this.$store.state.actualAudio,
+     
+     
+    
       ctas:              this.$store.state.actualCallToActions,
       backGrounds:       this.$store.state.actualBackground,
       enemys:            this.$store.state.actualEnemy,
@@ -149,15 +162,15 @@ export default {
 
   computed: {
     computedChoices() {
-      return this.choices;
+      return this.$store.getters.computedChoices;
     },
 
     computedAudios() {
-      return this.audios;
+      return  this.$store.getters.computedAudio;
     },
 
     computedEnemys() {
-      return this.enemys;
+       return this.$store.getters.computedEnemy;
     },
 
     computedCtas() {
@@ -168,15 +181,28 @@ export default {
     },
 
     computedVideoInfos() {
-      return this.videoInfos;
+      return this.$store.getters.computedVideo;
     },
 
     computedWeapon(){
-      return this.weapon;
-    }
+      return this.$store.getters.computedWeapon;
+    },
+
+    // computedWeaponSelect() {
+    //   return this.$store.getters.computedWeaponSelect
+    // }
   },
 
-  mounted() {},
+  mounted() {
+    console.log('_____________/ STATE /______________________');
+    console.log('state.choices : ', this.$store.state.actualChoices);
+    console.log('state.audios : ', this.$store.state.actualAudios);
+    console.log('state.enemys : ', this.$store.state.actualEnemys);
+    console.log('state.ctas : ', this.$store.state.actualCallToActions);
+    console.log('state.background : ', this.$store.state.actualBackground);
+    console.log('state.weapon : ', this.$store.state.actualWeapon);
+    console.log('___________________________________________');
+  },
 
   destroyed() {
     // Récupéré la route au moment du die, permet la navigation entre chaques scénes.
@@ -202,29 +228,22 @@ export default {
       }
     },
 
-    backgroundsHandler(background){
-      console.log("BACKGROUND",background);
-    },
-
     actionHandler(actionInfos) {
       // this.$store.commit("setActualChoices", actionInfos);
 
       switch (actionInfos.type) {
         case "choice":
-          this.exceptionChoiceManager(actionInfos);
+          // this.exceptionChoiceManager(actionInfos);
 
-          console.log("dans le switch CHOICE : ", actionInfos);
           //  this.choices.push(actionInfos);
-          break;
-
-        case "remove-choice":
-          this.choices = [];
+          this.$store.commit('setActualChoices', actionInfos)
           break;
 
         case "sound":
-          this.audios = [];
           console.log("dans le switch SOUND : ", actionInfos);
-          this.audios.push(actionInfos);
+
+          this.$store.commit('setActualAudio', actionInfos);
+     
           break;
 
         default:

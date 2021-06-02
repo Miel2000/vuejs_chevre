@@ -1,29 +1,36 @@
 <template>
+<div>
+  
+	<div style="text-align:center">
 
-	<div v-if="choiceInfos.text" style="text-align:center">
-    <img v-if="choiceInfos.img"  @click="choiceClickHandler" style="height:100px" :src="'./assets/images/' + choiceInfos.img" :alt="choiceInfos.route">
+    <!-- <img v-if="choiceInfos.img"  @click="choiceClickHandler"
 
-      <button v-if="!choiceInfos.img && !choiceInfos.dodge"
-        class="oneChoice"
-        :isContinuePlaying="choiceInfos.isContinue"
-        @click="choiceClickHandler"
-      >
-        {{choiceInfos.text}}
-      </button>
+         style="height:100px" 
+         :src="'./assets/images/' + choiceInfos.img" 
+         :alt="choiceInfos.route"> -->
 
+    <a v-if="choiceInfos"
+      class="oneChoice"
+      :isContinuePlaying="choiceInfos.isContinue"
+      @click="choiceClickHandler(choiceInfos.route)"
+    >
+
+    {{ choiceInfos.text }}
+
+      </a>
     </div>
+</div>
 
 </template>
 
 
 <script>
-import storyMap from "@/storyMap.js";
+
 export default {
   props: {
     choiceInfos: {
       type: Object,
       required: true,
-      default: null,
     },
   },
 
@@ -31,23 +38,36 @@ export default {
     //
   },
 
-  mounted() {},
+  mounted() {
+  },
 
   data() {
-    return {};
+     return {};
+  },
+  computed: {
+
+   computedStoryMap(){
+     return this.$store.getters.computedStoryMap;
+   }
+
   },
 
  
 
   methods: {
-    choiceClickHandler() {
-      this.exceptionsManager();
+      choiceClickHandler() {
+        this.$store.commit("setActualVideo", this.computedStoryMap.videos[this.choiceInfos.route]);
+        this.$store.commit("setActualChoices", {});
+        // console.log( this.computedStoryMap.videos["intro2"]);
+        // this.exceptionsManager();
+    
+      },
 
-      this.$emit("a-choice-have-been-acted", this.choiceInfos.route);
-  
-    },
+      selectWeapon(arme) {
+          this.$store.commit("setActualWeapon", arme);
+      },
 
-    exceptionsManager() {
+      exceptionsManager() {
 
       //quand je clique sur le choix d'une nouvelle arme, en direction de la scene shooting_remake
       // if(this.choiceInfos.id === "shooting_remake"){
@@ -55,13 +75,15 @@ export default {
       //    this.$store.commit('setActualVideo', storyMap.videos['shooting_remake'])
       // }
 
+   
+
       if (
         this.choiceInfos.route === "banane" ||
-        (this.choiceInfos.route == "shooting_remake" &&
+        (this.choiceInfos.route == "shooting" &&
           this.choiceInfos.id == "banane")
       ) {
         // this.$store.commit("setActualWeapon", "banane");
-        this.$store.state.actualWeapon = "banane";
+        this.selectWeapon('banane');
         console.log("l'arme choisi est  banane ", this.$store.state.actualWeapon );
 
       }
@@ -71,8 +93,8 @@ export default {
           this.choiceInfos.id == "couteau")
       ) {
 
-        // this.$store.commit("setActualWeapon", "couteau");
-        this.$store.state.actualWeapon = "couteau";
+        this.$store.commit("setActualWeapon", "couteau");
+        // this.$store.state.actualWeapon = "couteau";
         console.log("l'arme choisi est  couteau " , this.$store.state.actualWeapon);
 
       }
@@ -82,8 +104,8 @@ export default {
           this.choiceInfos.id == "fusil")
       ) {
 
-        // this.$store.commit("setActualWeapon", "fusil");
-        this.$store.state.actualWeapon = "fusil";
+        this.$store.commit("setActualWeapon", "fusil");
+        // this.$store.state.actualWeapon = "fusil";
         console.log("l'arme choisi est  fusil ", this.$store.state.actualWeapon );
 
       }

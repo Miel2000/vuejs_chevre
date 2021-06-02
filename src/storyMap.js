@@ -103,7 +103,7 @@ export default {
                   
                     at: 1,
                     id: 'bobmarley',
-                    url: 'bob_marley.wav',
+                    url: 'bob_marley.mp3',
                     isContinue: true,
                     type: 'sound'
                 }
@@ -342,7 +342,6 @@ export default {
                     at:0,
                     to:33,
                     isLooping:false,
-                    isAutoPlay:true,
                     url:"background/valorant_sound.mp3",
                     type:"sound"
                 }
@@ -391,7 +390,6 @@ export default {
                     at:0,
                     to:34.9,
                     isLooping:false,
-                    isAutoPlay:true,
                     url:"background/valorant_couteau_sound.mp3",
                     type:"sound"
                 }
@@ -440,7 +438,6 @@ export default {
                     at:0,
                     to:33,
                     isLooping:false,
-                    isAutoPlay:true,
                     url:"background/valorant_fusil_sound.mp3",
                     type:"sound"
                 }
