@@ -48,19 +48,19 @@
 
                               <!-- ENEMY 
                                   Componenent switch types : {'enemy', ...   -->
-    <div class="enemy-container">
-          <div v-if=" computedEnemys.enemy && computedEnemys.enemy.length > 0">
-              <div v-for="e in computedEnemys.enemy" :key="e.id" class="enemy " >
+    <!-- <div class="enemy-container">
+          <div v-if=" computedEnemys">
+            
 
                   <ComponentEnemy
                       @minus-life="MinusEnemyLife"
-                      :enemy="e" 
+                      :enemy="computedEnemys" 
                     
                     />
 
-              </div> 
+            
           </div>
-    </div>
+    </div> -->
        
                                 <!-- CALL TO ACTIONS
                                     Component switch types : {'dodge', ...   -->
@@ -141,18 +141,9 @@ export default {
     ComponentBoss,
   },
 
-  // props: {
-  //   videoId: {
-  //     type: String,
-  //     default: "intro2",
-  //   },
-  // },
-
   data() {
     return {
      
-     
-    
       ctas:              this.$store.state.actualCallToActions,
       backGrounds:       this.$store.state.actualBackground,
       enemys:            this.$store.state.actualEnemy,
@@ -161,31 +152,35 @@ export default {
   },
 
   computed: {
-    computedChoices() {
-      return this.$store.getters.computedChoices;
-    },
-
-    computedAudios() {
-      return  this.$store.getters.computedAudio;
-    },
-
-    computedEnemys() {
-       return this.$store.getters.computedEnemy;
-    },
-
-    computedCtas() {
-      return this.ctas;
-    },
-    computedBackground() {
-      return this.backGrounds;
+    computedStoryMap() {
+      return this.$store.getters.getStoryMap;
     },
 
     computedVideoInfos() {
-      return this.$store.getters.computedVideo;
+      return this.$store.getters.getVideo;
+    },
+
+    computedChoices() {
+      return this.$store.getters.getChoices;
+    },
+
+    computedAudios() {
+      return  this.$store.getters.getAudio;
+    },
+
+    computedEnemys() {
+       return this.$store.getters.getEnemy;
+    },
+
+    computedCtas() {
+      return this.$store.getters.getCtas;
+    },
+    computedBackground() {
+      return this.$store.getters.getBackground;
     },
 
     computedWeapon(){
-      return this.$store.getters.computedWeapon;
+      return this.$store.getters.getWeapon;
     },
 
     // computedWeaponSelect() {

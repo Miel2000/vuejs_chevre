@@ -42,11 +42,6 @@ export default {
   mounted() {
     console.log('c la video : ' , this.videoInfos)
 
-    if(this.videoInfos.id === "shooting_remake"){
-        this.$store.commit("setActualBackground", this.videoInfos);
-      // this.$emit("a-background-is-sent", this.videoInfos);
-      // console.log('shooting_remake scene : ', this.videoInfos);
-    }
     
     this.alreadySent = [];
   },

@@ -15,11 +15,11 @@ export default new Vuex.Store({
     currentTimeVideo: 0,
     currentTimeAudio: 0,
 
-    actualVideo: storyMap.videos['weed'],
+    actualVideo: storyMap.videos['intro1'],
     actualChoices: {},
     actualBackground: [],
     actualAudio: {},
-    actualEnemy: [],
+    actualEnemy: {},
     actualCallToActions: [],
     actualWeapon:"fusil",
 
@@ -34,25 +34,31 @@ export default new Vuex.Store({
   },  
 
   getters : {
-    computedWeapon(state) {
-      return state.actualWeapon;
-    },
-    computedVideo(state){
-      return state.actualVideo;
-    },
-    computedAudio(state){
-      return state.actualAudio;
-    },
-    computedEnemy(state){
-      return state.actualEnemy;
-    },
-    computedStoryMap(state) {
+    getStoryMap(state) {
       return state.storyMap;
     },
-    computedChoices(state){
+    getVideo(state){
+      return state.actualVideo;
+    },
+    getAudio(state){
+      return state.actualAudio;
+    },
+    getChoices(state){
       return state.actualChoices;
-    }
-
+    },
+    getEnemy(state){
+      return state.actualEnemy;
+    },
+    getCtas(state){
+      return state.actualCallToActions;
+    },
+    getBackground(state){
+      return state.actualBackground;
+    },
+    getWeapon(state) {
+      return state.actualWeapon;
+    },
+    
   },
 
   mutations: {

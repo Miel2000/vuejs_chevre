@@ -47,7 +47,7 @@ export default {
   computed: {
 
    computedStoryMap(){
-     return this.$store.getters.computedStoryMap;
+     return this.$store.getters.getStoryMap;
    }
 
   },

@@ -257,17 +257,7 @@ export default {
         shooting:  {
             id:"shooting",
             isBackground: true,
-            // self: {
-            //     url:"background/shooting_naruto.mp4",
-            //     control:true,
-            //     css:{
-
-            //     },
-            //     isLooping: true,
-            //     displayControl: false
-            // },
-           
-
+ 
             background_container: [
          
             {   
@@ -279,7 +269,7 @@ export default {
                 type:"video"
             
             },
-        ],
+            ],
             enemy: [
             {   id: "castaner",
                 url: "castaner.png",
