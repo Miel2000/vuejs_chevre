@@ -74,13 +74,17 @@ export default {
                 }
  
             },
-            audio_container: [
-              
-            ],
-            video_container: [
- 
-            ],
+            timedAudios : [
+                {
+                  
+                    at: 1,
+                    id: 'bobmarley',
+                    url: 'bob_marley.mp3',
+                    isContinue: true,
+                    type: 'sound'
+                }
 
+            ],
 
             timedActions: [
     
@@ -99,15 +103,7 @@ export default {
                     route: "papillon",
                     type: "choice"
                 },
-                {
-                  
-                    at: 1,
-                    id: 'bobmarley',
-                    url: 'bob_marley.mp3',
-                    isContinue: true,
-                    type: 'sound'
-                }
-
+              
             ]
 
         },

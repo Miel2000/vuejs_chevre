@@ -38,6 +38,12 @@ export default {
     },
   },
 
+  computed: {
+    computedChoices(){
+      return this.$store.getters.getChoices;
+    } 
+  },
+
 
   mounted() {
     console.log('c la video : ' , this.videoInfos)
@@ -86,14 +92,49 @@ export default {
 
       // compare les timecodes des timedActions
       if (this.videoInfos.timedActions) {
-        this.videoInfos.timedActions.forEach((actionInfos) => {
-          this.compareForTimedActions(event.target.currentTime, actionInfos);
+        this.videoInfos.timedActions.forEach((timedAction) => {
+          this.compareForTimedActions(event.target.currentTime, timedAction);
         });
+      }
+
+      if(this.videoInfos.timedAudios) {
+        this.videoInfos.timedAudios.forEach((timedAudio) => {
+          this.compareForAudios(event.target.currentTime, timedAudio)
+        })
       }
 
       // 
     },
     
+    compareForTimedActions(currentTimeVideo, oneTimedAction) {
+      // console.log("ALL ACTIONS  : ", oneTimedAction);
+
+      if (oneTimedAction.type) {
+        if (
+          currentTimeVideo >= oneTimedAction.at &&
+          this.alreadySent.indexOf(oneTimedAction.id) === -1
+        ) {
+          console.log("weh on emit l'oneTimedAction");
+
+          this.$store.commit("setActualChoices", oneTimedAction);
+
+        }
+      }
+    },
+
+    compareForAudios(currentTimeVideo, oneAudio){
+      if(oneAudio.type) {
+           if (
+          currentTimeVideo >= oneAudio.at &&
+          this.alreadySent.indexOf(oneAudio.id) === -1
+          ) {
+          console.log("weh on emit l'audio");
+
+          this.$store.commit("setActualAudio", oneAudio);
+          } 
+
+      }
+    },
 
     compareForCtas(currentTimeVideo, timeCodeAt, cta) {
       // console.log("ALL ctaS AT -> TO  : ", cta);
@@ -108,35 +149,6 @@ export default {
     },
 
 
-    compareForTimedActions(currentTimeVideo, oneTimedAction) {
-      // console.log("ALL ACTIONS  : ", oneTimedAction);
-
-      if (oneTimedAction.type) {
-        if (
-          currentTimeVideo >= oneTimedAction.at &&
-          this.alreadySent.indexOf(oneTimedAction.id) === -1
-        ) {
-          console.log("weh on emit l'oneTimedAction");
-
-          this.$emit("an-action-is-sent", oneTimedAction);
-
-          this.alreadySent.push(oneTimedAction.id);
-        }
-
-        if (
-          this.alreadySent.indexOf(oneTimedAction.id) !== -1 &&
-          currentTimeVideo >= oneTimedAction.to
-        ) {
-          console.log("le deuxieme if est trigger ", oneTimedAction);
-
-          // const actionUpdated = oneTimedAction;
-          
-          // actionUpdated.doThis = "remove-choice";
-
-          // this.$emit("an-action-is-sent", actionUpdated);
-        }
-      }
-    },
   },
 };
 </script>

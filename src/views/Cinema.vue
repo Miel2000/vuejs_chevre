@@ -144,10 +144,7 @@ export default {
   data() {
     return {
      
-      ctas:              this.$store.state.actualCallToActions,
-      backGrounds:       this.$store.state.actualBackground,
-      enemys:            this.$store.state.actualEnemy,
-      weapon:            this.$store.state.actualWeapon
+    
     };
   },
 
@@ -189,20 +186,13 @@ export default {
   },
 
   mounted() {
-    console.log('_____________/ STATE /______________________');
-    console.log('state.choices : ', this.$store.state.actualChoices);
-    console.log('state.audios : ', this.$store.state.actualAudios);
-    console.log('state.enemys : ', this.$store.state.actualEnemys);
-    console.log('state.ctas : ', this.$store.state.actualCallToActions);
-    console.log('state.background : ', this.$store.state.actualBackground);
-    console.log('state.weapon : ', this.$store.state.actualWeapon);
-    console.log('___________________________________________');
+
   },
 
   destroyed() {
     // Récupéré la route au moment du die, permet la navigation entre chaques scénes.
-    this.$store.state.routeHandler = this.videoInfos;
-    console.log("cinema vien de die", this.videoInfos);
+    this.$store.state.routeHandler = this.computedVideoInfos;
+    console.log("cinema vien de die", this.computedVideoInfos);
     console.log("LE HANDLER", this.$store.state.routeHandler);
   },
 

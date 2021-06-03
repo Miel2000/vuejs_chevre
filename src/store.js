@@ -40,11 +40,11 @@ export default new Vuex.Store({
     getVideo(state){
       return state.actualVideo;
     },
-    getAudio(state){
-      return state.actualAudio;
-    },
     getChoices(state){
       return state.actualChoices;
+    },
+    getAudio(state){
+      return state.actualAudio;
     },
     getEnemy(state){
       return state.actualEnemy;

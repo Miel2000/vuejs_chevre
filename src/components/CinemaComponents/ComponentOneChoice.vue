@@ -9,10 +9,10 @@
          :src="'./assets/images/' + choiceInfos.img" 
          :alt="choiceInfos.route"> -->
 
-    <a v-if="choiceInfos"
+    <a v-if="computedChoices"
       class="oneChoice"
-      :isContinuePlaying="choiceInfos.isContinue"
-      @click="choiceClickHandler(choiceInfos.route)"
+      :isContinuePlaying="computedChoices.isContinue"
+      @click="choiceClickHandler(computedChoices.route)"
     >
 
     {{ choiceInfos.text }}
@@ -48,7 +48,10 @@ export default {
 
    computedStoryMap(){
      return this.$store.getters.getStoryMap;
-   }
+   },
+   computedChoices(){
+      return this.$store.getters.getChoices;
+  }
 
   },
 
