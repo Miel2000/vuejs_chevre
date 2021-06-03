@@ -15,8 +15,8 @@ export default new Vuex.Store({
     currentTimeVideo: 0,
     currentTimeAudio: 0,
 
-    actualVideo: storyMap.videos['intro1'],
-    actualChoices: {},
+    actualVideo: storyMap.videos['weed'],
+    actualChoices: [],
     actualBackground: [],
     actualAudio: {},
     actualEnemy: {},
@@ -34,6 +34,10 @@ export default new Vuex.Store({
   },  
 
   getters : {
+
+    getCurrentTimeVideo(state) {
+      return state.currentTimeVideo;
+    },
     getStoryMap(state) {
       return state.storyMap;
     },
@@ -64,12 +68,21 @@ export default new Vuex.Store({
   mutations: {
 
     // 
+
+    setCurrentTimeVideo: (state, x) => {
+      state.currentTimeVideo = x;
+    },
+
     setActualVideo: (state,x) => {
       state.actualVideo = x;
     },
 
     setActualChoices: (state,x) => {
       state.actualChoices = x;
+    },
+
+    addActualChoices: (state, x) => {
+      state.actualChoices.push(x)
     },
 
     setActualBackground: (state,x) => {

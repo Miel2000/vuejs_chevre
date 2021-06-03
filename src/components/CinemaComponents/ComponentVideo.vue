@@ -13,7 +13,7 @@
         video_box : 'video_box'
       
       }  "
-      :src="'/assets/videos/' + videoInfos.self.url"
+      :src="'/assets/videos/' + computedVideo.self.url"
       controls 
       autoplay
       playsinline
@@ -39,9 +39,18 @@ export default {
   },
 
   computed: {
-    computedChoices(){
+
+    computedCurrentTimeVideo(){
+      return this.$store.getters.getCurrentTimeVideo;
+    },
+
+    computedVideo(){
+      return this.$store.getters.getVideo;
+    },
+
+    computedChoices() {
       return this.$store.getters.getChoices;
-    } 
+    }
   },
 
 
@@ -54,10 +63,12 @@ export default {
 
   methods: {
     onTimeUpdate(event) {
+      this.$store.commit('setCurrentTimeVideo', event.target.currentTime);
+      console.log(this.computedCurrentTimeVideo);
       // Si y'a des ctas
       // compare les timecodes des ctas
 
-      if (this.videoInfos.ctas) {
+      if (this.computedVideo.ctas) {
         this.videoInfos.ctas.forEach((ctaInfo) => {
           if (
             event.target.currentTime >= ctaInfo.to &&
@@ -91,44 +102,61 @@ export default {
       }
 
       // compare les timecodes des timedActions
-      if (this.videoInfos.timedActions) {
-        this.videoInfos.timedActions.forEach((timedAction) => {
-          this.compareForTimedActions(event.target.currentTime, timedAction);
+      if (this.computedVideo.timedChoices) {
+        this.computedVideo.timedChoices.forEach((timedChoice) => {
+          this.compareForTimedChoices(this.computedCurrentTimeVideo, timedChoice);
         });
       }
 
-      if(this.videoInfos.timedAudios) {
-        this.videoInfos.timedAudios.forEach((timedAudio) => {
-          this.compareForAudios(event.target.currentTime, timedAudio)
+      if(this.computedVideo.timedAudios) {
+        this.computedVideo.timedAudios.forEach((timedAudio) => {
+          this.compareForAudios(this.computedCurrentTimeVideo, timedAudio)
         })
       }
 
       // 
     },
     
-    compareForTimedActions(currentTimeVideo, oneTimedAction) {
-      // console.log("ALL ACTIONS  : ", oneTimedAction);
+    compareForTimedChoices(actualVideoTimeCode ,oneTimedChoice) {
+      console.log('cuputed choice: ' , this.computedChoices);
+      console.log("AUCUNE CONDITION one choice computed : ", oneTimedChoice);
 
-      if (oneTimedAction.type) {
-        if (
-          currentTimeVideo >= oneTimedAction.at &&
-          this.alreadySent.indexOf(oneTimedAction.id) === -1
-        ) {
-          console.log("weh on emit l'oneTimedAction");
+      if (oneTimedChoice) {
 
-          this.$store.commit("setActualChoices", oneTimedAction);
+        console.log('oneTimedChoice condition : ', oneTimedChoice.id);
 
-        }
+
+      
+          // Probleme : 
+          //    il compare les deux, du début à la fin de la time line.
+            
+              if (
+                  actualVideoTimeCode >=  oneTimedChoice.at && 
+                  this.alreadySent.indexOf(oneTimedChoice.id) !== 1 
+               ) {
+
+
+                 this.alreadySent.push(oneTimedChoice.id);
+
+                 console.log(this.alreadySent);
+
+                 this.$store.commit('addActualChoices', oneTimedChoice);
+
+                 console.log(' TIME CODE A DEPASSER && actualChoices ADD avec', oneTimedChoice.id)
+            
+              } 
+          
       }
     },
 
-    compareForAudios(currentTimeVideo, oneAudio){
+
+    compareForAudios(actualVideoTimeCode, oneAudio){
       if(oneAudio.type) {
            if (
-          currentTimeVideo >= oneAudio.at &&
+          actualVideoTimeCode >= oneAudio.at &&
           this.alreadySent.indexOf(oneAudio.id) === -1
           ) {
-          console.log("weh on emit l'audio");
+          // console.log("weh on emit l'audio");
 
           this.$store.commit("setActualAudio", oneAudio);
           } 

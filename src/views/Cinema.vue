@@ -38,7 +38,7 @@
         <div>
 
             <ComponentOneChoice 
-                :choice-infos="computedChoices"
+               
                 @a-choice-have-been-acted="choiceActedHandler"
             />
 

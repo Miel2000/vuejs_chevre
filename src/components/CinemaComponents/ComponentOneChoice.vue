@@ -12,10 +12,10 @@
     <a v-if="computedChoices"
       class="oneChoice"
       :isContinuePlaying="computedChoices.isContinue"
-      @click="choiceClickHandler(computedChoices.route)"
+      @click="choiceClickHandler(computedChoices)"
     >
 
-    {{ choiceInfos.text }}
+    {{ computedChoices.text }}
 
       </a>
     </div>
@@ -27,12 +27,7 @@
 <script>
 
 export default {
-  props: {
-    choiceInfos: {
-      type: Object,
-      required: true,
-    },
-  },
+
 
   created() {
     //
@@ -59,7 +54,7 @@ export default {
 
   methods: {
       choiceClickHandler() {
-        this.$store.commit("setActualVideo", this.computedStoryMap.videos[this.choiceInfos.route]);
+        this.$store.commit("setActualVideo", this.computedStoryMap.videos[this.computedChoices.route]);
         this.$store.commit("setActualChoices", {});
         // console.log( this.computedStoryMap.videos["intro2"]);
         // this.exceptionsManager();
@@ -72,46 +67,38 @@ export default {
 
       exceptionsManager() {
 
-      //quand je clique sur le choix d'une nouvelle arme, en direction de la scene shooting_remake
-      // if(this.choiceInfos.id === "shooting_remake"){
-  
-      //    this.$store.commit('setActualVideo', storyMap.videos['shooting_remake'])
+    
+      // if (
+      //   this.choiceInfos.route === "banane" ||
+      //   (this.choiceInfos.route == "shooting" &&
+      //     this.choiceInfos.id == "banane")
+      // ) {
+      //   // this.$store.commit("setActualWeapon", "banane");
+      //   this.selectWeapon('banane');
+      //   console.log("l'arme choisi est  banane ", this.$store.state.actualWeapon );
+
       // }
+      // if (
+      //   this.choiceInfos.route === "couteau" ||
+      //   (this.choiceInfos.route == "shooting_remake" &&
+      //     this.choiceInfos.id == "couteau")
+      // ) {
 
-   
+      //   this.$store.commit("setActualWeapon", "couteau");
+      //   // this.$store.state.actualWeapon = "couteau";
+      //   console.log("l'arme choisi est  couteau " , this.$store.state.actualWeapon);
 
-      if (
-        this.choiceInfos.route === "banane" ||
-        (this.choiceInfos.route == "shooting" &&
-          this.choiceInfos.id == "banane")
-      ) {
-        // this.$store.commit("setActualWeapon", "banane");
-        this.selectWeapon('banane');
-        console.log("l'arme choisi est  banane ", this.$store.state.actualWeapon );
+      // }
+      // if (
+      //   this.choiceInfos.route === "fusil" ||
+      //   (this.choiceInfos.route == "shooting_remake" &&
+      //     this.choiceInfos.id == "fusil")
+      // ) {
 
-      }
-      if (
-        this.choiceInfos.route === "couteau" ||
-        (this.choiceInfos.route == "shooting_remake" &&
-          this.choiceInfos.id == "couteau")
-      ) {
-
-        this.$store.commit("setActualWeapon", "couteau");
-        // this.$store.state.actualWeapon = "couteau";
-        console.log("l'arme choisi est  couteau " , this.$store.state.actualWeapon);
-
-      }
-      if (
-        this.choiceInfos.route === "fusil" ||
-        (this.choiceInfos.route == "shooting_remake" &&
-          this.choiceInfos.id == "fusil")
-      ) {
-
-        this.$store.commit("setActualWeapon", "fusil");
-        // this.$store.state.actualWeapon = "fusil";
-        console.log("l'arme choisi est  fusil ", this.$store.state.actualWeapon );
-
-      }
+      //   this.$store.commit("setActualWeapon", "fusil");
+      //   // this.$store.state.actualWeapon = "fusil";
+      //   console.log("l'arme choisi est  fusil ", this.$store.state.actualWeapon );
+      // }
   
     },
   },

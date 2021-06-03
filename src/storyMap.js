@@ -14,7 +14,7 @@ export default {
  
             },
      
-            timedActions: [
+            timedChoices: [
 
                     {
                         at: 12,
@@ -40,14 +40,8 @@ export default {
                 controls: true,
                
             },
-            audio_container: [
-              
-            ],
-            video_container: [
-          
-            ],
 
-            timedActions: [
+            timedChoices: [
 
                 {
                     at: 15,
@@ -86,10 +80,10 @@ export default {
 
             ],
 
-            timedActions: [
+            timedChoices: [
     
                 {
-                    at: 56.5,
+                    at: 20,
                     id: "hokage",
                     text: "Devenir Hokage",
                     route: "hokage",
@@ -97,7 +91,7 @@ export default {
                 },
                 
                 {
-                    at: 57.6,
+                    at: 30,
                     id: "papillon",
                     text: "Chasser les papillons",
                     route: "papillon",
@@ -119,7 +113,7 @@ export default {
             },
             background_container: [],
          
-            timedActions: [
+            timedChoices: [
          
                     {
                         at: 7.5,
@@ -160,13 +154,16 @@ export default {
                     
                 }
             },
-            audio_container: [
-              
+
+            timedAudios: [
+                {
+                    at: 18,
+                    url: "naruto-sound.mp3",
+                    type:"sound"
+                },
             ],
-            video_container: [
-               
-            ],
-            timedActions: [
+
+            timedChoices: [
 
                     {
                         at: 18,
@@ -201,13 +198,16 @@ export default {
             video_container: [
                
             ],
-            timedActions: [
-    
+            timedAudios: [
                 {
                     at: 18,
                     url: "naruto-sound.mp3",
                     type:"sound"
                 },
+            ],
+            timedChoices: [
+    
+              
                 {
                     at: 41,
                     id:"shooting",
@@ -228,15 +228,17 @@ export default {
                 
                 }
             },
-         
-            timedActions: [
-
+            timedAudios: [
                 {
                     at: 18,
                     url: "naruto-sound.mp3",
-                    type:"sound",
-                    
+                    type:"sound"
                 },
+            ],
+         
+            timedChoices: [
+
+           
                 {
                     at: 41,
                     id:"shooting",
@@ -298,7 +300,7 @@ export default {
                 }
              },
             background_container: [],
-            timedActions: [
+            timedChoices: [
 
                 {
                     at: 14,
@@ -346,7 +348,7 @@ export default {
                 controls: true,
              },
             background_container: [],
-            timedActions: [
+            timedChoices: [
 
                 {
                     at: 4,
@@ -393,7 +395,7 @@ export default {
                 controls: true,
              },
             background_container: [],
-            timedActions: [
+            timedChoices: [
 
                 {
                     at: 23,
@@ -465,7 +467,7 @@ export default {
                 
             },
         ],
-             timedActions: []
+             timedChoices: []
            
 
 
@@ -489,7 +491,7 @@ export default {
                     
             //     }
             // ],
-            timedActions: [
+            timedChoices: [
 
                 {
                     at: 56,
@@ -521,7 +523,7 @@ export default {
             },
            
       
-            timedActions: [
+            timedChoices: [
 
                 {
                     at: 4,
@@ -567,7 +569,7 @@ export default {
                     
                 }
             ],
-            timedActions: [
+            timedChoices: [
 
                 {
                     at: 4,
@@ -601,7 +603,7 @@ export default {
             video_container: [
                
             ],
-            timedActions: [
+            timedChoices: [
            
         
             ],
@@ -638,7 +640,7 @@ export default {
             video_container: [
                
             ],
-            timedActions: [
+            timedChoices: [
            
         
              ],
@@ -675,7 +677,7 @@ export default {
             video_container: [
                
             ],
-            timedActions: [
+            timedChoices: [
            
         
              ],
@@ -710,7 +712,7 @@ export default {
             video_container: [
                
             ],
-            timedActions: [
+            timedChoices: [
            
         
              ],
@@ -737,7 +739,7 @@ export default {
             video_container: [
                
             ],
-            timedActions: [
+            timedChoices: [
            
         
              ],
@@ -764,7 +766,7 @@ export default {
             video_container: [
                
             ],
-            timedActions: [
+            timedChoices: [
            
         
              ],
@@ -792,7 +794,7 @@ export default {
             video_container: [
                
             ],
-            timedActions: [
+            timedChoices: [
            
         
              ],
