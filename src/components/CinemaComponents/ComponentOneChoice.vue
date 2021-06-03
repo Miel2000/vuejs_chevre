@@ -1,7 +1,7 @@
 <template>
 <div>
   
-	<div style="text-align:center">
+	<div v-for="computedChoice in computedChoices" :key="computedChoice.id" style="text-align:center">
 
     <!-- <img v-if="choiceInfos.img"  @click="choiceClickHandler"
 
@@ -9,15 +9,15 @@
          :src="'./assets/images/' + choiceInfos.img" 
          :alt="choiceInfos.route"> -->
 
-    <a v-if="computedChoices"
+    <a v-if="computedChoice"
       class="oneChoice"
-      :isContinuePlaying="computedChoices.isContinue"
-      @click="choiceClickHandler(computedChoices)"
+      :isContinuePlaying="computedChoice.isContinue"
+      @click="choiceClickHandler(computedChoice)"
     >
 
-    {{ computedChoices.text }}
+        {{ computedChoice.text }}
 
-      </a>
+   </a>
     </div>
 </div>
 
@@ -53,9 +53,10 @@ export default {
  
 
   methods: {
-      choiceClickHandler() {
-        this.$store.commit("setActualVideo", this.computedStoryMap.videos[this.computedChoices.route]);
-        this.$store.commit("setActualChoices", {});
+      choiceClickHandler(choiceSelected) {
+        console.log('choiceSelected :  ',choiceSelected)
+        this.$store.commit("setActualVideo", this.computedStoryMap.videos[choiceSelected.route]);
+        this.$store.commit("setActualChoices", []);
         // console.log( this.computedStoryMap.videos["intro2"]);
         // this.exceptionsManager();
     

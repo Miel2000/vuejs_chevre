@@ -35,7 +35,7 @@
   <div class="choice-container"  >
     <div v-if="computedChoices">
 
-        <div>
+        <div >
 
             <ComponentOneChoice 
                

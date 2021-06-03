@@ -111,8 +111,7 @@ export default {
                 options: {}
  
             },
-            background_container: [],
-         
+            
             timedChoices: [
          
                     {

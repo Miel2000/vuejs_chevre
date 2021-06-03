@@ -31,6 +31,14 @@
 
 <script>
 export default {
+
+  data(){
+    return {
+
+      alreadySent: []
+      
+    }
+  },
   props: {
     videoInfos: {
       type: Object,
@@ -56,9 +64,6 @@ export default {
 
   mounted() {
     console.log('c la video : ' , this.videoInfos)
-
-    
-    this.alreadySent = [];
   },
 
   methods: {
@@ -113,26 +118,20 @@ export default {
           this.compareForAudios(this.computedCurrentTimeVideo, timedAudio)
         })
       }
-
-      // 
     },
     
     compareForTimedChoices(actualVideoTimeCode ,oneTimedChoice) {
-      console.log('cuputed choice: ' , this.computedChoices);
-      console.log("AUCUNE CONDITION one choice computed : ", oneTimedChoice);
+
+      console.log('this.computedChoices: ' , this.computedChoices);
+      console.log("oneTimedChoice : ", oneTimedChoice);
 
       if (oneTimedChoice) {
 
         console.log('oneTimedChoice condition : ', oneTimedChoice.id);
 
-
-      
-          // Probleme : 
-          //    il compare les deux, du début à la fin de la time line.
-            
               if (
                   actualVideoTimeCode >=  oneTimedChoice.at && 
-                  this.alreadySent.indexOf(oneTimedChoice.id) !== 1 
+                  this.alreadySent.indexOf(oneTimedChoice.id) === -1 
                ) {
 
 
@@ -144,8 +143,7 @@ export default {
 
                  console.log(' TIME CODE A DEPASSER && actualChoices ADD avec', oneTimedChoice.id)
             
-              } 
-          
+              }
       }
     },
 
