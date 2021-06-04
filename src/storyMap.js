@@ -315,6 +315,8 @@ export default {
                     img: "fusil.png",
                     type: "choice"
                 },
+            ],
+            timedAudios: [
                 {
                     at:0,
                     to:33,
@@ -322,9 +324,8 @@ export default {
                     url:"background/valorant_sound.mp3",
                     type:"sound"
                 }
-              
-              
             ]
+
             },
 
         
@@ -363,14 +364,15 @@ export default {
                     img: "fusil.png",
                     type: "choice"
                 },
+            ],
+            timedAudios: [
                 {
                     at:0,
-                    to:34.9,
+                    to:33,
                     isLooping:false,
                     url:"background/valorant_couteau_sound.mp3",
                     type:"sound"
                 }
-              
             ]
              
             },

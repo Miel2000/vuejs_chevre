@@ -4,7 +4,7 @@
     <div v-if="computedAudios.url" class="audio-container">
        <p>coucou audio</p>
          
-            <audio   
+            <audio
                 autoplay
                 controls 
               

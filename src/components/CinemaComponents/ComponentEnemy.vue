@@ -105,7 +105,7 @@ export default {
       // Quand un coup est émit via le click, selon $store.state.weapon
       switch (this.computedWeapon) {
         case "banane": {
-          console.log('condition banane');
+        
           const hits_bananes = [
             "./assets/mp3/hits/hit_banane1.mp3",
             "./assets/mp3/hits/hit_banane2.mp3",
@@ -115,10 +115,10 @@ export default {
             "./assets/mp3/hits/hit_banane2.mp3",
             "./assets/mp3/hits/hit_banane3.mp3",
           ];
-          const random_banane =
-            hits_bananes[Math.floor(Math.random() * hits_bananes.length)];
-          const hit_banane = new Audio(random_banane);
 
+          const random_banane = hits_bananes[Math.floor(Math.random() * hits_bananes.length)];
+          
+          const hit_banane = new Audio(random_banane);
           hit_banane.play();
 
           this.$store.commit("minusNinjaLife", 10);
@@ -130,63 +130,50 @@ export default {
             monImage.classList.add("hide");
           }
 
-          console.log(
-            "banane utilisée sur",
-            enemy.url + " | Vie : " + enemy.vie
-          );
+          console.log("banane utilisée sur", enemy.url + " | Vie : " + enemy.vie );
           break;
         }
         case "couteau": {
-          enemy.vie -= 50;
-
+          
           const hits_couteau = [
             "./assets/mp3/hits/hit_couteau1.mp3",
             "./assets/mp3/hits/hit_couteau2.mp3",
           ];
-          const random_couteau =
-            hits_couteau[Math.floor(Math.random() * hits_couteau.length)];
+          const random_couteau = hits_couteau[Math.floor(Math.random() * hits_couteau.length)];
+
           const hit_couteau = new Audio(random_couteau);
-
           hit_couteau.play();
-          this.$store.commit("minusNinjaLife", 50);
-       
 
+          this.$store.commit("minusNinjaLife", 50);
+          enemy.vie -= 50;
+       
           if (enemy.vie <= 0) {
             enemy.vie = 0;
             console.log("DEAD", enemy.id);
             monImage.classList.add("hide");
           }
-          console.log(
-            "couteau utilisée sur",
-            enemy.url + " | Vie : " + enemy.vie
-          );
+          console.log("couteau utilisé sur ", enemy.url + " | Vie : " + enemy.vie);
           break;
         }
         case "fusil": {
-          enemy.vie -= 100;
           const hits_fusil = [
             "./assets/mp3/hits/hit_fusil1.mp3",
             "./assets/mp3/hits/hit_fusil2.mp3",
           ];
-          const random_fusil =
-            hits_fusil[Math.floor(Math.random() * hits_fusil.length)];
+          const random_fusil = hits_fusil[Math.floor(Math.random() * hits_fusil.length)];
+
           const hit_fusil = new Audio(random_fusil);
-
           hit_fusil.play();
-          this.$store.commit("minusNinjaLife", 100);
-        
 
-          console.log('on émite route when finish à "valorant"');
+          this.$store.commit("minusNinjaLife", 100);
+          enemy.vie -= 100;
+
           if (enemy.vie <= 0) {
-            // this.$emit("root-end", storyMap.videos["valorant"]);
             enemy.vie = 0;
             console.log("DEAD", enemy.id);
             monImage.classList.add("hide");
           }
-          console.log(
-            "fusil utilisée sur",
-            enemy.url + " | Vie : " + enemy.vie
-          );
+          console.log("fusil utilisé sur", enemy.url + " | Vie : " + enemy.vie);
          
           break;
         }
@@ -197,7 +184,7 @@ export default {
 
       // Coupe le son après ninja dead et changement video valorant_arme
 
-      // FUSIL
+          // FUSIL
       if( this.$store.getters.getNinjaLife <= 0 &&
           this.computedWeapon === "fusil"
 
@@ -205,7 +192,7 @@ export default {
         this.$store.commit('setActualAudio', {})
         this.$store.commit('setActualVideo', this.computedStoryMap.videos['valorant_fusil'])
       }
-      // COUTEAU
+         // COUTEAU
       if( this.$store.getters.getNinjaLife <= 0 &&
       this.computedWeapon === "couteau"
 
@@ -214,7 +201,7 @@ export default {
         this.$store.commit('setActualVideo', this.computedStoryMap.videos['valorant_couteau'])
       }
 
-      // BANANE
+         // BANANE
       if( this.$store.getters.getNinjaLife <= 0 &&
       this.computedWeapon === "banane"
 

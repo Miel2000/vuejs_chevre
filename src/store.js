@@ -15,13 +15,13 @@ export default new Vuex.Store({
     currentTimeVideo: 0,
     currentTimeAudio: 0,
 
-    actualVideo: storyMap.videos['couteau'],
+    actualVideo: storyMap.videos['banane'],
     actualChoices: [],
     actualBackground: {},
     actualAudio: {},
     actualEnemy: {},
     actualCallToActions: [],
-    actualWeapon:"couteau",
+    actualWeapon:"banane",
 
     myLife: 100,
     ninjaLife: 200,
