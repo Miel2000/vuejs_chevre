@@ -39,12 +39,7 @@ export default {
       
     }
   },
-  props: {
-    videoInfos: {
-      type: Object,
-      required: true,
-    },
-  },
+  
 
   computed: {
 
@@ -58,53 +53,58 @@ export default {
 
     computedChoices() {
       return this.$store.getters.getChoices;
+    },
+
+    computedStoryMap() {
+      return this.$store.getters.getStoryMap;
     }
   },
 
 
   mounted() {
-    console.log('c la video : ' , this.videoInfos)
+   
+    this.alreadySent = [];
   },
 
   methods: {
     onTimeUpdate(event) {
       this.$store.commit('setCurrentTimeVideo', event.target.currentTime);
-      console.log(this.computedCurrentTimeVideo);
+      // console.log(this.computedCurrentTimeVideo);
       // Si y'a des ctas
       // compare les timecodes des ctas
 
-      if (this.computedVideo.ctas) {
-        this.videoInfos.ctas.forEach((ctaInfo) => {
-          if (
-            event.target.currentTime >= ctaInfo.to &&
-            ctaInfo.id == "esquive_fleche" &&
-            this.$store.state.piegeFleche == false
-          ) {
-            console.log(this.$store.state.piegeFleche, "piege fleche activé");
-            const die = new Audio("./assets/mp3/hits/piege_fleche.mp3");
-            this.$store.state.piegeFleche = false;
-            this.$store.state.piegeChat = false;
-            die.play();
-            event.target.currentTime = 0;
-          }
-          if (
-            event.target.currentTime >= ctaInfo.to &&
-            ctaInfo.id == "esquive_chat" &&
-            this.$store.state.piegeChat == false
-          ) {
-            console.log(this.$store.state.piegeFleche, "piege Chat activé");
-            const die = new Audio("./assets/mp3/hits/piege_chat.mp3");
-            die.play();
-            this.$store.state.piegeFleche = false;
-            this.$store.state.piegeChat = false;
-            event.target.currentTime = 0;
-          }
+      // if (this.computedVideo.ctas) {
+      //   this.videoInfos.ctas.forEach((ctaInfo) => {
+      //     if (
+      //       event.target.currentTime >= ctaInfo.to &&
+      //       ctaInfo.id == "esquive_fleche" &&
+      //       this.$store.state.piegeFleche == false
+      //     ) {
+      //       console.log(this.$store.state.piegeFleche, "piege fleche activé");
+      //       const die = new Audio("./assets/mp3/hits/piege_fleche.mp3");
+      //       this.$store.state.piegeFleche = false;
+      //       this.$store.state.piegeChat = false;
+      //       die.play();
+      //       event.target.currentTime = 0;
+      //     }
+      //     if (
+      //       event.target.currentTime >= ctaInfo.to &&
+      //       ctaInfo.id == "esquive_chat" &&
+      //       this.$store.state.piegeChat == false
+      //     ) {
+      //       console.log(this.$store.state.piegeFleche, "piege Chat activé");
+      //       const die = new Audio("./assets/mp3/hits/piege_chat.mp3");
+      //       die.play();
+      //       this.$store.state.piegeFleche = false;
+      //       this.$store.state.piegeChat = false;
+      //       event.target.currentTime = 0;
+      //     }
 
-          if (this.alreadySent.indexOf(ctaInfo.id) === -1) {
-            this.compareForCtas(event.target.currentTime, ctaInfo.at, ctaInfo);
-          }
-        });
-      }
+      //     if (this.alreadySent.indexOf(ctaInfo.id) === -1) {
+      //       this.compareForCtas(event.target.currentTime, ctaInfo.at, ctaInfo);
+      //     }
+      //   });
+      // }
 
       // compare les timecodes des timedActions
       if (this.computedVideo.timedChoices) {
@@ -118,17 +118,19 @@ export default {
           this.compareForAudios(this.computedCurrentTimeVideo, timedAudio)
         })
       }
+
+      if(this.computedVideo.timedImposedRoots) {
+        this.computedVideo.timedImposedRoots.forEach((timedImposedRoot) => {
+            this.compareForImposedRoot(this.computedCurrentTimeVideo, timedImposedRoot)
+        })
+      }
+
     },
     
     compareForTimedChoices(actualVideoTimeCode ,oneTimedChoice) {
 
-      console.log('this.computedChoices: ' , this.computedChoices);
-      console.log("oneTimedChoice : ", oneTimedChoice);
-
       if (oneTimedChoice) {
-
-        console.log('oneTimedChoice condition : ', oneTimedChoice.id);
-
+        
               if (
                   actualVideoTimeCode >=  oneTimedChoice.at && 
                   this.alreadySent.indexOf(oneTimedChoice.id) === -1 
@@ -141,12 +143,30 @@ export default {
 
                  this.$store.commit('addActualChoices', oneTimedChoice);
 
-                 console.log(' TIME CODE A DEPASSER && actualChoices ADD avec', oneTimedChoice.id)
+                //  console.log(' TIME CODE A DEPASSER && actualChoices ADD avec', oneTimedChoice.id)
             
               }
       }
     },
+    
+    compareForImposedRoot(actualVideoTimeCode, oneImposedRoot){
+      if(oneImposedRoot.type) {
+           if (
+          actualVideoTimeCode >= oneImposedRoot.at &&
+          this.alreadySent.indexOf(oneImposedRoot.id) === -1
+          ) {
+          // console.log("weh on emit l'audio");
+            console.log('imposed route : ' ,this.computedStoryMap.videos[oneImposedRoot.route]) 
+            // on impose le changement de la videoActuel
+            this.$store.commit("setActualVideo", this.computedStoryMap.videos[oneImposedRoot.route]);
+                // Selon la route, on affect le store
+              if(oneImposedRoot.route == "shooting"){
+                this.$store.commit('setActualEnemy', this.computedStoryMap.videos[oneImposedRoot.route].enemy )
+              }
+          } 
 
+      }
+    },
 
     compareForAudios(actualVideoTimeCode, oneAudio){
       if(oneAudio.type) {

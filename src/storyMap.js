@@ -83,7 +83,7 @@ export default {
             timedChoices: [
     
                 {
-                    at: 20,
+                    at: 56.5,
                     id: "hokage",
                     text: "Devenir Hokage",
                     route: "hokage",
@@ -91,7 +91,7 @@ export default {
                 },
                 
                 {
-                    at: 30,
+                    at: 57.5,
                     id: "papillon",
                     text: "Chasser les papillons",
                     route: "papillon",
@@ -140,6 +140,14 @@ export default {
                         type: "choice"
                     }
                 ],
+
+                timedAudios:[
+                    {
+                        at: 7.5,
+                        mustStop: true,
+                        type:"sound"
+                    }
+                ]
         },
 
 
@@ -162,23 +170,15 @@ export default {
                 },
             ],
 
-            timedChoices: [
+            timedImposedRoots: [
+                {
+                    at: 40,
+                    id:"shooting",
+                    route: "shooting",
+                    type:"imposed",
 
-                    {
-                        at: 18,
-                        url: "naruto-sound.mp3",
-                        type:"sound",
-                        
-                    },
-                    {
-                        at: 40,
-                        id:"shooting",
-                        route: "shooting",
-                        type:"choice",
-                      
-                    
-                    },
-                ]
+                }
+            ]
         },
 
         couteau: {
@@ -191,12 +191,6 @@ export default {
             
                 }
             },
-            audio_container: [
-              
-            ],
-            video_container: [
-               
-            ],
             timedAudios: [
                 {
                     at: 18,
@@ -204,16 +198,15 @@ export default {
                     type:"sound"
                 },
             ],
-            timedChoices: [
-    
-              
+
+            timedImposedRoots: [
                 {
-                    at: 41,
+                    at: 40,
                     id:"shooting",
                     route: "shooting",
-                    type:"choice",
-            
-                },
+                    type:"imposed",
+
+                }
             ]
         },
 
@@ -234,19 +227,15 @@ export default {
                     type:"sound"
                 },
             ],
-         
-            timedChoices: [
 
-           
+            timedImposedRoots: [
                 {
-                    at: 41,
+                    at: 40,
                     id:"shooting",
                     route: "shooting",
-                    type:"choice",
-            
-                },
+                    type:"imposed",
 
-
+                }
             ]
         },
 
@@ -268,7 +257,8 @@ export default {
             },
             ],
             enemy: [
-            {   id: "castaner",
+            {  
+                id: "castaner",
                 url: "castaner.png",
                 vie: 100,
                 type: "enemy"

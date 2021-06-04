@@ -15,20 +15,19 @@ export default new Vuex.Store({
     currentTimeVideo: 0,
     currentTimeAudio: 0,
 
-    actualVideo: storyMap.videos['weed'],
+    actualVideo: storyMap.videos['couteau'],
     actualChoices: [],
     actualBackground: [],
     actualAudio: {},
     actualEnemy: {},
     actualCallToActions: [],
-    actualWeapon:"fusil",
+    actualWeapon:"couteau",
 
     myLife: 100,
-    ninjasLife: 200,
+    ninjaLife: 100,
     bossLife: 300,
     piegeFleche:false,
     piegeChat:false,
-    playerIsInteractive: true,
     routeHandler:[],
     scoreGame: 0
   },  
@@ -50,8 +49,10 @@ export default new Vuex.Store({
     getAudio(state){
       return state.actualAudio;
     },
+    // Quand on get les enemy, on veut forcement ceux qui apparetiennent à la videoActuelle
     getEnemy(state){
       return state.actualEnemy;
+
     },
     getCtas(state){
       return state.actualCallToActions;
@@ -62,6 +63,10 @@ export default new Vuex.Store({
     getWeapon(state) {
       return state.actualWeapon;
     },
+
+    getNinjaLife(state){
+      return state.ninjaLife;
+    }
     
   },
 
@@ -124,8 +129,8 @@ export default new Vuex.Store({
       state.piegeChat = x
     },
 
-    minusNinjasLife: (state, x) => {
-      state.ninjasLife -= x;
+    minusNinjaLife: (state, x) => {
+      state.ninjaLife -= x;
     },
 
     minusBossLife: (state, x) => {

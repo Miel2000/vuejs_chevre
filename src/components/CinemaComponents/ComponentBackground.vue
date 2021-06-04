@@ -1,6 +1,6 @@
 <template>
 <div>
-  <p>coucou</p>
+  <p>coucou bacgrkound</p>
     <div v-if="actualBackgroundInfos.type === 'sound'">
         <div >
         

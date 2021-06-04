@@ -1,26 +1,33 @@
 <template>
 
 <div>
-<div v-if="enemy">
- 
-    <div :class="enemy.id"  :ref="enemy.id">
+
+ <p>coucou enemy</p>
+  
+      <div v-for="computedEnemy in this.computedEnemys" :key="computedEnemy.id" style="text-align:center">
+    <div :class="computedEnemy.id">
       
-      <h1 class="text-center eighties" style="color:black"> {{ this.enemy.vie }} %</h1>
-          <div class="healthbar">
-              <div  class="healthbar text-center" :style="{backgroundColor: this.enemy.vie <= 50 ? 'red' : 'green', margin: 0, color: 'white', width: this.enemy.vie + '%' }">
-              </div>
-          </div>
-          <br>
-          
-              <img  v-on:click="hitEnemy(enemy)"
-                  :src="'/assets/images/'+ enemy.url" 
-                  alt=""
-                  :class="enemy.id"
-                
-              />
+        <h1 class="text-center eighties"  style="color:black"> {{ computedEnemy.vie }} %</h1>
+
+            <div class="healthbar " >
+
+                <div  class="healthbar text-center" :style="{backgroundColor: computedEnemy.vie <= 50 ? 'red' : 'green', margin: 0, color: 'white', width: computedEnemy.vie + '%' }">
+                </div>
+
+            </div>
+
+            <br>
+            
+                <img  v-on:click="hitcomputedEnemy(computedEnemy)"
+                    :src="'/assets/images/'+ computedEnemy.url" 
+                    alt=""
+                 
+                  
+                />
        </div>
-    
     </div>
+ 
+    
 
 </div>
 
@@ -30,15 +37,9 @@
 </template>
 
 <script>
-import { TimelineLite } from "gsap";
+// import { TimelineLite } from "gsap";
  
 export default {
-  props: {
-    enemy: {
-      type: Object,
-      required: true,
-    },
-  },
 
   data() {
     return {
@@ -47,48 +48,61 @@ export default {
     };
   },
 
-  mounted() {
-    this.$store.commit('setActualAudio', [])
-    this.$store.state.actualVideo = [];
-    this.enemy.vie = 100;
-    this.$store.state.ninjasLife = 200;
-    this.weaponInStore = this.$store.state.actualWeapon;
+  computed:{
+    computedEnemys() {
+      return this.$store.getters.getEnemy;
+    },
 
-    this.videoId = this.$store.state.actualVideo;
-    console.log(this.videoId.id,'video id yo component enemy')
-
-    this.$emit("an-enemy-is-sent", this.enemy);
-
-    if (this.enemy.id == "castex") {
-      this.timelineCastex = new TimelineLite();
-      console.log("image triggered", this.$refs.castex);
-      this.timelineCastex.to(this.$refs.castex, 1.5, {
-        y: 200,
-        ease: "Linear.easeNone",
-        yoyo: true,
-        repeat: -1,
-      });
-    }
-    if (this.enemy.id == "castaner") {
-      this.timelineCastaner = new TimelineLite();
-      this.timelineCastaner.to(this.$refs.castaner, 1, {
-        x: -400,
-        ease: "Linear.easeNone",
-        repeat: -1,
-        yoyo: true,
-      });
+    computedVideo() {
+      return this.$store.getters.getVideo;
+    },
+    computedNinjaLife(){
+      return this.$store.getters.getNinjaLife;
+    },
+    computedWeapon() {
+      return this.$store.getters.getWeapon;
     }
   },
 
+  mounted() {
+  
+    console.log('enemy mounted', this.computedEnemys);
+    console.log('video mounted', this.computedVideo);
+
+
+
+    // if ( this.computedEnemys == "castex") {
+    //   this.timelineCastex = new TimelineLite();
+    //   console.log("image triggered", this.$refs.castex);
+    //   this.timelineCastex.to(this.$refs.castex, 1.5, {
+    //     y: 200,
+    //     ease: "Linear.easeNone",
+    //     yoyo: true,
+    //     repeat: -1,
+    //   });
+    // }
+    // if ( this.computedEnemys == "castaner") {
+    //   this.timelineCastaner = new TimelineLite();
+    //   this.timelineCastaner.to(this.$refs.castaner, 1, {
+    //     x: -400,
+    //     ease: "Linear.easeNone",
+    //     repeat: -1,
+    //     yoyo: true,
+    //   });
+    // }
+
+  },
+
   methods: {
-    hitEnemy(enemy) {
+    hitcomputedEnemy(enemy) {
       const monImage = document.querySelector("." + enemy.id);
-      console.log(this.enemy.vie, this.enemy.url);
+      console.log(enemy.vie, enemy.url);
+
 
       // Quand un coup est émit via le click, selon $store.state.weapon
-      switch (this.weaponInStore) {
+      switch (this.computedWeapon) {
         case "banane": {
-          this.enemy.vie -= 10;
+          console.log('condition banane');
           const hits_bananes = [
             "./assets/mp3/hits/hit_banane1.mp3",
             "./assets/mp3/hits/hit_banane2.mp3",
@@ -104,23 +118,23 @@ export default {
 
           hit_banane.play();
 
-          this.$store.commit("minusNinjasLife", 10);
-          this.$emit("minus-life");
+          this.$store.commit("minusNinjaLife", 10);
+          enemy.vie -= 10;
 
-          if (this.enemy.vie <= 0) {
-            this.enemy.vie = 0;
-            console.log("DEAD", this.enemy.id);
+          if (enemy.vie <= 0) {
+            enemy.vie = 0;
+            console.log("DEAD", enemy.id);
             monImage.classList.add("hide");
           }
 
           console.log(
             "banane utilisée sur",
-            this.enemy.url + " | Vie : " + this.enemy.vie
+            enemy.url + " | Vie : " + enemy.vie
           );
           break;
         }
         case "couteau": {
-          this.enemy.vie -= 50;
+          enemy.vie -= 50;
 
           const hits_couteau = [
             "./assets/mp3/hits/hit_couteau1.mp3",
@@ -132,21 +146,21 @@ export default {
 
           hit_couteau.play();
           this.$store.commit("minusNinjasLife", 50);
-          this.$emit("minus-life");
+       
 
-          if (this.enemy.vie <= 0) {
-            this.enemy.vie = 0;
-            console.log("DEAD", this.enemy.id);
+          if (enemy.vie <= 0) {
+            enemy.vie = 0;
+            console.log("DEAD", enemy.id);
             monImage.classList.add("hide");
           }
           console.log(
             "couteau utilisée sur",
-            this.enemy.url + " | Vie : " + this.enemy.vie
+            enemy.url + " | Vie : " + enemy.vie
           );
           break;
         }
         case "fusil": {
-          this.enemy.vie -= 100;
+          enemy.vie -= 100;
           const hits_fusil = [
             "./assets/mp3/hits/hit_fusil1.mp3",
             "./assets/mp3/hits/hit_fusil2.mp3",
@@ -157,18 +171,18 @@ export default {
 
           hit_fusil.play();
           this.$store.commit("minusNinjasLife", 100);
-          this.$emit("minus-life");
+        
 
           console.log('on émite route when finish à "valorant"');
-          if (this.enemy.vie <= 0) {
+          if (enemy.vie <= 0) {
             // this.$emit("root-end", storyMap.videos["valorant"]);
-            this.enemy.vie = 0;
-            console.log("DEAD", this.enemy.id);
+            enemy.vie = 0;
+            console.log("DEAD", enemy.id);
             monImage.classList.add("hide");
           }
           console.log(
             "fusil utilisée sur",
-            this.enemy.url + " | Vie : " + this.enemy.vie
+            enemy.url + " | Vie : " + enemy.vie
           );
          
           break;

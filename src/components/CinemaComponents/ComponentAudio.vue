@@ -1,14 +1,15 @@
 <template>
 <div>
   
-    <div v-if="audioInfos.url" class="audio-container">
+    <div v-if="computedAudios.url" class="audio-container">
        <p>coucou audio</p>
          
             <audio   
                 autoplay
                 controls 
+              
                 >
-                <source :src="'/assets/mp3/' + audioInfos.url"/>
+                <source :src="'/assets/mp3/' + computedAudios.url"/>
             
             </audio>
     </div>
@@ -22,12 +23,14 @@ export default {
   components: {},
 
   props: {
-    audioInfos: {
-      type: Object,
-      required: true,
-    },
+
   },
 
+  computed: {
+    computedAudios(){
+      return this.$store.getters.getAudio;
+    }
+  },
   data() {
     return {};
   },
@@ -37,6 +40,18 @@ export default {
     console.log('audio qui monte yep')
   },
 
-  methods: {},
+  methods: {
+
+    playSound () {
+
+      if(this.computedAudios) {
+
+        var audio = new Audio(this.computedAudios);
+        audio.play();
+
+      }
+    }
+  },
+
 };
 </script>

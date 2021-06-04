@@ -1,11 +1,13 @@
 <template>
     <div class="container">
+      <p> Computed Videos Infos : {{ computedCurrentTimeVideo  }}</p>
       <p> Computed Videos Infos : {{ computedVideoInfos  }}</p>
       <p> Computed Weapon :{{ computedWeapon  }}</p>
       <p> Computed Enemys :{{ computedEnemys  }}</p>
       <p> Computed Audios :{{ computedAudios  }}</p>
       <p> Computed Choices :{{ computedChoices  }}</p>
       <p> Computed Ctas :{{ computedCtas  }}</p>
+      <p> Computed Ninja Life :{{ computedNinjaLife  }}</p>
       
 
 
@@ -13,14 +15,14 @@
                                     Component switch  -->
     <div class="video-container">
       
-        <div  v-if="computedVideoInfos" class="video_container">
+        <div  v-if="computedVideoInfos.self" class="video_container">
           <p>coucou</p>
             <div>
 
             <ComponentVideo 
-                :video-infos="computedVideoInfos" 
-                @an-action-is-sent="actionHandler"
-                @a-ctas-is-sent="ctasHandler"
+               
+              
+               
               
                 
             />
@@ -39,7 +41,7 @@
 
             <ComponentOneChoice 
                
-                @a-choice-have-been-acted="choiceActedHandler"
+            
             />
 
         </div>
@@ -48,19 +50,15 @@
 
                               <!-- ENEMY 
                                   Componenent switch types : {'enemy', ...   -->
-    <!-- <div class="enemy-container">
-          <div v-if=" computedEnemys">
+    <div class="enemy-container">
+          <div v-if="computedEnemys">
             
 
-                  <ComponentEnemy
-                      @minus-life="MinusEnemyLife"
-                      :enemy="computedEnemys" 
-                    
-                    />
+                  <ComponentEnemy   />
 
             
           </div>
-    </div> -->
+    </div>
        
                                 <!-- CALL TO ACTIONS
                                     Component switch types : {'dodge', ...   -->
@@ -128,7 +126,7 @@ import ComponentEnemy from "@/components/CinemaComponents/ComponentEnemy";
 import ComponentOneChoice from "@/components/CinemaComponents/ComponentOneChoice";
 import ComponentBoss from "@/components/CinemaComponents/ComponentBoss";
 
-import storyMap from "@/storyMap.js";
+// import storyMap from "@/storyMap.js";
 
 export default {
   components: {
@@ -153,6 +151,10 @@ export default {
       return this.$store.getters.getStoryMap;
     },
 
+    computedCurrentTimeVideo(){
+      return this.$store.getters.getCurrentTimeVideo;
+    },
+
     computedVideoInfos() {
       return this.$store.getters.getVideo;
     },
@@ -172,13 +174,18 @@ export default {
     computedCtas() {
       return this.$store.getters.getCtas;
     },
+
     computedBackground() {
       return this.$store.getters.getBackground;
     },
 
-    computedWeapon(){
+    computedWeapon() {
       return this.$store.getters.getWeapon;
     },
+
+    computedNinjaLife() {
+      return this.$store.getters.getNinjaLife;
+    }
 
     // computedWeaponSelect() {
     //   return this.$store.getters.computedWeaponSelect
@@ -186,7 +193,7 @@ export default {
   },
 
   mounted() {
-
+    console.log('enemysss', this.computedEnemys)
   },
 
   destroyed() {
@@ -196,135 +203,7 @@ export default {
     console.log("LE HANDLER", this.$store.state.routeHandler);
   },
 
-  methods: {
-    ctasHandler(cta) {
-      console.log(cta);
-      switch (cta.type) {
-        case "dodge":
-          {
-            console.log("ON EST DANS LE REDIRECT HANDLER", cta);
-            this.ctas.push(cta);
-            // this.videoInfos = storyMap.videos["intro1"];
-          }
-          break;
-
-        default:
-          break;
-      }
-    },
-
-    actionHandler(actionInfos) {
-      // this.$store.commit("setActualChoices", actionInfos);
-
-      switch (actionInfos.type) {
-        case "choice":
-          // this.exceptionChoiceManager(actionInfos);
-
-          //  this.choices.push(actionInfos);
-          this.$store.commit('setActualChoices', actionInfos)
-          break;
-
-        case "sound":
-          console.log("dans le switch SOUND : ", actionInfos);
-
-          this.$store.commit('setActualAudio', actionInfos);
-     
-          break;
-
-        default:
-          break;
-      }
-    },
-
-    exceptionChoiceManager(actionInfos) {
-      
-      if (actionInfos.route == "shooting") {
-        this.videoInfos = storyMap.videos["shooting"];
-        this.choices = [];
-      }
-
-
-      // quand il propose les routes des armes, la musique s'arrete.
-      if ( actionInfos.route == "banane" || actionInfos.route == "couteau" || actionInfos.route == "fusil" ) {
-         this.audios = [];
-         this.$store.commit('setActualAudio', []); 
-      }
-
-      if ( actionInfos.route == "shooting_remake" || actionInfos.route == "shooting" ) {
-                  
-        this.enemy = [];
-      
-      }
-
-      // Quand la  valeur de doThis est remove-choice, on supprime le choix.
-      if ( actionInfos.doThis && actionInfos.doThis === "remove-choice" ) {
-        this.choices = [];
-      } else {
-        this.choices.push(actionInfos);
-      }
-
-    },
-
-    choiceActedHandler(choice) {
-     
-      this.choices = [];
-
-      this.videoInfos = storyMap.videos[choice];
-    },
-
-    enemyHandler(enemyInfo) {
-      switch (enemyInfo.type) {
-        case "enemy":
-          this.audios =[];
-          this.enemy.push(enemyInfo);
-         
-          break;
-
-        default:
-          break;
-      }
-    },
-
-    MinusEnemyLife() {
-      if (this.$store.state.ninjasLife <= 0) {
-        switch (this.$store.state.actualWeapon) {
-          case "banane":
-           
-            this.rootEnd(storyMap.videos["valorant_banane"]);
-         
-
-            break;
-          case "couteau":
-           
-            this.rootEnd(storyMap.videos["valorant_couteau"]);
-          
-
-            break;
-          case "fusil":
-           
-            this.rootEnd(storyMap.videos["valorant_fusil"]);
-            
-            break;
-
-          default:
-            break;
-        }
-      }
-    },
-    MinusBossLife() {
-      if (this.$store.state.bossLife <= 0) {
-        console.log("redirect dajns condition");
-        this.rootEnd(storyMap.videos["generique"]);
-      }
-    },
-
-    rootEnd(endpoint) {
-      console.log("route end");
-      this.audios = [];
-      this.videoInfos = endpoint;
-    },
-
-  },
+  methods: {},
 };
 </script>
 
