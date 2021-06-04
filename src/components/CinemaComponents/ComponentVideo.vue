@@ -161,7 +161,8 @@ export default {
             this.$store.commit("setActualVideo", this.computedStoryMap.videos[oneImposedRoot.route]);
                 // Selon la route, on affect le store
               if(oneImposedRoot.route == "shooting"){
-                this.$store.commit('setActualEnemy', this.computedStoryMap.videos[oneImposedRoot.route].enemy )
+                this.$store.commit('setActualEnemy', this.computedStoryMap.videos[oneImposedRoot.route].enemy );
+                this.$store.commit('setActualBackground', this.computedStoryMap.videos[oneImposedRoot.route].backgrounds );
               }
           } 
 

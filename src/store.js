@@ -17,14 +17,14 @@ export default new Vuex.Store({
 
     actualVideo: storyMap.videos['couteau'],
     actualChoices: [],
-    actualBackground: [],
+    actualBackground: {},
     actualAudio: {},
     actualEnemy: {},
     actualCallToActions: [],
     actualWeapon:"couteau",
 
     myLife: 100,
-    ninjaLife: 100,
+    ninjaLife: 200,
     bossLife: 300,
     piegeFleche:false,
     piegeChat:false,

@@ -49,10 +49,13 @@ export default {
   },
 
   computed:{
+
+    computedStoryMap() {
+      return this.$store.getters.getStoryMap;
+    },
     computedEnemys() {
       return this.$store.getters.getEnemy;
     },
-
     computedVideo() {
       return this.$store.getters.getVideo;
     },
@@ -145,7 +148,7 @@ export default {
           const hit_couteau = new Audio(random_couteau);
 
           hit_couteau.play();
-          this.$store.commit("minusNinjasLife", 50);
+          this.$store.commit("minusNinjaLife", 50);
        
 
           if (enemy.vie <= 0) {
@@ -170,7 +173,7 @@ export default {
           const hit_fusil = new Audio(random_fusil);
 
           hit_fusil.play();
-          this.$store.commit("minusNinjasLife", 100);
+          this.$store.commit("minusNinjaLife", 100);
         
 
           console.log('on émite route when finish à "valorant"');
@@ -191,6 +194,36 @@ export default {
         default:
           break;
       }
+
+      // Coupe le son après ninja dead et changement video valorant_arme
+
+      // FUSIL
+      if( this.$store.getters.getNinjaLife <= 0 &&
+          this.computedWeapon === "fusil"
+
+      ) {
+        this.$store.commit('setActualAudio', {})
+        this.$store.commit('setActualVideo', this.computedStoryMap.videos['valorant_fusil'])
+      }
+      // COUTEAU
+      if( this.$store.getters.getNinjaLife <= 0 &&
+      this.computedWeapon === "couteau"
+
+      ) {
+        this.$store.commit('setActualAudio', {})
+        this.$store.commit('setActualVideo', this.computedStoryMap.videos['valorant_couteau'])
+      }
+
+      // BANANE
+      if( this.$store.getters.getNinjaLife <= 0 &&
+      this.computedWeapon === "banane"
+
+      ) {
+        this.$store.commit('setActualAudio', {})
+        this.$store.commit('setActualVideo', this.computedStoryMap.videos['valorant_banane'])
+      }
+      
+
     },
   },
 };

@@ -1,9 +1,10 @@
 <template>
 <div>
   <p>coucou bacgrkound</p>
-    <div v-if="actualBackgroundInfos.type === 'sound'">
-        <div >
-        
+ 
+    <div v-for="backGroundInfo in  this.computedBackgrounds" :key="backGroundInfo.id">
+
+          
                 <audio 
                    
                     volume="0.05"
@@ -12,16 +13,18 @@
                    
                     ref="audioBox"
                 >
-                    <source id="audioBackgroundBalise" :src="'/assets/mp3/background/' + actualBackgroundInfos.url"/>
+                    <source id="audioBackgroundBalise" :src="'/assets/mp3/background/' + backGroundInfo.url"/>
                 
                 </audio>
-          </div>     
-    </div>
 
 
-    <div  v-if="actualBackgroundInfos.type === 'video'">
-        <video controls loop autoplay :src="'/assets/videos/background/'  + actualBackgroundInfos.url "></video>
+    <div  v-if="backGroundInfo.type === 'video'">
+        <video controls loop autoplay :src="'/assets/videos/background/'  + backGroundInfo.url "></video>
     </div>
+                
+  </div>     
+
+
 
 
   </div>
@@ -32,24 +35,21 @@
 export default {
 
   name: "ComponentBackground",
-  props: {
-    actualBackgroundInfos: {
-      type: Object,
-      required: true,
-    },
 
-    mounted() {},
+    mounted() {
+      console.log('backgrounds : ',this.computedBackgrounds)
+    },
 
     computed: {
-      setVolume() {
-        const audioBackgroundBalise = document.getElementById(
-          "audioBackgroundBalise"
-        );
-        audioBackgroundBalise.volume = 1;
+      computedBackgrounds() {
+        return this.$store.getters.getBackground;
       },
+      
+     
     },
-  },
-};
+
+  };
+
 </script>
 
 <style lang="scss" scoped>

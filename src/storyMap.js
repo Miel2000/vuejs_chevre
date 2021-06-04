@@ -244,17 +244,17 @@ export default {
             id:"shooting",
             isBackground: true,
  
-            background_container: [
+            backgrounds: [
          
-            {   
-                url:"shooting_naruto.mp4",
-                control:true,
-                css:{},
-                isLooping: true,
-                displayControl: false,
-                type:"video"
-            
-            },
+                {   
+                    url:"shooting_naruto.mp4",
+                    control:true,
+                    css:{},
+                    isLooping: true,
+                    displayControl: false,
+                    type:"video"
+                
+                },
             ],
             enemy: [
             {  
@@ -288,7 +288,7 @@ export default {
                 
                 }
              },
-            background_container: [],
+            backgrounds: [],
             timedChoices: [
 
                 {
@@ -411,6 +411,8 @@ export default {
                     img: "couteau.png",
                     type: "choice"
                 },
+            ],
+            timedAudios: [
                 {
                     at:0,
                     to:33,
@@ -418,8 +420,6 @@ export default {
                     url:"background/valorant_fusil_sound.mp3",
                     type:"sound"
                 }
-                  
-              
             ]
             },
         shooting_remake: {

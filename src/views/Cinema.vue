@@ -3,6 +3,7 @@
       <p> Computed Videos Infos : {{ computedCurrentTimeVideo  }}</p>
       <p> Computed Videos Infos : {{ computedVideoInfos  }}</p>
       <p> Computed Weapon :{{ computedWeapon  }}</p>
+      <p> Computed Backgrounds :{{ computedBackgrounds  }}</p>
       <p> Computed Enemys :{{ computedEnemys  }}</p>
       <p> Computed Audios :{{ computedAudios  }}</p>
       <p> Computed Choices :{{ computedChoices  }}</p>
@@ -77,11 +78,10 @@
       <div v-if="computedVideoInfos" >
 
           <div v-if="computedVideoInfos.isBackground" >
-              <div v-for="backGroundInfos in  computedVideoInfos.background_container" :key="backGroundInfos.id">
 
-                  <ComponentBackground :actual-background-infos="backGroundInfos" />
+                  <ComponentBackground  />
 
-              </div>
+           
         </div>
     </div>
   </div>
@@ -93,7 +93,7 @@
        
         <div>
 
-              <ComponentAudio :audio-infos="computedAudios" /> 
+              <ComponentAudio  /> 
 
         </div>
 
@@ -175,7 +175,7 @@ export default {
       return this.$store.getters.getCtas;
     },
 
-    computedBackground() {
+    computedBackgrounds() {
       return this.$store.getters.getBackground;
     },
 

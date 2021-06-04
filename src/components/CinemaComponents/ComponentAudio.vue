@@ -22,9 +22,6 @@ export default {
 
   components: {},
 
-  props: {
-
-  },
 
   computed: {
     computedAudios(){
