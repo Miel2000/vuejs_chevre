@@ -1,33 +1,21 @@
-
-
-<!-- ° ° ° ° ° ° ° ° ° T E M P L A T E ° ° ° ° ° ° ° ° ° -->
-
 <template>
-<div>
-  <div  >
+  <div>
+    <div>
 
-    <video 
-    
-      :class=" { 
-       
-        video_box : 'video_box'
+      <video
+        :class=" { video_box : 'video_box' }"
+        :src="'/assets/videos/' + computedVideo.self.url"
+        controls 
+        autoplay
+        playsinline
+        @timeupdate="onTimeUpdate"
       
-      }  "
-      :src="'/assets/videos/' + computedVideo.self.url"
-      controls 
-      autoplay
-      playsinline
-      @timeupdate="onTimeUpdate"
-     
-    >
-    </video>
+      >
+      </video>
 
+    </div>
   </div>
-</div>
 </template>
-
-<!-- ° ° ° ° ° ° ° ° ° L O G I C ° ° ° ° ° ° ° ° ° -->
-<!-- ° ° ° ° ° ° ° ° ° L O G I C ° ° ° ° ° ° ° ° ° -->
 
 <script>
 export default {
@@ -39,7 +27,6 @@ export default {
       
     }
   },
-  
 
   computed: {
 
@@ -60,9 +47,7 @@ export default {
     }
   },
 
-
   mounted() {
-   
     this.alreadySent = [];
   },
 
@@ -106,7 +91,7 @@ export default {
       //   });
       // }
 
-      // compare les timecodes des timedActions
+      // compare les timecodes issuent du computedVideo
       if (this.computedVideo.timedChoices) {
         this.computedVideo.timedChoices.forEach((timedChoice) => {
           this.compareForTimedChoices(this.computedCurrentTimeVideo, timedChoice);
@@ -121,7 +106,7 @@ export default {
 
       if(this.computedVideo.timedImposedRoots) {
         this.computedVideo.timedImposedRoots.forEach((timedImposedRoot) => {
-            this.compareForImposedRoot(this.computedCurrentTimeVideo, timedImposedRoot)
+          this.compareForImposedRoot(this.computedCurrentTimeVideo, timedImposedRoot)
         })
       }
 
@@ -130,38 +115,25 @@ export default {
     compareForTimedChoices(actualVideoTimeCode ,oneTimedChoice) {
 
       if (oneTimedChoice) {
-        
-              if (
-                  actualVideoTimeCode >=  oneTimedChoice.at && 
-                  this.alreadySent.indexOf(oneTimedChoice.id) === -1 
-               ) {
 
-
-                 this.alreadySent.push(oneTimedChoice.id);
-
-                 console.log(this.alreadySent);
-
-                 this.$store.commit('addActualChoices', oneTimedChoice);
-
-                //  console.log(' TIME CODE A DEPASSER && actualChoices ADD avec', oneTimedChoice.id)
-            
-              }
+        if(actualVideoTimeCode >=  oneTimedChoice.at && this.alreadySent.indexOf(oneTimedChoice.id) === -1)
+        {
+          this.alreadySent.push(oneTimedChoice.id);
+          this.$store.commit('addActualChoices', oneTimedChoice);
+        }
       }
     },
     
     compareForImposedRoot(actualVideoTimeCode, oneImposedRoot){
       if(oneImposedRoot.type) {
-           if (
-          actualVideoTimeCode >= oneImposedRoot.at &&
-          this.alreadySent.indexOf(oneImposedRoot.id) === -1
-          ) {
-          // console.log("weh on emit l'audio");
-            console.log('imposed route : ' ,this.computedStoryMap.videos[oneImposedRoot.route]) 
-            // on impose le changement de la videoActuel
+           if (actualVideoTimeCode >= oneImposedRoot.at && this.alreadySent.indexOf(oneImposedRoot.id) === -1) 
+           {
+            // Route imposée = this.computedStoryMap.videos[oneImposedRoot.route] 
             this.$store.commit("setActualVideo", this.computedStoryMap.videos[oneImposedRoot.route]);
-                // Selon la route, on affect le store
-              if(oneImposedRoot.route == "shooting"){
-                this.$store.commit('setActualEnemy', this.computedStoryMap.videos[oneImposedRoot.route].enemy );
+
+              // Selon la route, on affect le store
+              if(oneImposedRoot.route == "shooting" ){
+                this.$store.commit('setActualEnemy',      this.computedStoryMap.videos[oneImposedRoot.route].enemy );
                 this.$store.commit('setActualBackground', this.computedStoryMap.videos[oneImposedRoot.route].backgrounds );
               }
           } 
@@ -171,14 +143,10 @@ export default {
 
     compareForAudios(actualVideoTimeCode, oneAudio){
       if(oneAudio.type) {
-           if (
-          actualVideoTimeCode >= oneAudio.at &&
-          this.alreadySent.indexOf(oneAudio.id) === -1
-          ) {
-          // console.log("weh on emit l'audio");
-
+        if (actualVideoTimeCode >= oneAudio.at && this.alreadySent.indexOf(oneAudio.id) === -1) 
+        {
           this.$store.commit("setActualAudio", oneAudio);
-          } 
+        } 
 
       }
     },
@@ -195,34 +163,31 @@ export default {
       }
     },
 
-
   },
 };
+
 </script>
 
 
-<!-- ° ° ° ° ° ° ° ° ° S T Y L E ° ° ° ° ° ° ° ° ° -->
-<!-- ° ° ° ° ° ° ° ° ° S T Y L E ° ° ° ° ° ° ° ° ° -->
-
 <style scoped lang="scss">
-.video_box {
-  width: 700px;
-}
-.video-player {
-  // de base, le player n'est pas interactif
-  pointer-events: none;
-  // border: solid 15px red;
+  .video_box {
+    width: 700px;
+  }
+  .video-player {
+    // de base, le player n'est pas interactif
+    pointer-events: none;
+    // border: solid 15px red;
 
-  // transition: border 0.7s, width 0.7s;
+    // transition: border 0.7s, width 0.7s;
 
-  // &.cohabitationCta {
-  //   width: 80%;
-  //   margin-right: 50px;
-  // }
+    // &.cohabitationCta {
+    //   width: 80%;
+    //   margin-right: 50px;
+    // }
 
-  // &.isInteractive {
-  //   pointer-events: initial;
-  //   // border: solid 15px green;
-  // }
-}
+    // &.isInteractive {
+    //   pointer-events: initial;
+    //   // border: solid 15px green;
+    // }
+  }
 </style>

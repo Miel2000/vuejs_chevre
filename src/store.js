@@ -15,19 +15,20 @@ export default new Vuex.Store({
     currentTimeVideo: 0,
     currentTimeAudio: 0,
 
-    actualVideo: storyMap.videos['banane'],
+    actualVideo: storyMap.videos['intro1'],
     actualChoices: [],
     actualBackground: {},
     actualAudio: {},
     actualEnemy: {},
     actualCallToActions: [],
-    actualWeapon:"banane",
+    actualWeapon:"",
 
     myLife: 100,
     ninjaLife: 200,
     bossLife: 300,
     piegeFleche:false,
     piegeChat:false,
+    timerShootingRemake:0,
     routeHandler:[],
     scoreGame: 0
   },  
@@ -49,10 +50,11 @@ export default new Vuex.Store({
     getAudio(state){
       return state.actualAudio;
     },
-    // Quand on get les enemy, on veut forcement ceux qui apparetiennent à la videoActuelle
+    getTimerShootingRemake(state) {
+      return state.timerShootingRemake;
+    },
     getEnemy(state){
-      return state.actualEnemy;
-
+      return state.actualVideo.enemy;
     },
     getCtas(state){
       return state.actualCallToActions;
@@ -66,14 +68,15 @@ export default new Vuex.Store({
 
     getNinjaLife(state){
       return state.ninjaLife;
-    }
+    },
     
   },
 
   mutations: {
 
     // 
-
+ 
+    
     setCurrentTimeVideo: (state, x) => {
       state.currentTimeVideo = x;
     },
@@ -101,6 +104,10 @@ export default new Vuex.Store({
     setActualEnemy:(state,x) => {
       state.actualEnemy = x;
     },
+
+    setActualNinjaLife: (state, x) => {
+      state.ninjaLife = x;
+    },
     
     setActualCallToActions:(state,x) => {
       state.actualCallToActions = x;
@@ -111,8 +118,23 @@ export default new Vuex.Store({
     
     },
 
+    setTimerShootingRemake(state,x){
+      state.timerShootingRemake += x
+    },
 
+    minusNinjaLife: (state, x) => {
+      state.ninjaLife -= x;
+    },
 
+    minusBossLife: (state, x) => {
+      state.bossLife -= x;
+    },
+
+    minusMyLife: (state, x) => {
+      state.myLife -= x;
+    },
+
+    
     addMana: (state, x) => {
       state.mana += x;
     },
@@ -129,17 +151,6 @@ export default new Vuex.Store({
       state.piegeChat = x
     },
 
-    minusNinjaLife: (state, x) => {
-      state.ninjaLife -= x;
-    },
-
-    minusBossLife: (state, x) => {
-      state.bossLife -= x;
-    },
-
-    minusMyLife: (state, x) => {
-      state.myLife -= x;
-    },
 
     // setActualChoices: (state,x) => {
     //   state.actualChoices.push(x);

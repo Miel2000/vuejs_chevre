@@ -51,8 +51,8 @@ export default {
               { frameWidth: 100, frameHeight: 87 }
             );
             this.load.image("ground", "assets/gamecenter/img/ground-grass.png");
-            this.load.image("tree", "assets/gamecenter/img/tree.png");
-            this.load.image("sky", "assets/gamecenter/img/sky.png");
+            this.load.image("tree",   "assets/gamecenter/img/tree.png");
+            this.load.image("sky",    "assets/gamecenter/img/sky.png");
             this.load.image("poring", "assets/gamecenter/img/poring.png");
             this.load.image("poring", "assets/gamecenter/img/poring.png");
           },

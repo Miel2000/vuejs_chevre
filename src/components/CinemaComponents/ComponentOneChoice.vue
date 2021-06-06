@@ -41,69 +41,48 @@ export default {
   },
   computed: {
 
-   computedStoryMap(){
-     return this.$store.getters.getStoryMap;
-   },
-   computedChoices(){
-      return this.$store.getters.getChoices;
-  }
+    computedStoryMap(){
+      return    this.$store.getters.getStoryMap;
+    },
+    computedChoices(){
+      return    this.$store.getters.getChoices;
+    }
 
-  },
+    },
 
  
 
   methods: {
       choiceClickHandler(choiceSelected) {
-        console.log('choiceSelected :  ',choiceSelected)
-        this.$store.commit("setActualVideo", this.computedStoryMap.videos[choiceSelected.route]);
+
+        this.exceptionsManager(choiceSelected);
+        this.$store.commit("setActualVideo",   this.computedStoryMap.videos[choiceSelected.route]);
         this.$store.commit("setActualChoices", []);
-        // console.log( this.computedStoryMap.videos["intro2"]);
-        // this.exceptionsManager();
     
       },
 
-      selectWeapon(arme) {
-          this.$store.commit("setActualWeapon", arme);
-      },
+      exceptionsManager(choiceSelected) {
+     
+        if(choiceSelected.route == 'shooting_remake'){
+        
+          this.$store.commit('setActualNinjaLife',  200);
+          this.$store.commit('setActualAudio',      {});
+          this.$store.commit('setActualEnemy',      this.computedStoryMap.videos[choiceSelected.route].enemy );
+          this.$store.commit('setActualBackground', this.computedStoryMap.videos[choiceSelected.route].backgrounds );
 
-      exceptionsManager() {
+        }
 
-    
-      // if (
-      //   this.choiceInfos.route === "banane" ||
-      //   (this.choiceInfos.route == "shooting" &&
-      //     this.choiceInfos.id == "banane")
-      // ) {
-      //   // this.$store.commit("setActualWeapon", "banane");
-      //   this.selectWeapon('banane');
-      //   console.log("l'arme choisi est  banane ", this.$store.state.actualWeapon );
-
-      // }
-      // if (
-      //   this.choiceInfos.route === "couteau" ||
-      //   (this.choiceInfos.route == "shooting_remake" &&
-      //     this.choiceInfos.id == "couteau")
-      // ) {
-
-      //   this.$store.commit("setActualWeapon", "couteau");
-      //   // this.$store.state.actualWeapon = "couteau";
-      //   console.log("l'arme choisi est  couteau " , this.$store.state.actualWeapon);
-
-      // }
-      // if (
-      //   this.choiceInfos.route === "fusil" ||
-      //   (this.choiceInfos.route == "shooting_remake" &&
-      //     this.choiceInfos.id == "fusil")
-      // ) {
-
-      //   this.$store.commit("setActualWeapon", "fusil");
-      //   // this.$store.state.actualWeapon = "fusil";
-      //   console.log("l'arme choisi est  fusil ", this.$store.state.actualWeapon );
-      // }
-  
+        if(choiceSelected.id === "banane") {
+            this.$store.commit("setActualWeapon", "banane");
+        }
+        if(choiceSelected.id === "couteau") {
+            this.$store.commit("setActualWeapon", "couteau");
+        }
+        if(choiceSelected.id === "fusil") {
+            this.$store.commit("setActualWeapon", "fusil");
+        }
     },
   },
-  // big condition qui permet de changer d'arme pour rejouer la scéne de shoot ma boi
 };
 </script>
 

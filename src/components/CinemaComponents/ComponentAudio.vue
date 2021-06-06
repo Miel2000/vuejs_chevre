@@ -7,7 +7,6 @@
             <audio
                 autoplay
                 controls 
-              
                 >
                 <source :src="'/assets/mp3/' + computedAudios.url"/>
             
@@ -21,8 +20,7 @@ export default {
   name: "ComponentAudio",
 
   components: {},
-
-
+  
   computed: {
     computedAudios(){
       return this.$store.getters.getAudio;
@@ -37,18 +35,6 @@ export default {
     console.log('audio qui monte yep')
   },
 
-  methods: {
-
-    playSound () {
-
-      if(this.computedAudios) {
-
-        var audio = new Audio(this.computedAudios);
-        audio.play();
-
-      }
-    }
-  },
-
-};
+  methods: {}
+}
 </script>

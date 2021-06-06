@@ -41,7 +41,7 @@ export default {
     console.log(this.boss);
     this.weaponInStore = this.$store.state.weapon;
     this.bossLife = this.$store.state.bossLife;
-    this.startInterval();
+    // this.startInterval();
   },
   computed: {},
   methods: {
@@ -62,8 +62,7 @@ export default {
             "./assets/mp3/hits/hit_banane2.mp3",
             "./assets/mp3/hits/hit_banane3.mp3",
           ];
-          const random_banane =
-            hits_bananes[Math.floor(Math.random() * hits_bananes.length)];
+          const random_banane = hits_bananes[Math.floor(Math.random() * hits_bananes.length)];
           const hit_banane = new Audio(random_banane);
 
           hit_banane.play();
@@ -88,8 +87,7 @@ export default {
             "./assets/mp3/hits/hit_couteau1.mp3",
             "./assets/mp3/hits/hit_couteau2.mp3",
           ];
-          const random_couteau =
-            hits_couteau[Math.floor(Math.random() * hits_couteau.length)];
+          const random_couteau = hits_couteau[Math.floor(Math.random() * hits_couteau.length)];
           const hit_couteau = new Audio(random_couteau);
 
           hit_couteau.play();
@@ -150,7 +148,7 @@ export default {
             hits_bamboos[Math.floor(Math.random() * hits_bamboos.length)];
           const hit_bamboo = new Audio(random_bamboo);
 
-          // hit_bamboo.play();
+          hit_bamboo.play();
 
           console.log("yeet");
           this.$store.commit("minusMyLife", this.boss.degatBoss);

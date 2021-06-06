@@ -4,14 +4,21 @@
 
  <p>coucou enemy</p>
   
-      <div v-for="computedEnemy in this.computedEnemys" :key="computedEnemy.id" style="text-align:center">
-    <div :class="computedEnemy.id">
+    <div v-for="computedEnemy in computedEnemys" :key="computedEnemy.id" style="text-align:center">
+
+    <div :class="{ 'hide' : computedEnemy.vie <= 0  }" class="enemies">
       
         <h1 class="text-center eighties"  style="color:black"> {{ computedEnemy.vie }} %</h1>
 
-            <div class="healthbar " >
+            <div class="healthbar">
 
-                <div  class="healthbar text-center" :style="{backgroundColor: computedEnemy.vie <= 50 ? 'red' : 'green', margin: 0, color: 'white', width: computedEnemy.vie + '%' }">
+                <div  class="healthbar text-center" 
+                      :style="{ 
+                      backgroundColor: computedEnemy.vie <= 50 ? 'red' : 'green', 
+                      margin: 0,
+                      color: 'white',
+                      width: computedEnemy.vie + '%' 
+                      }">
                 </div>
 
             </div>
@@ -43,8 +50,7 @@ export default {
 
   data() {
     return {
-      weaponInStore: "",
-      rootWhenFinish: "",
+    
     };
   },
 
@@ -64,46 +70,21 @@ export default {
     },
     computedWeapon() {
       return this.$store.getters.getWeapon;
+    },
+    computedTimerShootingRemake() {
+      return this.$store.getters.getTimerShootingRemake;
     }
   },
 
-  mounted() {
+  mounted() {  console.log('MONTER ENEMY  computedEnemys: :', this.computedEnemys);},
   
-    console.log('enemy mounted', this.computedEnemys);
-    console.log('video mounted', this.computedVideo);
-
-
-
-    // if ( this.computedEnemys == "castex") {
-    //   this.timelineCastex = new TimelineLite();
-    //   console.log("image triggered", this.$refs.castex);
-    //   this.timelineCastex.to(this.$refs.castex, 1.5, {
-    //     y: 200,
-    //     ease: "Linear.easeNone",
-    //     yoyo: true,
-    //     repeat: -1,
-    //   });
-    // }
-    // if ( this.computedEnemys == "castaner") {
-    //   this.timelineCastaner = new TimelineLite();
-    //   this.timelineCastaner.to(this.$refs.castaner, 1, {
-    //     x: -400,
-    //     ease: "Linear.easeNone",
-    //     repeat: -1,
-    //     yoyo: true,
-    //   });
-    // }
-
-  },
 
   methods: {
     hitcomputedEnemy(enemy) {
-      const monImage = document.querySelector("." + enemy.id);
       console.log(enemy.vie, enemy.url);
 
-
-      // Quand un coup est émit via le click, selon $store.state.weapon
-      switch (this.computedWeapon) {
+      // Quand un coup est émit via le click, selon $store.state.actualWeapon
+      switch ( this.computedWeapon ) {
         case "banane": {
         
           const hits_bananes = [
@@ -122,12 +103,11 @@ export default {
           hit_banane.play();
 
           this.$store.commit("minusNinjaLife", 10);
-          enemy.vie -= 10;
-
+            enemy.vie -= 10;
+      
           if (enemy.vie <= 0) {
-            enemy.vie = 0;
+            // enemy.vie = 0;
             console.log("DEAD", enemy.id);
-            monImage.classList.add("hide");
           }
 
           console.log("banane utilisée sur", enemy.url + " | Vie : " + enemy.vie );
@@ -148,9 +128,9 @@ export default {
           enemy.vie -= 50;
        
           if (enemy.vie <= 0) {
-            enemy.vie = 0;
+            // enemy.vie = 0;
             console.log("DEAD", enemy.id);
-            monImage.classList.add("hide");
+
           }
           console.log("couteau utilisé sur ", enemy.url + " | Vie : " + enemy.vie);
           break;
@@ -169,9 +149,8 @@ export default {
           enemy.vie -= 100;
 
           if (enemy.vie <= 0) {
-            enemy.vie = 0;
+            // enemy.vie = 0;
             console.log("DEAD", enemy.id);
-            monImage.classList.add("hide");
           }
           console.log("fusil utilisé sur", enemy.url + " | Vie : " + enemy.vie);
          
@@ -182,34 +161,45 @@ export default {
           break;
       }
 
-      // Coupe le son après ninja dead et changement video valorant_arme
-
-          // FUSIL
+      // Quand les ninjas sont dead
+      // Réinitialise objects enemis, audios, backgrounds
+      // Permet le non chevauchement des données (intégrité des données, stu préfére)
+        // FUSIL
       if( this.$store.getters.getNinjaLife <= 0 &&
           this.computedWeapon === "fusil"
-
       ) {
-        this.$store.commit('setActualAudio', {})
+        this.$store.getters.getEnemy.forEach((e) => { e.vie = 100 })
+        this.$store.commit('setTimerShootingRemake',  1)
+        this.$store.commit('setActualAudio',          {})
+        this.$store.commit('setActualEnemy',          {})
+        this.$store.commit('setActualBackground',     {})
         this.$store.commit('setActualVideo', this.computedStoryMap.videos['valorant_fusil'])
       }
-         // COUTEAU
-      if( this.$store.getters.getNinjaLife <= 0 &&
-      this.computedWeapon === "couteau"
 
+        // COUTEAU
+      if( this.$store.getters.getNinjaLife <= 0 &&
+          this.computedWeapon === "couteau"
       ) {
-        this.$store.commit('setActualAudio', {})
+        this.$store.getters.getEnemy.forEach((e) => { e.vie = 100 })
+        this.$store.commit('setTimerShootingRemake',  1)
+        this.$store.commit('setActualAudio',         {})
+        this.$store.commit('setActualEnemy',         {})
+        this.$store.commit('setActualBackground',    {})
         this.$store.commit('setActualVideo', this.computedStoryMap.videos['valorant_couteau'])
       }
 
-         // BANANE
+        // BANANE
       if( this.$store.getters.getNinjaLife <= 0 &&
-      this.computedWeapon === "banane"
+          this.computedWeapon === "banane"
 
       ) {
-        this.$store.commit('setActualAudio', {})
+        this.$store.getters.getEnemy.forEach((e) => { e.vie = 100 })
+        this.$store.commit('setTimerShootingRemake',  1)
+        this.$store.commit('setActualAudio',         {})
+        this.$store.commit('setActualEnemy',         {})
+        this.$store.commit('setActualBackground',    {})
         this.$store.commit('setActualVideo', this.computedStoryMap.videos['valorant_banane'])
       }
-      
 
     },
   },
@@ -217,31 +207,31 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-img {
-  width: 150px;
-}
+  img {
+    width: 150px;
+  }
 
-.eighties {
-  color: #c81914;
-  font-size: 20pt;
-  font-family: "Eighties Horror";
-  line-height: 1em;
-  letter-spacing: 3px;
-}
-.healthbar {
-  width: 80%;
-  height: 10px;
-  border-radius: 5% / 50%;
-  border: 1px solid white;
-  margin: auto;
-  transition: width 500ms;
-}
-.text-center {
-  text-align: center;
-  color: #c81914;
-}
+  .eighties {
+    color: #c81914;
+    font-size: 20pt;
+    font-family: "Eighties Horror";
+    line-height: 1em;
+    letter-spacing: 3px;
+  }
+  .healthbar {
+    width: 80%;
+    height: 10px;
+    border-radius: 5% / 50%;
+    border: 1px solid white;
+    margin: auto;
+    transition: width 500ms;
+  }
+  .text-center {
+    text-align: center;
+    color: #c81914;
+  }
 
-.hide {
-  visibility: hidden;
-}
+  .hide {
+    visibility: hidden;
+  }
 </style>

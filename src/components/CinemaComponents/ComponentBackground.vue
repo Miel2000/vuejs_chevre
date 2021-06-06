@@ -1,32 +1,28 @@
 <template>
-<div>
-  <p>coucou bacgrkound</p>
- 
-    <div v-for="backGroundInfo in  this.computedBackgrounds" :key="backGroundInfo.id">
+  <div>
+    
+    <p>coucou bacgrkound</p>
+  
+      <div v-for="backGroundInfo in  this.computedBackgrounds" :key="backGroundInfo.id">
 
-          
-                <audio 
-                   
-                    volume="0.05"
-                    autoplay
-                    controls
-                   
-                    ref="audioBox"
-                >
-                    <source id="audioBackgroundBalise" :src="'/assets/mp3/background/' + backGroundInfo.url"/>
-                
-                </audio>
+              <div  v-if="backGroundInfo.type === 'audio'">
 
+                  <audio 
+                      volume="0.05"
+                      autoplay
+                      controls
+                      ref="audioBox"
+                  >
+                      <source id="audioBackgroundBalise" :src="'/assets/mp3/background/' + backGroundInfo.url"/>
+                  </audio>
 
-    <div  v-if="backGroundInfo.type === 'video'">
-        <video controls loop autoplay :src="'/assets/videos/background/'  + backGroundInfo.url "></video>
+              </div>
+
+      <div  v-if="backGroundInfo.type === 'video'">
+          <video controls loop autoplay :src="'/assets/videos/background/'  + backGroundInfo.url "></video>
+      </div>
+                  
     </div>
-                
-  </div>     
-
-
-
-
   </div>
 
 </template>
@@ -37,7 +33,7 @@ export default {
   name: "ComponentBackground",
 
     mounted() {
-      console.log('backgrounds : ',this.computedBackgrounds)
+      console.log('backgrounds : ', this.computedBackgrounds)
     },
 
     computed: {

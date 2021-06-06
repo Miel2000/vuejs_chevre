@@ -53,8 +53,6 @@ export default {
 
             ],
 
-         
-
         },
 
         weed: {
@@ -427,24 +425,29 @@ export default {
         shooting_remake: {
             id:"shooting_remake",
             isBackground: true,
-            background_container: [
-            {
-               
-                url:"naruto-background-sound.mp3",
-                type:"sound"
-            },
-            {   
-                url:"shooting_naruto.mp4",
-                control:true,
-                css:{},
-                isLooping: true,
-                displayControl: false,
-                type:"video"
-              
-            },
-        ],
+          
+            backgrounds: [
+         
+                {   
+                    url:"shooting_naruto.mp4",
+                    control:true,
+                    css:{},
+                    isLooping: true,
+                    displayControl: false,
+                    type:"video"
+                
+                },
+                {
+                    url:"naruto-background-sound.mp3",
+                    controle: true,
+                    type:"audio"
+
+                }
+            ],
+            timedAudios: [],
             enemy: [
-            {   id: "castaner",
+            {  
+                id: "castaner",
                 url: "castaner.png",
                 vie: 100,
                 type: "enemy"
@@ -457,10 +460,8 @@ export default {
                 type: "enemy"
                 
             },
+  
         ],
-             timedChoices: []
-           
-
 
         },
 
@@ -471,17 +472,6 @@ export default {
                 controls: true,
 
             },
-           
-       
-            // background_container: [
-            //     {
-                    
-            //         url:"rain-background.mp4",
-            //         type:"video",
-            //         isLooping:false
-                    
-            //     }
-            // ],
             timedChoices: [
 
                 {
@@ -513,7 +503,6 @@ export default {
 
             },
            
-      
             timedChoices: [
 
                 {
@@ -542,24 +531,14 @@ export default {
 
         },
 
-        jungle_banane: {
-            id:"jungle_banane",
+        diablo: {
+            id:"diablo",
             self: {
-                url: "jungle_banane.mp4",
+                url: "diablo.mp4",
                 controls: true,
 
             },
            
-
-            video_container: [
-                {
-                    
-                    url:"rain-background.mp4",
-                    type:"video",
-                    isLooping:false
-                    
-                }
-            ],
             timedChoices: [
 
                 {
@@ -580,24 +559,14 @@ export default {
             ]
         },
 
-        
-        foret_banane: {
-            id:"foret_banane",
+        cyberpunk: {
+            id:"cyberpunk",
             self:{
-                url: "foret_banane.mp4",
+                url: "cyberpunk.mp4",
                 controls: true,
                 
             },
-            audio_container: [
-              
-            ],
-            video_container: [
-               
-            ],
-            timedChoices: [
-           
-        
-            ],
+            timedChoices: [],
             ctas: [
                 {
                     id:"esquive_fleche",
@@ -618,173 +587,14 @@ export default {
             ],
 
         },
-        foret_couteau: {
-            id:"foret_couteau",
-            self:{
-                url: "foret_couteau.mp4",
-                controls: true,
-                
-            },
-            audio_container: [
-              
-            ],
-            video_container: [
-               
-            ],
-            timedChoices: [
-           
-        
-             ],
-            ctas: [
-                {
-                    id:"esquive_fleche",
-                    at: 2,
-                    to: 5,
-                    text:'ESQUIVE FLECHE!',
-                    type:"dodge",
-                    display:true
-                },
-                {
-                    id:"esquive_chat",
-                    at: 6,
-                    to: 7,
-                    text:'ESQUIVE CHAT!',
-                    type:"dodge",
-                    display:true
-                }
-            ],
 
-        },
-        foret_fusil: {
-            id:"foret_fusil",
-            self:{
-                url: "foret_fusil.mp4",
-                controls: true,
-                
-            },
-            audio_container: [
-              
-            ],
-            video_container: [
-               
-            ],
-            timedChoices: [
-           
-        
-             ],
-            ctas: [
-                {
-                    id:"esquive_fleche",
-                    at: 2,
-                    to: 5,
-                    text:'ESQUIVE FLECHE!',
-                    type:"dodge",
-                    display:true
-                },
-                {
-                    id:"esquive_chat",
-                    at: 6,
-                    to: 7,
-                    text:'ESQUIVE CHAT!',
-                    type:"dodge",
-                    display:true
-                }
-            ],
-
-        },
-        boss_banane: {
-            id:"boss_banane",
-            self:{
-           
-            },
-            audio_container: [
-              
-            ],
-            video_container: [
-               
-            ],
-            timedChoices: [
-           
-        
-             ],
-        
-            boss: [
-                {   id: "boss_banane",
-                    url: "boss.png",
-                    vieBoss: 1000,
-                    degatBoss: 10,
-                    type: "boss"
-                   
-                },
-            ],
-
-        },
-        boss_couteau: {
-            id:"boss_couteau",
-            self:{
-           
-            },
-            audio_container: [
-              
-            ],
-            video_container: [
-               
-            ],
-            timedChoices: [
-           
-        
-             ],
-        
-            boss: [
-                {   id: "boss_couteau",
-                    url: "boss.png",
-                    vieBoss: 1000,
-                    degatBoss: 10,
-                    type: "boss"
-                   
-                },
-            ],
-
-        },
-        boss_fusil: {
-            id:"boss_fusil",
-            self:{
-           
-            },
-            audio_container: [
-              
-            ],
-            video_container: [
-               
-            ],
-            timedChoices: [
-           
-        
-             ],
-        
-            boss: [
-                {   id: "boss_fusil",
-                    url: "boss.png",
-                    vieBoss: 1000,
-                    degatBoss: 10,
-                    type: "boss"
-                   
-                },
-            ],
-
-        },
         generique: {
             id:"generique",
             self:{
                 url: "generique.mp4",
                 controls: true,
             },
-            audio_container: [
-              
-            ],
-            video_container: [
-               
-            ],
+
             timedChoices: [
            
         

@@ -40,38 +40,40 @@ export default class BootScene extends Scene {
 
   preload () {
     // Way Level 1
-    this.load.image('blunty', blunty)
-    this.load.image('tete', tete)
-    this.load.image('doubt', doubt)
-    this.load.image('crackhead', crackhead)
-    this.load.image('snes', snes)
-    this.load.image('uchiwa', uchiwa)
-    this.load.image('justice', justice)
-    this.load.image('jul', jul)
+    this.load.image('blunty',     blunty)
+    this.load.image('tete',       tete)
+    this.load.image('doubt',      doubt)
+    this.load.image('crackhead',  crackhead)
+    this.load.image('snes',       snes)
+    this.load.image('uchiwa',     uchiwa)
+    this.load.image('justice',    justice)
+    this.load.image('jul',        jul)
     this.load.image('evangeliun', evangeliun)
-    this.load.image('chat', chat)
-    this.load.image('cicada', cicada)
-    this.load.image('soulmates', soulmates)
-    this.load.image('shotgun', shotgun)
+    this.load.image('chat',       chat)
+    this.load.image('cicada',     cicada)
+    this.load.image('soulmates',  soulmates)
+    this.load.image('shotgun',    shotgun)
 
     // Way Level 2
      
 
-    this.load.image('groundlvl2', cicada);
-    this.load.image('soleil', soleil);
+    this.load.image('groundlvl2', cicada)
+    this.load.image('soleil',     soleil)
+    this.load.image('sky',        sky)
 
-    this.load.image('sky', sky)
+
     this.load.spritesheet(
                "chevre",
                 chevre,
                 { frameWidth: 100, frameHeight: 87 }
-              );
+              )
+
     // this.load.image('tree', tree)
-    this.load.image('ground', groundGrass)
-    this.load.image('butterfly', butterfly)
-    this.load.audio('bamboo', bamboo)
+    this.load.image('ground',         groundGrass)
+    this.load.image('butterfly',      butterfly)
+    this.load.audio('bamboo',         bamboo)
     this.load.audio('reload_shotgun', reload_shotgun)
-    this.load.audio('fire_sound', fire_sound)
+    this.load.audio('fire_sound',     fire_sound)
   }
 
   create () {
