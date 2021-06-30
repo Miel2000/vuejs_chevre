@@ -15,19 +15,27 @@ export default new Vuex.Store({
     currentTimeVideo: 0,
     currentTimeAudio: 0,
 
-    actualVideo: storyMap.videos['intro1'],
+    actualVideo: storyMap.videos['cyberpunk'],
     actualChoices: [],
     actualBackground: {},
     actualAudio: {},
     actualEnemy: {},
     actualCallToActions: [],
-    actualWeapon:"",
+    actualWeapon:"fusil",
 
-    myLife: 100,
+    // stats
+    myLife: 40,
     ninjaLife: 200,
-    bossLife: 300,
+
+
+    // scene cyberpunk
+    sortirCapsule:true,
+    repondreNano: false,
+
+
     piegeFleche:false,
     piegeChat:false,
+
     timerShootingRemake:0,
     routeHandler:[],
     scoreGame: 0
@@ -50,14 +58,14 @@ export default new Vuex.Store({
     getAudio(state){
       return state.actualAudio;
     },
+    getCtas(state){
+      return state.actualCallToActions;
+    },
     getTimerShootingRemake(state) {
       return state.timerShootingRemake;
     },
     getEnemy(state){
       return state.actualVideo.enemy;
-    },
-    getCtas(state){
-      return state.actualCallToActions;
     },
     getBackground(state){
       return state.actualBackground;
@@ -69,6 +77,14 @@ export default new Vuex.Store({
     getNinjaLife(state){
       return state.ninjaLife;
     },
+
+    getMyLife(state){
+      return state.myLife;
+    },
+
+    getOutCapsule(state) {
+      return state.sortirCapsule;
+    }
     
   },
 
@@ -122,9 +138,16 @@ export default new Vuex.Store({
       state.timerShootingRemake += x
     },
 
+    setActualMyLife:(state,x) => {
+      state.myLife = x;
+    },
+
     minusNinjaLife: (state, x) => {
       state.ninjaLife -= x;
     },
+
+
+
 
     minusBossLife: (state, x) => {
       state.bossLife -= x;
@@ -150,6 +173,10 @@ export default new Vuex.Store({
     switchChat: (state,x) => {
       state.piegeChat = x
     },
+
+    setOutCapsule(state, x) {
+       state.sortirCapsule = x;
+    }
 
 
     // setActualChoices: (state,x) => {

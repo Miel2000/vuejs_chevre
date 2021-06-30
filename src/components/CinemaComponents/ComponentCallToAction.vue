@@ -1,43 +1,43 @@
 <template>
 <div>
 	<div class="ctas-container">
-
+    <p> coucouc CTAS </p>
 		<div>
         <button 
-        :class="ctasInfos.id"
-        @click="ctaClick(ctasInfos, $event)"
-        :style="{ display: isDisplay }"
-        >	{{ctasInfos.text}}</button>
+          :class="computedCtas.id"
+          @click="ctaClick(computedCtas, $event)"
+          :style="{ display: isDisplay }"
+        >	    {{computedCtas.text}} </button>
 		</div>
 
 	</div>
 	</div>
 </template>
 
-<!-- ° ° ° ° ° ° ° ° ° L O G I C ° ° ° ° ° ° ° ° ° -->
-<!-- ° ° ° ° ° ° ° ° ° L O G I C ° ° ° ° ° ° ° ° ° -->
-
 <script>
 export default {
   name: "ComponentCallToAction",
-
-  props: {
-    ctasInfos: {
-      type: Object,
-      required: true,
-    },
-  },
 
   data() {
     return {
       isDisplay: "block",
     };
   },
+  computed: {
+    computedCtas() {
+      return this.$store.getters.getCtas
+    },
+
+    computedCurrentTimeVideo() {
+      return  this.$store.getters.getCurrentTimeVideo
+    }
+  },
 
   methods: {
-    // methodes des actions reçu (mana, arme, etc...)
+
     ctaClick(cta, event) {
       let target = event.currentTarget;
+            console.log("CtaClick")
 
       switch (cta.type) {
         case "clickOnMana":
@@ -51,15 +51,15 @@ export default {
 
           break;
         case "dodge": {
-          if (cta.id == "esquive_fleche") {
-            console.log(cta.id);
-            this.isDisplay = "none";
-            this.$store.commit("switchFleche", true);
-          }
-          if (cta.id == "esquive_chat") {
-            console.log(cta.id);
-            this.isDisplay = "none";
-            this.$store.commit("switchChat", true);
+      
+          if(cta.id == "capsule_go_out") {
+            this.$store.commit('setActualCallToActions', {})
+            console.log("capsule go out clicked : ",event)
+
+            console.log(this.computedCurrentTimeVideo)
+            console.log("sortir capsule avant modif : ",this.$store.state.sortirCapsule)
+            this.$store.commit('setOutCapsule', true);
+            console.log("sortir capsule aprés modif : ",this.$store.state.sortirCapsule)
           }
         }
       }
@@ -105,7 +105,7 @@ export default {
   beforeUpdate() {},
 
   mounted() {
-    console.log("dans le cta mounted :", this.ctasInfos);
+    console.log("dans le cta mounted :", this.computedCtas);
   },
 };
 </script>

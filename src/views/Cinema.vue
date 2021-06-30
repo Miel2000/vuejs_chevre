@@ -1,6 +1,13 @@
 <template>
   <div class="container">
-    <p> Computed Videos Infos : {{ computedCurrentTimeVideo  }} </p>
+        <div class="hub-scene">
+ 
+              <ComponentHub  /> 
+
+    </div>
+  <div class="computed-scene">
+
+    <p> Computed Videos Infos : {{ Math.round(computedCurrentTimeVideo)  }} </p>
     <p> Computed Videos Infos : {{ computedVideoInfos  }} </p>
     <p> Computed Weapon : {{        computedWeapon  }} </p>
     <p> Computed Backgrounds : {{   computedBackgrounds  }} </p>
@@ -9,15 +16,14 @@
     <p> Computed Choices : {{       computedChoices  }} </p>
     <p> Computed Ctas : {{          computedCtas  }}  </p>
     <p> Computed Ninja Life : {{    computedNinjaLife  }} </p>
+    <p> Computed Ma Life : {{       computedMyLife  }} </p>
     
+  </div>
 
-    <img style="width:100px;"  v-if="computedWeapon === 'banane'"   src="/assets/images/banane.png"  alt="Banane yo" />
-    <img style="width:100px;"  v-if="computedWeapon === 'fusil'"    src="/assets/images/fusil.png"   alt="fusil wésh" />
-    <img style="width:100px;"  v-if="computedWeapon === 'couteau'"  src="/assets/images/couteau.png" alt="couteau uuuuu" />
 
                             <!-- VIDEO 
                                Component -->
-    <div class="video-container">
+    <div class="video-scene">
         <div  v-if="computedVideoInfos.self" >
             <p>coucou video</p>
               <div>
@@ -30,7 +36,7 @@
 
                              <!-- CHOICE 
                                  Component -->
-    <div class="choice-container"  >
+    <div class="choice-scene"  >
       <div v-if="computedChoices">
           <div>
 
@@ -42,8 +48,8 @@
 
                               <!-- ENEMY 
                                  Component -->
-      <div class="enemy-container">
-          <div v-if="computedEnemys">
+      <div class="enemy-scene">
+          <div v-if="computedEnemys.id">
     
             <ComponentEnemy />
 
@@ -52,12 +58,14 @@
         
                               <!-- CALL TO ACTIONS 
                                      Component  -->
-    <div v-if="computedCtas.length > 0" >
-      <div v-for="cta in computedCtas" :key="cta.id">
+    <div class="cta-scene">
+      
+      <div v-if="computedCtas.id" >
 
-          <ComponentCallToAction :ctas-infos="cta"  @a-cta-is-sent="ctasHandler"  />
+            <ComponentCallToAction   />
 
       </div>
+
     </div>
 
                                         
@@ -75,7 +83,7 @@
 
                                       <!--  AUDIO
                                           Componenent  -->
-    <div class="audio-container">
+    <div class="audio-scene">
       <div v-if="computedAudios" >
           <div>
 
@@ -84,6 +92,8 @@
           </div>
       </div>
     </div>
+
+
 
   </div>
 </template>
@@ -94,10 +104,11 @@
 import ComponentVideo from "@/components/CinemaComponents/ComponentVideo";
 import ComponentAudio from "@/components/CinemaComponents/ComponentAudio";
 import ComponentBackground from "@/components/CinemaComponents/ComponentBackground";
+import ComponentHub from "@/components/CinemaComponents/ComponentHub";
 import ComponentCallToAction from "@/components/CinemaComponents/ComponentCallToAction";
 import ComponentEnemy from "@/components/CinemaComponents/ComponentEnemy";
 import ComponentOneChoice from "@/components/CinemaComponents/ComponentOneChoice";
-import ComponentBoss from "@/components/CinemaComponents/ComponentBoss";
+
 
 export default {
   components: {
@@ -107,7 +118,7 @@ export default {
     ComponentAudio,
     ComponentEnemy,
     ComponentBackground,
-    ComponentBoss,
+    ComponentHub
   },
 
   computed: {
@@ -151,6 +162,10 @@ export default {
       return this.$store.getters.getNinjaLife;
     },
 
+    computedMyLife() {
+      return this.$store.getters.getMyLife;
+    },
+
     computedTimerShootingRemake() {
       return this.$store.getters.getTimerShootingRemake;
     }
@@ -170,21 +185,17 @@ export default {
 </script>
 
 <style lang="scss">
-.choice-container {
+.choice-scene {
   display: flex;
   justify-content: space-evenly;
   bottom: 20px;
 }
 
-.video_and_cta {
-  margin: 0 auto;
-}
-
-.video-container {
+.video-scene {
   z-index: -1;
 }
 
-.enemy-container {
+.enemy-scene {
   width: 200px;
   margin: 0 auto;
 }
@@ -195,5 +206,22 @@ export default {
 
   bottom: 0%;
   left: 0;
+}
+
+.computed-scene {
+  position: absolute;
+  width: 300px;
+  top: 0;
+  left:0;
+}
+
+.computed-scene p {
+    font-size: 0.69em;
+}
+
+.cta-scene {
+  display: flex;
+  justify-content: space-evenly;
+  bottom: 20px;
 }
 </style>

@@ -3,11 +3,11 @@
   
 	<div v-for="computedChoice in computedChoices" :key="computedChoice.id" style="text-align:center">
 
-    <!-- <img v-if="choiceInfos.img"  @click="choiceClickHandler"
+   <img v-if="computedChoice.id === 'diablo'"  
 
-         style="height:100px" 
-         :src="'./assets/images/' + choiceInfos.img" 
-         :alt="choiceInfos.route"> -->
+         style="height:50px" 
+         :src="'./assets/images/' + computedWeapon + '.png'" 
+         :alt="computedChoice.route" >
 
     <a v-if="computedChoice"
       class="oneChoice"
@@ -46,6 +46,9 @@ export default {
     },
     computedChoices(){
       return    this.$store.getters.getChoices;
+    },
+    computedWeapon() {
+      return this.$store.getters.getWeapon;
     }
 
     },
@@ -81,6 +84,12 @@ export default {
         if(choiceSelected.id === "fusil") {
             this.$store.commit("setActualWeapon", "fusil");
         }
+
+
+        if(choiceSelected.id === "cyberpunk") {
+          this.$store.commit('setActualAudio',      {});
+
+        }
     },
   },
 };
@@ -91,8 +100,9 @@ export default {
 
 <style scoped lang="scss">
 .oneChoice {
-  display: inline-flex;
+  display: flex;
   padding: 10px 20px;
   cursor: pointer;
+
 }
 </style>

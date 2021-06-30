@@ -44,6 +44,10 @@ export default {
 
     computedStoryMap() {
       return this.$store.getters.getStoryMap;
+    },
+
+    computedMyLife() {
+      return this.$store.getters.getMyLife;
     }
   },
 
@@ -58,58 +62,63 @@ export default {
       // Si y'a des ctas
       // compare les timecodes des ctas
 
-      // if (this.computedVideo.ctas) {
-      //   this.videoInfos.ctas.forEach((ctaInfo) => {
-      //     if (
-      //       event.target.currentTime >= ctaInfo.to &&
-      //       ctaInfo.id == "esquive_fleche" &&
-      //       this.$store.state.piegeFleche == false
-      //     ) {
-      //       console.log(this.$store.state.piegeFleche, "piege fleche activé");
-      //       const die = new Audio("./assets/mp3/hits/piege_fleche.mp3");
-      //       this.$store.state.piegeFleche = false;
-      //       this.$store.state.piegeChat = false;
-      //       die.play();
-      //       event.target.currentTime = 0;
-      //     }
-      //     if (
-      //       event.target.currentTime >= ctaInfo.to &&
-      //       ctaInfo.id == "esquive_chat" &&
-      //       this.$store.state.piegeChat == false
-      //     ) {
-      //       console.log(this.$store.state.piegeFleche, "piege Chat activé");
-      //       const die = new Audio("./assets/mp3/hits/piege_chat.mp3");
-      //       die.play();
-      //       this.$store.state.piegeFleche = false;
-      //       this.$store.state.piegeChat = false;
-      //       event.target.currentTime = 0;
-      //     }
-
-      //     if (this.alreadySent.indexOf(ctaInfo.id) === -1) {
-      //       this.compareForCtas(event.target.currentTime, ctaInfo.at, ctaInfo);
-      //     }
-      //   });
-      // }
+ 
 
       // compare les timecodes issuent du computedVideo
+
+      // timedChoice
       if (this.computedVideo.timedChoices) {
         this.computedVideo.timedChoices.forEach((timedChoice) => {
           this.compareForTimedChoices(this.computedCurrentTimeVideo, timedChoice);
         });
       }
 
+      // timedAudios
       if(this.computedVideo.timedAudios) {
         this.computedVideo.timedAudios.forEach((timedAudio) => {
           this.compareForAudios(this.computedCurrentTimeVideo, timedAudio)
         })
       }
 
+      // timedImposedRoots
       if(this.computedVideo.timedImposedRoots) {
         this.computedVideo.timedImposedRoots.forEach((timedImposedRoot) => {
           this.compareForImposedRoot(this.computedCurrentTimeVideo, timedImposedRoot)
         })
       }
 
+      // timedCtas
+     if(this.computedVideo.timedCtas ){
+
+        this.computedVideo.timedCtas.forEach((timedCta) => {
+          this.compareForTimedCtas(this.computedCurrentTimeVideo, timedCta)
+
+          switch (timedCta.id) {
+            case "capsule_go_out":
+                if( event.target.currentTime >= timedCta.to   &&  this.$store.state.sortirCapsule == false ) 
+                {
+                  console.log(this.$store.state.piegeFleche, "piege fleche activé");
+
+                  // const die = new Audio("./assets/mp3/hits/piege_fleche.mp3");
+                  // die.play();
+
+                  console.log(this.$store.state.sortirCapsule, " : sortir capsule");
+                  console.log("death scene : ", timedCta.attributes.deathScene );
+                  this.$store.commit('setActualVideo',  this.computedStoryMap.videos['death_gatling'] )
+                  this.$store.commit('setActualCallToActions',  {} )
+                  this.$store.commit('setActualAudio',  {} )
+                  this.alreadySent = [];
+
+                  // event.target.currentTime = 0;
+                }
+              break;
+          
+            default:
+              break;
+          }
+  
+        })
+      }
     },
     
     compareForTimedChoices(actualVideoTimeCode ,oneTimedChoice) {
@@ -124,17 +133,48 @@ export default {
       }
     },
     
+    
+    compareForTimedCtas(actualVideoTimeCode ,oneTimedCtas) {
+
+      if (oneTimedCtas) {
+
+        if(actualVideoTimeCode >=  oneTimedCtas.at && this.alreadySent.indexOf(oneTimedCtas.id) === -1)
+        {
+          this.alreadySent.push(oneTimedCtas.id);
+          this.$store.commit('setActualCallToActions', oneTimedCtas);
+
+        }
+        if(actualVideoTimeCode >=  oneTimedCtas.to &&  this.alreadySent.indexOf(oneTimedCtas.id) !== -1 ){
+          console.log("stop Ctas .to :", oneTimedCtas.id);
+          this.$store.commit('setActualCallToActions', {});
+          // this.alreadySent.splice(oneTimedCtas,1)
+
+        }
+      }
+    },
+
     compareForImposedRoot(actualVideoTimeCode, oneImposedRoot){
-      if(oneImposedRoot.type) {
+      if(oneImposedRoot.type == "imposed") {
            if (actualVideoTimeCode >= oneImposedRoot.at && this.alreadySent.indexOf(oneImposedRoot.id) === -1) 
            {
             // Route imposée = this.computedStoryMap.videos[oneImposedRoot.route] 
             this.$store.commit("setActualVideo", this.computedStoryMap.videos[oneImposedRoot.route]);
-
+            console.log('ici on envoi la route imposed normalement', this.computedStoryMap.videos[oneImposedRoot.route])
               // Selon la route, on affect le store
               if(oneImposedRoot.route == "shooting" ){
+
                 this.$store.commit('setActualEnemy',      this.computedStoryMap.videos[oneImposedRoot.route].enemy );
                 this.$store.commit('setActualBackground', this.computedStoryMap.videos[oneImposedRoot.route].backgrounds );
+              }
+
+              if(oneImposedRoot.route == "cyberpunk") {
+                console.log('IMPOSED ROOT CYBERPUNK : ', oneImposedRoot.route )
+                this.$store.commit("setActualVideo", this.computedStoryMap.videos[oneImposedRoot.route]);
+                // this.$store.commit('setActualCallToActions', {});
+                // this.$store.commit('setActualAudio', {} );
+
+                console.log(this.$store.state.actualVideo)
+
               }
           } 
 
@@ -145,6 +185,7 @@ export default {
       if(oneAudio.type) {
         if (actualVideoTimeCode >= oneAudio.at && this.alreadySent.indexOf(oneAudio.id) === -1) 
         {
+          this.alreadySent.push(oneAudio.id);
           this.$store.commit("setActualAudio", oneAudio);
         } 
 

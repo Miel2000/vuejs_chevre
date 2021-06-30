@@ -100,6 +100,23 @@ export default {
 
         },
 
+        papillon: {
+            id:"papillon",
+        
+            backgrounds: [],
+            enemy:[
+                {  
+                    id: "papillon",
+                    url: "butterz.png",
+                    vie: 100,
+                    type: "papillon"
+                    
+                },
+            ]
+
+    },
+
+
         hokage: {
             id: 'hokage',
             self: { 
@@ -148,6 +165,7 @@ export default {
                 ]
         },
 
+       
 
         banane: {
             id:"banane",
@@ -290,10 +308,10 @@ export default {
             timedChoices: [
 
                 {
-                    at: 14,
+                    at: 16,
                     text:"Aller dans la jungle",
-                    id:"valorant_fusil",
-                    route: "jungle_banane",
+                    id:"fantome_noyade",
+                    route: "fantome_noyade",
                     type:"choice",
                 },
       
@@ -319,7 +337,7 @@ export default {
                     at:0,
                     to:33,
                     isLooping:false,
-                    url:"background/valorant_sound.mp3",
+                    url:"background/valorant_banane_sound.mp3",
                     type:"sound"
                 }
             ]
@@ -335,7 +353,7 @@ export default {
                 url: "valorant_couteau.mp4",
                 controls: true,
              },
-            background_container: [],
+            backgrounds: [],
             timedChoices: [
 
                 {
@@ -383,14 +401,14 @@ export default {
                 url: "valorant_fusil.mp4",
                 controls: true,
              },
-            background_container: [],
+            backgrounds: [],
             timedChoices: [
 
                 {
                     at: 23,
-                    text:"Aller dans la jungle",
-                    id:"valorant_fusil",
-                    route: "jungle_fusil",
+                    text:"Partir avec le fuzil",
+                    id:"cyberpunk",
+                    route: "cyberpunk",
                     type:"choice",
                 },
                 
@@ -465,99 +483,7 @@ export default {
 
         },
 
-        fantome_noyade: {
-            id:"fantome_noyade",
-            self: {
-                url: "fantome_noyade.mp4",
-                controls: true,
 
-            },
-            timedChoices: [
-
-                {
-                    at: 56,
-                    to: 63,
-                    text:"Noyer le fantome",
-                    id:"noyade_1",
-                    route: "noyade_1",
-                    type:"choice",
-                },
-                
-                {
-                    at: 70,
-                    to: 75,
-                    text:"222 NOYER FANTOME",
-                    id:"noyade_2",
-                    route: "noyade_2",
-                    type:"choice",
-                },
-
-            ]
-
-        },
-        noyade_1: {
-            id:"noyade_1",
-            self: {
-                url: "jungle_fusil.mp4",
-                controls: true,
-
-            },
-           
-            timedChoices: [
-
-                {
-                    at: 4,
-                    text:"foret",
-                    id:"foret",
-                    route: "foret",
-                    type:"choice",
-                },
-                
-                {
-                    at: 4,
-                    text:"Parler au PNJ",
-                    id:"scribe_1",
-                    route: "scribe_1",
-                    type:"choice",
-                },
-                {  
-                    at:0,
-                    url:"background/rain-background.mp3",
-                    type:"sound",
-                    isLooping:true
-                },
-
-            ]
-
-        },
-
-        diablo: {
-            id:"diablo",
-            self: {
-                url: "diablo.mp4",
-                controls: true,
-
-            },
-           
-            timedChoices: [
-
-                {
-                    at: 4,
-                    text:"foret",
-                    id:"foret",
-                    route: "foret",
-                    type:"choice",
-                },
-                {
-                    at: 4,
-                    text:"Parler au PNJ",
-                    id:"scribe_1",
-                    route: "scribe_1",
-                    type:"choice",
-                },
-
-            ]
-        },
 
         cyberpunk: {
             id:"cyberpunk",
@@ -566,51 +492,111 @@ export default {
                 controls: true,
                 
             },
-            timedChoices: [],
-            ctas: [
+            timedChoices: [
                 {
-                    id:"esquive_fleche",
-                    at: 2,
-                    to: 5,
-                    text:'ESQUIVE FLECHE!',
-                    type:"dodge",
-                    display:true
+                    at: 36,
+                    id: "neopdf",
+                    text: "Répondre à Néo",
+                    route: "neopdf",
+                    img: "neopdf.png",
+                    type: "choice"
                 },
                 {
-                    id:"esquive_chat",
-                    at: 6,
-                    to: 7,
-                    text:'ESQUIVE CHAT!',
+                    at: 39,
+                    id: "cyberpunk",
+                    text: "Répondre au Nano-téléphone",
+                    route: "cyberpunk",
+                    img: "neopdf.png",
+                    type: "choice"
+                },
+                {
+                    at: 60,
+                    id: "eskiveExplosion",
+                    text: "Esquiver l'explosion",
+                    route: "eskive",
+                    img: "eskive.png",
+                    type: "choice"
+                },
+                {
+                    at: 60,
+                    id: "paradi",
+                    text: "Accepter de mourir",
+                    route: "paradi",
+                    img: "paradi.png",
+                    type: "choice"
+                },
+            ],
+            timedAudios : [
+                {
+                    id:"cyberpunk_audio",
+                    at: 0,
+                    isLooping:true,
+                    url: 'background/cyberpunk_audio.mp3',
+                    type: 'sound'
+                }
+
+            ],
+            timedCtas: [
+                {
+                    id:"capsule_go_out",
+                    at: 3,
+                    to: 15,
+                    text:'Sortir de la capsule',
                     type:"dodge",
-                    display:true
+                 
+                    attributes : {
+                        dmg: 100,
+                        deathScene: "death_gatling"
+                    }
+                },
+                
+            ],
+            enemy: [],
+        },
+
+        death_gatling : {
+            id:"death_gatling",
+            self: {
+                url: "death/capsule_death_gatling.mp4"
+            },
+            timedImposedRoots: [
+
+                {
+                    at: 14.5,
+                    id:"cyberpunk_imposed",
+                    route: "cyberpunk",
+                    type:"imposed",
+
                 }
             ],
-
+            enemy: [],
         },
-
-        generique: {
-            id:"generique",
-            self:{
-                url: "generique.mp4",
-                controls: true,
+        neopdf : {
+            id:"neopdf",
+            self: {
+                url: "neopdf.mp4"
             },
-
             timedChoices: [
-           
-        
-             ],
-        
-            boss: [
-                {   id: "boss_fusil",
-                    url: "boss.png",
-                    vieBoss: 1000,
-                    degatBoss: 10,
-                    type: "boss"
-                   
+                {
+                    at: 35,
+                    id: "bouddhiste",
+                    text: "Devenir Bouddhiste",
+                    route: "neopdf",
+                    img: "neopdf.png",
+                    type: "choice"
+                },
+                {
+                    at: 36.5,
+                    id: "diablo",
+                    text: "Péter des gens",
+                    route: "diablo",
+                    img: "diablo.png",
+                    type: "choice"
                 },
             ],
-
-        },
+            timedImposedRoots: [],
+            enemy: [],
+        }
 
     }
 }

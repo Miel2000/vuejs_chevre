@@ -28,19 +28,11 @@
                 <img  v-on:click="hitcomputedEnemy(computedEnemy)"
                     :src="'/assets/images/'+ computedEnemy.url" 
                     alt=""
-                 
-                  
                 />
        </div>
+
     </div>
- 
-    
-
 </div>
-
- 
-
-  
 </template>
 
 <script>
@@ -156,7 +148,6 @@ export default {
          
           break;
         }
-
         default:
           break;
       }
@@ -191,7 +182,6 @@ export default {
         // BANANE
       if( this.$store.getters.getNinjaLife <= 0 &&
           this.computedWeapon === "banane"
-
       ) {
         this.$store.getters.getEnemy.forEach((e) => { e.vie = 100 })
         this.$store.commit('setTimerShootingRemake',  1)

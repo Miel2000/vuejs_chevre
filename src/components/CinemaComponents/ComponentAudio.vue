@@ -2,8 +2,9 @@
 <div>
   
     <div v-if="computedAudios.url" class="audio-container">
-       <p>coucou audio</p>
-         
+       <p>coucou audio {{ computedAudios.url }}</p>
+       
+
             <audio
                 autoplay
                 controls 
@@ -11,6 +12,8 @@
                 <source :src="'/assets/mp3/' + computedAudios.url"/>
             
             </audio>
+
+
     </div>
 
 </div>
@@ -32,6 +35,7 @@ export default {
 
 
   mounted() {
+
     console.log('audio qui monte yep')
   },
 
